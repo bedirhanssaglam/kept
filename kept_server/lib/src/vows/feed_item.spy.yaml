@@ -1,0 +1,12 @@
+### One row in the public activity feed (message + room context).
+class: FeedItem
+fields:
+  messageId: int
+  roomId: int
+  roomTitle: String
+  roomCategory: String
+  displayName: String
+  ### chat | kept | broke | joined
+  kind: String
+  body: String
+  createdAt: DateTime

@@ -1,0 +1,12 @@
+### One user's daily keep/break for a room.
+class: VowCheckIn
+table: vow_check_in
+fields:
+  roomId: int
+  userId: String
+  ### Calendar day in UTC, format YYYY-MM-DD.
+  dayKey: String
+  ### True = kept the vow, false = broke it.
+  kept: bool
+  note: String?
+  createdAt: DateTime

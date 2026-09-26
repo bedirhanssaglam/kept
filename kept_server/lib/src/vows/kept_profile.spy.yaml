@@ -1,0 +1,10 @@
+### Signed-in member snapshot for the Profile tab.
+class: KeptProfile
+fields:
+  userId: String
+  displayName: String
+  memberRoomCount: int
+  keptToday: int
+  brokeToday: int
+  pendingToday: int
+  rooms: List<VowRoom>

@@ -1,0 +1,22 @@
+### A public or private vow room people can join.
+class: VowRoom
+table: vow_room
+fields:
+  ### Short vow title, e.g. "Drink 1L of water".
+  title: String
+  ### What "kept" means today.
+  rule: String
+  ### Category slug: health | quit | move | focus | custom
+  category: String
+  ### Whether the room appears on Discover / Home stories.
+  isPublic: bool
+  ### open | approval | invite | closed
+  joinPolicy: String, default='open'
+  ### Curated default vows (system).
+  isOfficial: bool, default=false
+  ### Auth user id of the creator / owner.
+  creatorId: String
+  ### Cached member count for Discover cards.
+  memberCount: int
+  ### UTC creation time.
+  createdAt: DateTime

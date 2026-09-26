@@ -1,0 +1,8 @@
+### Offset page of public vow rooms.
+class: VowRoomPage
+fields:
+  items: List<VowRoom>
+  totalCount: int
+  limit: int
+  offset: int
+  hasMore: bool

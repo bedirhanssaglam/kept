@@ -1,0 +1,11 @@
+### A vow the signed-in viewer has not checked in for on their local day.
+class: OpenVow
+fields:
+  roomId: int
+  title: String
+  rule: String
+  category: String
+  memberTotal: int
+  keptCount: int
+  brokenCount: int
+  pendingCount: int

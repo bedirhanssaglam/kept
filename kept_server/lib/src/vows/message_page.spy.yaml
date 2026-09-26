@@ -1,0 +1,8 @@
+### Offset page of room chat messages.
+class: MessagePage
+fields:
+  items: List<VowMessage>
+  totalCount: int
+  limit: int
+  offset: int
+  hasMore: bool

@@ -1,0 +1,15 @@
+### A comment on a home-feed target (activity message or article).
+class: FeedComment
+table: feed_comment
+fields:
+  userId: String
+  displayName: String
+  ### message | article
+  targetType: String
+  targetId: int
+  body: String
+  createdAt: DateTime
+
+indexes:
+  feed_comment_target_idx:
+    fields: targetType, targetId

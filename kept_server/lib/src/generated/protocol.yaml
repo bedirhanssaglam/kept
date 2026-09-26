@@ -1,0 +1,45 @@
+emailIdp:
+  - startRegistration:
+  - login:
+  - verifyRegistrationCode:
+  - finishRegistration:
+  - startPasswordReset:
+  - verifyPasswordResetCode:
+  - finishPasswordReset:
+  - hasAccount:
+jwtRefresh:
+  - refreshAccessToken:
+userProfileEdit:
+  - changeUserName:
+  - removeUserImage:
+  - setUserImage:
+  - changeFullName:
+  - get:
+username:
+  - assertAvailable:
+greeting:
+  - hello:
+vow:
+  - listPublicRooms:
+  - createRoom:
+  - joinRoom:
+  - requestJoin:
+  - joinWithInvite:
+  - createInviteCode:
+  - listJoinRequests:
+  - reviewJoinRequest:
+  - listMembers:
+  - getBoard:
+  - watchBoard:
+  - checkIn:
+  - listMessages:
+  - watchChat:
+  - sendMessage:
+  - listActivityFeed:
+  - getMyProfile:
+  - listOpenVows:
+  - listHomeFeed:
+  - toggleLike:
+  - listComments:
+  - addComment:
+  - getBlogPost:

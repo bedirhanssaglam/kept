@@ -1,0 +1,8 @@
+### Offset page of home feed cards.
+class: HomeFeedPage
+fields:
+  items: List<HomeCard>
+  totalCount: int
+  limit: int
+  offset: int
+  hasMore: bool

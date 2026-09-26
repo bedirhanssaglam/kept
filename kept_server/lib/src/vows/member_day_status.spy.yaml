@@ -1,0 +1,10 @@
+### One member's status on the live board for today.
+class: MemberDayStatus
+fields:
+  userId: String
+  displayName: String
+  ### owner | admin | member
+  role: String
+  ### null = not checked in yet.
+  kept: bool?
+  note: String?

@@ -1,0 +1,16 @@
+### Request to join an approval-gated vow room.
+class: JoinRequest
+table: join_request
+fields:
+  roomId: int
+  userId: String
+  displayName: String
+  ### pending | approved | rejected
+  status: String
+  createdAt: DateTime
+
+indexes:
+  join_request_room_user_idx:
+    fields: roomId, userId
+  join_request_room_status_idx:
+    fields: roomId, status

@@ -1,0 +1,30 @@
+services:
+  # Development services
+  postgres:
+    image: ghcr.io/serverpod/postgres:16
+    ports:
+      - "8090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: kept
+      POSTGRES_PASSWORD: "yxse6OhhX7e8pioPoFOFI1ocCdri9cP-"
+    volumes:
+      - kept_data:/var/lib/postgresql/data
+
+
+  # Test services
+  postgres_test:
+    image: ghcr.io/serverpod/postgres:16
+    ports:
+      - "9090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: kept_test
+      POSTGRES_PASSWORD: "52j9MP4I1XGSKqmnC1xBr5YtMekVF6-6"
+    volumes:
+      - kept_test_data:/var/lib/postgresql/data
+
+
+volumes:
+  kept_data:
+  kept_test_data:

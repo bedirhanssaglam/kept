@@ -1,0 +1,8 @@
+### Offset page of room members for a day.
+class: MemberPage
+fields:
+  items: List<MemberDayStatus>
+  totalCount: int
+  limit: int
+  offset: int
+  hasMore: bool

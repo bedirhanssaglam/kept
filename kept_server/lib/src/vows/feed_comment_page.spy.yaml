@@ -1,0 +1,8 @@
+### Offset page of feed comments.
+class: FeedCommentPage
+fields:
+  items: List<FeedComment>
+  totalCount: int
+  limit: int
+  offset: int
+  hasMore: bool

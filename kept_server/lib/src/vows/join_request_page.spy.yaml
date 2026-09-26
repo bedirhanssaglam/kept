@@ -1,0 +1,8 @@
+### Offset page of join requests.
+class: JoinRequestPage
+fields:
+  items: List<JoinRequest>
+  totalCount: int
+  limit: int
+  offset: int
+  hasMore: bool

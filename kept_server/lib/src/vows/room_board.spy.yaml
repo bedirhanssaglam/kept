@@ -1,0 +1,25 @@
+### Full board payload for a room on a given day.
+class: RoomBoard
+fields:
+  room: VowRoom
+  dayKey: String
+  members: List<MemberDayStatus>
+  keptCount: int
+  brokenCount: int
+  pendingCount: int
+  ### Whether the current viewer is a member.
+  isMember: bool
+  ### Owner or admin of the room.
+  isAdmin: bool
+  ### pending if viewer has an open join request.
+  myRequestStatus: String?
+  ### Total members (board.members may be a page).
+  memberTotal: int
+  ### Pending join requests (admins only; 0 for others).
+  pendingRequestCount: int
+  ### The viewer's previous local calendar day.
+  yesterdayDayKey: String
+  yesterdayKeptCount: int
+  yesterdayBrokenCount: int
+  ### Names of members who have not checked in on [dayKey]. Capped.
+  silentNames: List<String>

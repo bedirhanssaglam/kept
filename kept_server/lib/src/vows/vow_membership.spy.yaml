@@ -1,0 +1,11 @@
+### Membership of a user in a vow room.
+class: VowMembership
+table: vow_membership
+fields:
+  roomId: int
+  userId: String
+  ### Public label shown on the board.
+  displayName: String
+  ### owner | admin | member
+  role: String, default='member'
+  joinedAt: DateTime

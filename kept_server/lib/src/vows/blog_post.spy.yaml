@@ -1,0 +1,16 @@
+### Editorial habit article shown in the home feed.
+class: BlogPost
+table: blog_post
+fields:
+  slug: String
+  title: String
+  excerpt: String
+  body: String
+  ### water | habits | focus | sleep | move
+  topic: String
+  publishedAt: DateTime
+
+indexes:
+  blog_post_slug_idx:
+    fields: slug
+    unique: true

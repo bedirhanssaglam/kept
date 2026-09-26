@@ -1,0 +1,13 @@
+### A chat or activity line inside a vow room.
+class: VowMessage
+table: vow_message
+fields:
+  roomId: int
+  userId: String
+  displayName: String
+  ### chat | kept | broke | joined
+  kind: String
+  body: String
+  ### Only true posts appear on the public home feed.
+  sharedToFeed: bool, default=false
+  createdAt: DateTime

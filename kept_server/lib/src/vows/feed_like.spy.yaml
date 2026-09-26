@@ -1,0 +1,16 @@
+### A like on a home-feed target (activity message or article).
+class: FeedLike
+table: feed_like
+fields:
+  userId: String
+  ### message | article
+  targetType: String
+  targetId: int
+  createdAt: DateTime
+
+indexes:
+  feed_like_unique_idx:
+    fields: userId, targetType, targetId
+    unique: true
+  feed_like_target_idx:
+    fields: targetType, targetId

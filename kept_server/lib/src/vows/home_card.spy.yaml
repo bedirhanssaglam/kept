@@ -1,0 +1,14 @@
+### One card in the Instagram-style home timeline.
+class: HomeCard
+fields:
+  ### activity | article
+  type: String
+  createdAt: DateTime
+  activity: FeedItem?
+  article: BlogPost?
+  likeCount: int
+  commentCount: int
+  likedByMe: bool
+  ### message | article — used by like/comment RPCs
+  targetType: String
+  targetId: int

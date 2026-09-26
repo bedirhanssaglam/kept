@@ -1,0 +1,18 @@
+### Invite code for invite-only vow rooms.
+class: VowInvite
+table: vow_invite
+fields:
+  roomId: int
+  code: String
+  createdBy: String
+  createdAt: DateTime
+  ### 0 = unlimited
+  maxUses: int, default=0
+  useCount: int, default=0
+
+indexes:
+  vow_invite_code_idx:
+    fields: code
+    unique: true
+  vow_invite_room_idx:
+    fields: roomId

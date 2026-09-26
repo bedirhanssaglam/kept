@@ -1,0 +1,3 @@
+exception: UsernameException
+fields:
+  message: String
