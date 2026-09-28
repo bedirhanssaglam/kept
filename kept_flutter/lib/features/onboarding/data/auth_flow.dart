@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
-import '../../shell/presentation/main_shell.dart';
-import '../presentation/username_setup_screen.dart';
+import '../../shell/view/main_shell.dart';
+import '../view/username_setup_view.dart';
 
 /// Shared fade navigation used by onboarding / auth gates.
 Future<void> keptPushReplacement(BuildContext context, Widget page) {
@@ -38,15 +38,12 @@ Future<void> enterKeptApp(BuildContext context) async {
   if (!context.mounted) return;
   await keptPushReplacement(
     context,
-    ready ? const MainShell() : const UsernameSetupScreen(),
+    ready ? const MainShell() : const UsernameSetupView(),
   );
 }
 
-/// Validates Instagram-style usernames client-side (matches server rules).
-String? validateKeptUsername(String raw) {
+/// Instagram-style usernames, matching the server rules.
+bool isKeptUsernameValid(String raw) {
   final value = raw.trim().toLowerCase();
-  if (!RegExp(r'^[a-z][a-z0-9_]{2,29}$').hasMatch(value)) {
-    return '3–30 chars, start with a letter; only a–z, 0–9, _';
-  }
-  return null;
+  return RegExp(r'^[a-z][a-z0-9_]{2,29}$').hasMatch(value);
 }

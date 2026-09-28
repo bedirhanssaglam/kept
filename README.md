@@ -22,17 +22,16 @@ Built for the Serverpod **Build Something Real** hackathon.
 | `kept_client` | Generated client |
 | `kept_flutter` | Flutter app (mobile + web) |
 
-## Architecture (Flutter)
+## Architecture
+
+Server models are grouped under `lib/src/models/` (`vows/room`, `vows/chat`, `vows/feed`, `vows/check_in`, `vows/profile`, `auth`). Endpoints live in `lib/src/endpoints/`.
+
+Flutter follows a feature `view` layout plus shared `product` code. Copy is `easy_localization` JSON (`assets/translations`, English fallback, Turkish when the device language is Turkish). Screens that talk to the server read `vowRepositoryProvider` (Riverpod).
 
 ```
-lib/
-  core/theme, widgets
-  data/vow_repository.dart
-  features/
-    auth/
-    discover/
-    create/
-    room/
+kept_flutter/lib/
+  product/            theme, components, language, service, providers
+  features/<name>/view
 ```
 
 ## Run

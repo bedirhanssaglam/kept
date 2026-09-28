@@ -15,25 +15,36 @@ import 'dart:async' as _ida;
 import 'dart:io' as _idi;
 import 'dart:typed_data' as _idt;
 import 'package:kept_server/src/generated/greetings/greeting.dart' as _ivy176r7;
-import 'package:kept_server/src/generated/vows/blog_post.dart' as _imlkbzeo;
-import 'package:kept_server/src/generated/vows/feed_comment.dart' as _i5jhbdi4;
-import 'package:kept_server/src/generated/vows/feed_comment_page.dart'
-    as _iku0dkkw;
-import 'package:kept_server/src/generated/vows/feed_item.dart' as _iin21y76;
-import 'package:kept_server/src/generated/vows/home_card.dart' as _i3zc9xsc;
-import 'package:kept_server/src/generated/vows/home_feed_page.dart'
-    as _i1lxyj9t;
-import 'package:kept_server/src/generated/vows/join_request.dart' as _i7qhg4e2;
-import 'package:kept_server/src/generated/vows/join_request_page.dart'
-    as _iqtu01hi;
-import 'package:kept_server/src/generated/vows/kept_profile.dart' as _in08ixl6;
-import 'package:kept_server/src/generated/vows/member_page.dart' as _i2pufcvq;
-import 'package:kept_server/src/generated/vows/message_page.dart' as _ihqqr6uj;
-import 'package:kept_server/src/generated/vows/open_vow.dart' as _iw6g57rx;
-import 'package:kept_server/src/generated/vows/room_board.dart' as _izpjqhz5;
-import 'package:kept_server/src/generated/vows/vow_message.dart' as _i2wmdnfo;
-import 'package:kept_server/src/generated/vows/vow_room.dart' as _ibdq9x7i;
-import 'package:kept_server/src/generated/vows/vow_room_page.dart' as _ifw7u5ob;
+import 'package:kept_server/src/generated/vows/chat/message_page.dart'
+    as _iiup058j;
+import 'package:kept_server/src/generated/vows/chat/vow_message.dart'
+    as _i76mlzcs;
+import 'package:kept_server/src/generated/vows/feed/blog_post.dart'
+    as _il9impfg;
+import 'package:kept_server/src/generated/vows/feed/feed_comment.dart'
+    as _iidj1dkn;
+import 'package:kept_server/src/generated/vows/feed/feed_comment_page.dart'
+    as _i2emqbbo;
+import 'package:kept_server/src/generated/vows/feed/feed_item.dart'
+    as _iv80qq9i;
+import 'package:kept_server/src/generated/vows/feed/home_card.dart'
+    as _ir795p0y;
+import 'package:kept_server/src/generated/vows/feed/home_feed_page.dart'
+    as _ip32lu00;
+import 'package:kept_server/src/generated/vows/profile/kept_profile.dart'
+    as _i8qu8nry;
+import 'package:kept_server/src/generated/vows/room/join_request.dart'
+    as _iyg8jsqc;
+import 'package:kept_server/src/generated/vows/room/join_request_page.dart'
+    as _izp9crh9;
+import 'package:kept_server/src/generated/vows/room/member_page.dart'
+    as _izuqqm6j;
+import 'package:kept_server/src/generated/vows/room/open_vow.dart' as _i0731mcn;
+import 'package:kept_server/src/generated/vows/room/room_board.dart'
+    as _iwxjdckq;
+import 'package:kept_server/src/generated/vows/room/vow_room.dart' as _iff2ygat;
+import 'package:kept_server/src/generated/vows/room/vow_room_page.dart'
+    as _iqe64fki;
 import 'package:serverpod/serverpod.dart' as _is;
 import 'package:serverpod_auth_core_server/serverpod_auth_core_server.dart'
     as _iacs;
@@ -789,7 +800,7 @@ class _VowEndpoint {
 
   final _is.SerializationManager _serializationManager;
 
-  _ida.Future<_ifw7u5ob.VowRoomPage> listPublicRooms(
+  _ida.Future<_iqe64fki.VowRoomPage> listPublicRooms(
     _ist.TestSessionBuilder sessionBuilder, {
     required int limit,
     required int offset,
@@ -816,7 +827,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_ifw7u5ob.VowRoomPage>);
+                as _ida.Future<_iqe64fki.VowRoomPage>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -824,7 +835,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_ibdq9x7i.VowRoom> createRoom(
+  _ida.Future<_iff2ygat.VowRoom> createRoom(
     _ist.TestSessionBuilder sessionBuilder, {
     required String title,
     required String rule,
@@ -832,6 +843,8 @@ class _VowEndpoint {
     String? displayName,
     required bool isPublic,
     required String joinPolicy,
+    required int durationDays,
+    required String startsOn,
   }) async {
     return _ist.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
@@ -851,6 +864,8 @@ class _VowEndpoint {
             'displayName': displayName,
             'isPublic': isPublic,
             'joinPolicy': joinPolicy,
+            'durationDays': durationDays,
+            'startsOn': startsOn,
           }),
           serializationManager: _serializationManager,
         );
@@ -859,7 +874,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_ibdq9x7i.VowRoom>);
+                as _ida.Future<_iff2ygat.VowRoom>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -867,7 +882,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_izpjqhz5.RoomBoard> joinRoom(
+  _ida.Future<_iwxjdckq.RoomBoard> joinRoom(
     _ist.TestSessionBuilder sessionBuilder,
     int roomId, {
     String? displayName,
@@ -896,7 +911,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_izpjqhz5.RoomBoard>);
+                as _ida.Future<_iwxjdckq.RoomBoard>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -904,7 +919,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_i7qhg4e2.JoinRequest> requestJoin(
+  _ida.Future<_iyg8jsqc.JoinRequest> requestJoin(
     _ist.TestSessionBuilder sessionBuilder,
     int roomId, {
     String? displayName,
@@ -931,7 +946,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_i7qhg4e2.JoinRequest>);
+                as _ida.Future<_iyg8jsqc.JoinRequest>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -939,7 +954,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_izpjqhz5.RoomBoard> joinWithInvite(
+  _ida.Future<_iwxjdckq.RoomBoard> joinWithInvite(
     _ist.TestSessionBuilder sessionBuilder, {
     required String code,
     String? displayName,
@@ -968,7 +983,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_izpjqhz5.RoomBoard>);
+                as _ida.Future<_iwxjdckq.RoomBoard>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1011,7 +1026,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_iqtu01hi.JoinRequestPage> listJoinRequests(
+  _ida.Future<_izp9crh9.JoinRequestPage> listJoinRequests(
     _ist.TestSessionBuilder sessionBuilder,
     int roomId, {
     required int limit,
@@ -1040,7 +1055,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_iqtu01hi.JoinRequestPage>);
+                as _ida.Future<_izp9crh9.JoinRequestPage>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1048,7 +1063,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_izpjqhz5.RoomBoard> reviewJoinRequest(
+  _ida.Future<_iwxjdckq.RoomBoard> reviewJoinRequest(
     _ist.TestSessionBuilder sessionBuilder, {
     required int requestId,
     required bool approve,
@@ -1077,7 +1092,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_izpjqhz5.RoomBoard>);
+                as _ida.Future<_iwxjdckq.RoomBoard>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1085,7 +1100,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_i2pufcvq.MemberPage> listMembers(
+  _ida.Future<_izuqqm6j.MemberPage> listMembers(
     _ist.TestSessionBuilder sessionBuilder,
     int roomId, {
     required int limit,
@@ -1116,7 +1131,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_i2pufcvq.MemberPage>);
+                as _ida.Future<_izuqqm6j.MemberPage>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1124,7 +1139,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_izpjqhz5.RoomBoard> getBoard(
+  _ida.Future<_iwxjdckq.RoomBoard> getBoard(
     _ist.TestSessionBuilder sessionBuilder,
     int roomId, {
     String? dayKey,
@@ -1151,7 +1166,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_izpjqhz5.RoomBoard>);
+                as _ida.Future<_iwxjdckq.RoomBoard>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1159,12 +1174,12 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Stream<_izpjqhz5.RoomBoard> watchBoard(
+  _ida.Stream<_iwxjdckq.RoomBoard> watchBoard(
     _ist.TestSessionBuilder sessionBuilder,
     int roomId, {
     String? dayKey,
   }) {
-    var _localTestStreamManager = _ist.TestStreamManager<_izpjqhz5.RoomBoard>();
+    var _localTestStreamManager = _ist.TestStreamManager<_iwxjdckq.RoomBoard>();
     _ist.callStreamFunctionAndHandleExceptions(
       () async {
         var _localUniqueSession =
@@ -1195,7 +1210,7 @@ class _VowEndpoint {
     return _localTestStreamManager.outputStreamController.stream;
   }
 
-  _ida.Future<_izpjqhz5.RoomBoard> checkIn(
+  _ida.Future<_iwxjdckq.RoomBoard> checkIn(
     _ist.TestSessionBuilder sessionBuilder, {
     required int roomId,
     required bool kept,
@@ -1228,7 +1243,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_izpjqhz5.RoomBoard>);
+                as _ida.Future<_iwxjdckq.RoomBoard>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1236,7 +1251,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_ihqqr6uj.MessagePage> listMessages(
+  _ida.Future<_iiup058j.MessagePage> listMessages(
     _ist.TestSessionBuilder sessionBuilder,
     int roomId, {
     required int limit,
@@ -1265,7 +1280,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_ihqqr6uj.MessagePage>);
+                as _ida.Future<_iiup058j.MessagePage>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1273,12 +1288,12 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Stream<_i2wmdnfo.VowMessage> watchChat(
+  _ida.Stream<_i76mlzcs.VowMessage> watchChat(
     _ist.TestSessionBuilder sessionBuilder,
     int roomId,
   ) {
     var _localTestStreamManager =
-        _ist.TestStreamManager<_i2wmdnfo.VowMessage>();
+        _ist.TestStreamManager<_i76mlzcs.VowMessage>();
     _ist.callStreamFunctionAndHandleExceptions(
       () async {
         var _localUniqueSession =
@@ -1306,7 +1321,7 @@ class _VowEndpoint {
     return _localTestStreamManager.outputStreamController.stream;
   }
 
-  _ida.Future<_i2wmdnfo.VowMessage> sendMessage(
+  _ida.Future<_i76mlzcs.VowMessage> sendMessage(
     _ist.TestSessionBuilder sessionBuilder, {
     required int roomId,
     required String body,
@@ -1333,7 +1348,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_i2wmdnfo.VowMessage>);
+                as _ida.Future<_i76mlzcs.VowMessage>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1341,7 +1356,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<List<_iin21y76.FeedItem>> listActivityFeed(
+  _ida.Future<List<_iv80qq9i.FeedItem>> listActivityFeed(
     _ist.TestSessionBuilder sessionBuilder, {
     required int limit,
   }) async {
@@ -1364,7 +1379,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<List<_iin21y76.FeedItem>>);
+                as _ida.Future<List<_iv80qq9i.FeedItem>>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1372,7 +1387,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_in08ixl6.KeptProfile> getMyProfile(
+  _ida.Future<_i8qu8nry.KeptProfile> getMyProfile(
     _ist.TestSessionBuilder sessionBuilder, {
     String? dayKey,
   }) async {
@@ -1395,7 +1410,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_in08ixl6.KeptProfile>);
+                as _ida.Future<_i8qu8nry.KeptProfile>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1403,7 +1418,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<List<_iw6g57rx.OpenVow>> listOpenVows(
+  _ida.Future<List<_i0731mcn.OpenVow>> listOpenVows(
     _ist.TestSessionBuilder sessionBuilder, {
     String? dayKey,
   }) async {
@@ -1426,7 +1441,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<List<_iw6g57rx.OpenVow>>);
+                as _ida.Future<List<_i0731mcn.OpenVow>>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1434,7 +1449,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_i1lxyj9t.HomeFeedPage> listHomeFeed(
+  _ida.Future<_ip32lu00.HomeFeedPage> listHomeFeed(
     _ist.TestSessionBuilder sessionBuilder, {
     required int limit,
     required int offset,
@@ -1461,7 +1476,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_i1lxyj9t.HomeFeedPage>);
+                as _ida.Future<_ip32lu00.HomeFeedPage>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1469,7 +1484,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_i3zc9xsc.HomeCard> toggleLike(
+  _ida.Future<_ir795p0y.HomeCard> toggleLike(
     _ist.TestSessionBuilder sessionBuilder, {
     required String targetType,
     required int targetId,
@@ -1496,7 +1511,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_i3zc9xsc.HomeCard>);
+                as _ida.Future<_ir795p0y.HomeCard>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1504,7 +1519,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_iku0dkkw.FeedCommentPage> listComments(
+  _ida.Future<_i2emqbbo.FeedCommentPage> listComments(
     _ist.TestSessionBuilder sessionBuilder, {
     required String targetType,
     required int targetId,
@@ -1535,7 +1550,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_iku0dkkw.FeedCommentPage>);
+                as _ida.Future<_i2emqbbo.FeedCommentPage>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1543,7 +1558,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_i5jhbdi4.FeedComment> addComment(
+  _ida.Future<_iidj1dkn.FeedComment> addComment(
     _ist.TestSessionBuilder sessionBuilder, {
     required String targetType,
     required int targetId,
@@ -1572,7 +1587,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_i5jhbdi4.FeedComment>);
+                as _ida.Future<_iidj1dkn.FeedComment>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1580,7 +1595,7 @@ class _VowEndpoint {
     });
   }
 
-  _ida.Future<_imlkbzeo.BlogPost> getBlogPost(
+  _ida.Future<_il9impfg.BlogPost> getBlogPost(
     _ist.TestSessionBuilder sessionBuilder,
     String slug,
   ) async {
@@ -1603,7 +1618,7 @@ class _VowEndpoint {
                   _localUniqueSession,
                   _localCallContext.arguments,
                 )
-                as _ida.Future<_imlkbzeo.BlogPost>);
+                as _ida.Future<_il9impfg.BlogPost>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

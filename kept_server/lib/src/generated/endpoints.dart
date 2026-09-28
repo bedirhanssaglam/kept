@@ -16,48 +16,48 @@ import 'package:serverpod_auth_core_server/serverpod_auth_core_server.dart'
     as _iacs;
 import 'package:serverpod_auth_idp_server/serverpod_auth_idp_server.dart'
     as _iais;
-import '../auth/email_idp_endpoint.dart' as _iuc1hd5t;
-import '../auth/jwt_refresh_endpoint.dart' as _inwq3ztq;
-import '../auth/user_profile_edit_endpoint.dart' as _ije0zjyg;
-import '../auth/username_endpoint.dart' as _i2cooz0h;
-import '../greetings/greeting_endpoint.dart' as _il624ik7;
-import '../vows/vow_endpoint.dart' as _i57xa0x5;
+import '../endpoints/auth/email_idp_endpoint.dart' as _i63m0k53;
+import '../endpoints/auth/jwt_refresh_endpoint.dart' as _i0byai1f;
+import '../endpoints/auth/user_profile_edit_endpoint.dart' as _iczj7nhy;
+import '../endpoints/auth/username_endpoint.dart' as _imotpk2a;
+import '../endpoints/greeting_endpoint.dart' as _imlzn9oq;
+import '../endpoints/vow_endpoint.dart' as _i127k99a;
 
 class Endpoints extends _is.EndpointDispatch {
   @override
   void initializeEndpoints(_is.Server server) {
     var endpoints = <String, _is.Endpoint>{
-      'emailIdp': _iuc1hd5t.EmailIdpEndpoint()
+      'emailIdp': _i63m0k53.EmailIdpEndpoint()
         ..initialize(
           server,
           'emailIdp',
           null,
         ),
-      'jwtRefresh': _inwq3ztq.JwtRefreshEndpoint()
+      'jwtRefresh': _i0byai1f.JwtRefreshEndpoint()
         ..initialize(
           server,
           'jwtRefresh',
           null,
         ),
-      'userProfileEdit': _ije0zjyg.UserProfileEditEndpoint()
+      'userProfileEdit': _iczj7nhy.UserProfileEditEndpoint()
         ..initialize(
           server,
           'userProfileEdit',
           null,
         ),
-      'username': _i2cooz0h.UsernameEndpoint()
+      'username': _imotpk2a.UsernameEndpoint()
         ..initialize(
           server,
           'username',
           null,
         ),
-      'greeting': _il624ik7.GreetingEndpoint()
+      'greeting': _imlzn9oq.GreetingEndpoint()
         ..initialize(
           server,
           'greeting',
           null,
         ),
-      'vow': _i57xa0x5.VowEndpoint()
+      'vow': _i127k99a.VowEndpoint()
         ..initialize(
           server,
           'vow',
@@ -81,7 +81,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['emailIdp'] as _iuc1hd5t.EmailIdpEndpoint)
+              ) async => (endpoints['emailIdp'] as _i63m0k53.EmailIdpEndpoint)
                   .startRegistration(
                     session,
                     email: params['email'],
@@ -106,7 +106,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['emailIdp'] as _iuc1hd5t.EmailIdpEndpoint).login(
+                  (endpoints['emailIdp'] as _i63m0k53.EmailIdpEndpoint).login(
                     session,
                     email: params['email'],
                     password: params['password'],
@@ -130,7 +130,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['emailIdp'] as _iuc1hd5t.EmailIdpEndpoint)
+              ) async => (endpoints['emailIdp'] as _i63m0k53.EmailIdpEndpoint)
                   .verifyRegistrationCode(
                     session,
                     accountRequestId: params['accountRequestId'],
@@ -155,7 +155,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['emailIdp'] as _iuc1hd5t.EmailIdpEndpoint)
+              ) async => (endpoints['emailIdp'] as _i63m0k53.EmailIdpEndpoint)
                   .finishRegistration(
                     session,
                     registrationToken: params['registrationToken'],
@@ -175,7 +175,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['emailIdp'] as _iuc1hd5t.EmailIdpEndpoint)
+              ) async => (endpoints['emailIdp'] as _i63m0k53.EmailIdpEndpoint)
                   .startPasswordReset(
                     session,
                     email: params['email'],
@@ -199,7 +199,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['emailIdp'] as _iuc1hd5t.EmailIdpEndpoint)
+              ) async => (endpoints['emailIdp'] as _i63m0k53.EmailIdpEndpoint)
                   .verifyPasswordResetCode(
                     session,
                     passwordResetRequestId: params['passwordResetRequestId'],
@@ -224,7 +224,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['emailIdp'] as _iuc1hd5t.EmailIdpEndpoint)
+              ) async => (endpoints['emailIdp'] as _i63m0k53.EmailIdpEndpoint)
                   .finishPasswordReset(
                     session,
                     finishPasswordResetToken:
@@ -239,7 +239,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['emailIdp'] as _iuc1hd5t.EmailIdpEndpoint)
+              ) async => (endpoints['emailIdp'] as _i63m0k53.EmailIdpEndpoint)
                   .hasAccount(session),
         ),
       },
@@ -262,7 +262,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['jwtRefresh'] as _inwq3ztq.JwtRefreshEndpoint)
+                  (endpoints['jwtRefresh'] as _i0byai1f.JwtRefreshEndpoint)
                       .refreshAccessToken(
                         session,
                         refreshToken: params['refreshToken'],
@@ -289,7 +289,7 @@ class Endpoints extends _is.EndpointDispatch {
                 Map<String, dynamic> params,
               ) async =>
                   (endpoints['userProfileEdit']
-                          as _ije0zjyg.UserProfileEditEndpoint)
+                          as _iczj7nhy.UserProfileEditEndpoint)
                       .changeUserName(
                         session,
                         params['userName'],
@@ -304,7 +304,7 @@ class Endpoints extends _is.EndpointDispatch {
                 Map<String, dynamic> params,
               ) async =>
                   (endpoints['userProfileEdit']
-                          as _ije0zjyg.UserProfileEditEndpoint)
+                          as _iczj7nhy.UserProfileEditEndpoint)
                       .removeUserImage(session),
         ),
         'setUserImage': _is.MethodConnector(
@@ -322,7 +322,7 @@ class Endpoints extends _is.EndpointDispatch {
                 Map<String, dynamic> params,
               ) async =>
                   (endpoints['userProfileEdit']
-                          as _ije0zjyg.UserProfileEditEndpoint)
+                          as _iczj7nhy.UserProfileEditEndpoint)
                       .setUserImage(
                         session,
                         params['image'],
@@ -343,7 +343,7 @@ class Endpoints extends _is.EndpointDispatch {
                 Map<String, dynamic> params,
               ) async =>
                   (endpoints['userProfileEdit']
-                          as _ije0zjyg.UserProfileEditEndpoint)
+                          as _iczj7nhy.UserProfileEditEndpoint)
                       .changeFullName(
                         session,
                         params['fullName'],
@@ -358,7 +358,7 @@ class Endpoints extends _is.EndpointDispatch {
                 Map<String, dynamic> params,
               ) async =>
                   (endpoints['userProfileEdit']
-                          as _ije0zjyg.UserProfileEditEndpoint)
+                          as _iczj7nhy.UserProfileEditEndpoint)
                       .get(session),
         ),
       },
@@ -380,7 +380,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['username'] as _i2cooz0h.UsernameEndpoint)
+              ) async => (endpoints['username'] as _imotpk2a.UsernameEndpoint)
                   .assertAvailable(
                     session,
                     params['userName'],
@@ -406,7 +406,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['greeting'] as _il624ik7.GreetingEndpoint).hello(
+                  (endpoints['greeting'] as _imlzn9oq.GreetingEndpoint).hello(
                     session,
                     params['name'],
                   ),
@@ -436,7 +436,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).listPublicRooms(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).listPublicRooms(
                     session,
                     limit: params['limit'],
                     offset: params['offset'],
@@ -475,12 +475,22 @@ class Endpoints extends _is.EndpointDispatch {
               type: _is.getType<String>(),
               nullable: false,
             ),
+            'durationDays': _is.ParameterDescription(
+              name: 'durationDays',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'startsOn': _is.ParameterDescription(
+              name: 'startsOn',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
           },
           call:
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['vow'] as _i57xa0x5.VowEndpoint).createRoom(
+              ) async => (endpoints['vow'] as _i127k99a.VowEndpoint).createRoom(
                 session,
                 title: params['title'],
                 rule: params['rule'],
@@ -488,6 +498,8 @@ class Endpoints extends _is.EndpointDispatch {
                 displayName: params['displayName'],
                 isPublic: params['isPublic'],
                 joinPolicy: params['joinPolicy'],
+                durationDays: params['durationDays'],
+                startsOn: params['startsOn'],
               ),
         ),
         'joinRoom': _is.MethodConnector(
@@ -513,7 +525,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['vow'] as _i57xa0x5.VowEndpoint).joinRoom(
+              ) async => (endpoints['vow'] as _i127k99a.VowEndpoint).joinRoom(
                 session,
                 params['roomId'],
                 displayName: params['displayName'],
@@ -539,7 +551,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).requestJoin(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).requestJoin(
                     session,
                     params['roomId'],
                     displayName: params['displayName'],
@@ -569,7 +581,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).joinWithInvite(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).joinWithInvite(
                     session,
                     code: params['code'],
                     displayName: params['displayName'],
@@ -595,7 +607,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).createInviteCode(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).createInviteCode(
                     session,
                     params['roomId'],
                     maxUses: params['maxUses'],
@@ -625,7 +637,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).listJoinRequests(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).listJoinRequests(
                     session,
                     params['roomId'],
                     limit: params['limit'],
@@ -656,7 +668,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).reviewJoinRequest(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).reviewJoinRequest(
                     session,
                     requestId: params['requestId'],
                     approve: params['approve'],
@@ -692,7 +704,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).listMembers(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).listMembers(
                     session,
                     params['roomId'],
                     limit: params['limit'],
@@ -718,7 +730,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['vow'] as _i57xa0x5.VowEndpoint).getBoard(
+              ) async => (endpoints['vow'] as _i127k99a.VowEndpoint).getBoard(
                 session,
                 params['roomId'],
                 dayKey: params['dayKey'],
@@ -757,7 +769,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['vow'] as _i57xa0x5.VowEndpoint).checkIn(
+              ) async => (endpoints['vow'] as _i127k99a.VowEndpoint).checkIn(
                 session,
                 roomId: params['roomId'],
                 kept: params['kept'],
@@ -790,7 +802,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).listMessages(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).listMessages(
                     session,
                     params['roomId'],
                     limit: params['limit'],
@@ -816,7 +828,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).sendMessage(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).sendMessage(
                     session,
                     roomId: params['roomId'],
                     body: params['body'],
@@ -836,7 +848,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).listActivityFeed(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).listActivityFeed(
                     session,
                     limit: params['limit'],
                   ),
@@ -855,7 +867,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).getMyProfile(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).getMyProfile(
                     session,
                     dayKey: params['dayKey'],
                   ),
@@ -874,7 +886,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).listOpenVows(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).listOpenVows(
                     session,
                     dayKey: params['dayKey'],
                   ),
@@ -898,7 +910,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).listHomeFeed(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).listHomeFeed(
                     session,
                     limit: params['limit'],
                     offset: params['offset'],
@@ -922,7 +934,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['vow'] as _i57xa0x5.VowEndpoint).toggleLike(
+              ) async => (endpoints['vow'] as _i127k99a.VowEndpoint).toggleLike(
                 session,
                 targetType: params['targetType'],
                 targetId: params['targetId'],
@@ -957,7 +969,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).listComments(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).listComments(
                     session,
                     targetType: params['targetType'],
                     targetId: params['targetId'],
@@ -988,7 +1000,7 @@ class Endpoints extends _is.EndpointDispatch {
               (
                 _is.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['vow'] as _i57xa0x5.VowEndpoint).addComment(
+              ) async => (endpoints['vow'] as _i127k99a.VowEndpoint).addComment(
                 session,
                 targetType: params['targetType'],
                 targetId: params['targetId'],
@@ -1009,7 +1021,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
               ) async =>
-                  (endpoints['vow'] as _i57xa0x5.VowEndpoint).getBlogPost(
+                  (endpoints['vow'] as _i127k99a.VowEndpoint).getBlogPost(
                     session,
                     params['slug'],
                   ),
@@ -1035,7 +1047,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
                 Map<String, Stream> streamParams,
-              ) => (endpoints['vow'] as _i57xa0x5.VowEndpoint).watchBoard(
+              ) => (endpoints['vow'] as _i127k99a.VowEndpoint).watchBoard(
                 session,
                 params['roomId'],
                 dayKey: params['dayKey'],
@@ -1057,7 +1069,7 @@ class Endpoints extends _is.EndpointDispatch {
                 _is.Session session,
                 Map<String, dynamic> params,
                 Map<String, Stream> streamParams,
-              ) => (endpoints['vow'] as _i57xa0x5.VowEndpoint).watchChat(
+              ) => (endpoints['vow'] as _i127k99a.VowEndpoint).watchChat(
                 session,
                 params['roomId'],
               ),

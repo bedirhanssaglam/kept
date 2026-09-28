@@ -14,24 +14,33 @@ import 'dart:async' as _ida;
 import 'dart:typed_data' as _idt;
 import 'package:http/http.dart' as _i85jenna;
 import 'package:kept_client/src/protocol/greetings/greeting.dart' as _iuljije8;
-import 'package:kept_client/src/protocol/vows/blog_post.dart' as _i67mpgzs;
-import 'package:kept_client/src/protocol/vows/feed_comment.dart' as _i8vdcaj8;
-import 'package:kept_client/src/protocol/vows/feed_comment_page.dart'
-    as _igqbfxbc;
-import 'package:kept_client/src/protocol/vows/feed_item.dart' as _i6pzb9we;
-import 'package:kept_client/src/protocol/vows/home_card.dart' as _iiywv5iv;
-import 'package:kept_client/src/protocol/vows/home_feed_page.dart' as _iz9ecaq5;
-import 'package:kept_client/src/protocol/vows/join_request.dart' as _ik83ghu5;
-import 'package:kept_client/src/protocol/vows/join_request_page.dart'
-    as _iaf12wny;
-import 'package:kept_client/src/protocol/vows/kept_profile.dart' as _i0nn5j0b;
-import 'package:kept_client/src/protocol/vows/member_page.dart' as _iqca1nbt;
-import 'package:kept_client/src/protocol/vows/message_page.dart' as _i534l2u7;
-import 'package:kept_client/src/protocol/vows/open_vow.dart' as _i7afbb30;
-import 'package:kept_client/src/protocol/vows/room_board.dart' as _ii8jaug4;
-import 'package:kept_client/src/protocol/vows/vow_message.dart' as _ih997mkf;
-import 'package:kept_client/src/protocol/vows/vow_room.dart' as _ipjsdrtd;
-import 'package:kept_client/src/protocol/vows/vow_room_page.dart' as _ijwqtmhk;
+import 'package:kept_client/src/protocol/vows/chat/message_page.dart'
+    as _iyo4lhzo;
+import 'package:kept_client/src/protocol/vows/chat/vow_message.dart'
+    as _ivrxaead;
+import 'package:kept_client/src/protocol/vows/feed/blog_post.dart' as _icx7zhy9;
+import 'package:kept_client/src/protocol/vows/feed/feed_comment.dart'
+    as _inhmfaby;
+import 'package:kept_client/src/protocol/vows/feed/feed_comment_page.dart'
+    as _ifefczrq;
+import 'package:kept_client/src/protocol/vows/feed/feed_item.dart' as _il1o33u2;
+import 'package:kept_client/src/protocol/vows/feed/home_card.dart' as _i39k8mbk;
+import 'package:kept_client/src/protocol/vows/feed/home_feed_page.dart'
+    as _iglmi3wi;
+import 'package:kept_client/src/protocol/vows/profile/kept_profile.dart'
+    as _i6f1u50o;
+import 'package:kept_client/src/protocol/vows/room/join_request.dart'
+    as _ii8o7g9c;
+import 'package:kept_client/src/protocol/vows/room/join_request_page.dart'
+    as _iuaem9le;
+import 'package:kept_client/src/protocol/vows/room/member_page.dart'
+    as _iuhas387;
+import 'package:kept_client/src/protocol/vows/room/open_vow.dart' as _i2cxm1rx;
+import 'package:kept_client/src/protocol/vows/room/room_board.dart'
+    as _i10mk8nc;
+import 'package:kept_client/src/protocol/vows/room/vow_room.dart' as _iwo7fk5m;
+import 'package:kept_client/src/protocol/vows/room/vow_room_page.dart'
+    as _i7njofze;
 import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
     as _iacc;
 import 'package:serverpod_auth_idp_client/serverpod_auth_idp_client.dart'
@@ -354,10 +363,10 @@ class EndpointVow extends _isc.EndpointRef {
   @override
   String get name => 'vow';
 
-  _ida.Future<_ijwqtmhk.VowRoomPage> listPublicRooms({
+  _ida.Future<_i7njofze.VowRoomPage> listPublicRooms({
     required int limit,
     required int offset,
-  }) => caller.callServerEndpoint<_ijwqtmhk.VowRoomPage>(
+  }) => caller.callServerEndpoint<_i7njofze.VowRoomPage>(
     'vow',
     'listPublicRooms',
     {
@@ -366,14 +375,16 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_ipjsdrtd.VowRoom> createRoom({
+  _ida.Future<_iwo7fk5m.VowRoom> createRoom({
     required String title,
     required String rule,
     required String category,
     String? displayName,
     required bool isPublic,
     required String joinPolicy,
-  }) => caller.callServerEndpoint<_ipjsdrtd.VowRoom>(
+    required int durationDays,
+    required String startsOn,
+  }) => caller.callServerEndpoint<_iwo7fk5m.VowRoom>(
     'vow',
     'createRoom',
     {
@@ -383,15 +394,17 @@ class EndpointVow extends _isc.EndpointRef {
       'displayName': displayName,
       'isPublic': isPublic,
       'joinPolicy': joinPolicy,
+      'durationDays': durationDays,
+      'startsOn': startsOn,
     },
   );
 
   /// Join an open room immediately. Other policies use requestJoin / joinWithInvite.
-  _ida.Future<_ii8jaug4.RoomBoard> joinRoom(
+  _ida.Future<_i10mk8nc.RoomBoard> joinRoom(
     int roomId, {
     String? displayName,
     String? dayKey,
-  }) => caller.callServerEndpoint<_ii8jaug4.RoomBoard>(
+  }) => caller.callServerEndpoint<_i10mk8nc.RoomBoard>(
     'vow',
     'joinRoom',
     {
@@ -401,10 +414,10 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_ik83ghu5.JoinRequest> requestJoin(
+  _ida.Future<_ii8o7g9c.JoinRequest> requestJoin(
     int roomId, {
     String? displayName,
-  }) => caller.callServerEndpoint<_ik83ghu5.JoinRequest>(
+  }) => caller.callServerEndpoint<_ii8o7g9c.JoinRequest>(
     'vow',
     'requestJoin',
     {
@@ -413,11 +426,11 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_ii8jaug4.RoomBoard> joinWithInvite({
+  _ida.Future<_i10mk8nc.RoomBoard> joinWithInvite({
     required String code,
     String? displayName,
     String? dayKey,
-  }) => caller.callServerEndpoint<_ii8jaug4.RoomBoard>(
+  }) => caller.callServerEndpoint<_i10mk8nc.RoomBoard>(
     'vow',
     'joinWithInvite',
     {
@@ -439,11 +452,11 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_iaf12wny.JoinRequestPage> listJoinRequests(
+  _ida.Future<_iuaem9le.JoinRequestPage> listJoinRequests(
     int roomId, {
     required int limit,
     required int offset,
-  }) => caller.callServerEndpoint<_iaf12wny.JoinRequestPage>(
+  }) => caller.callServerEndpoint<_iuaem9le.JoinRequestPage>(
     'vow',
     'listJoinRequests',
     {
@@ -453,11 +466,11 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_ii8jaug4.RoomBoard> reviewJoinRequest({
+  _ida.Future<_i10mk8nc.RoomBoard> reviewJoinRequest({
     required int requestId,
     required bool approve,
     String? dayKey,
-  }) => caller.callServerEndpoint<_ii8jaug4.RoomBoard>(
+  }) => caller.callServerEndpoint<_i10mk8nc.RoomBoard>(
     'vow',
     'reviewJoinRequest',
     {
@@ -467,12 +480,12 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_iqca1nbt.MemberPage> listMembers(
+  _ida.Future<_iuhas387.MemberPage> listMembers(
     int roomId, {
     required int limit,
     required int offset,
     String? dayKey,
-  }) => caller.callServerEndpoint<_iqca1nbt.MemberPage>(
+  }) => caller.callServerEndpoint<_iuhas387.MemberPage>(
     'vow',
     'listMembers',
     {
@@ -483,10 +496,10 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_ii8jaug4.RoomBoard> getBoard(
+  _ida.Future<_i10mk8nc.RoomBoard> getBoard(
     int roomId, {
     String? dayKey,
-  }) => caller.callServerEndpoint<_ii8jaug4.RoomBoard>(
+  }) => caller.callServerEndpoint<_i10mk8nc.RoomBoard>(
     'vow',
     'getBoard',
     {
@@ -495,13 +508,13 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Stream<_ii8jaug4.RoomBoard> watchBoard(
+  _ida.Stream<_i10mk8nc.RoomBoard> watchBoard(
     int roomId, {
     String? dayKey,
   }) =>
       caller.callStreamingServerEndpoint<
-        _ida.Stream<_ii8jaug4.RoomBoard>,
-        _ii8jaug4.RoomBoard
+        _ida.Stream<_i10mk8nc.RoomBoard>,
+        _i10mk8nc.RoomBoard
       >(
         'vow',
         'watchBoard',
@@ -512,13 +525,13 @@ class EndpointVow extends _isc.EndpointRef {
         {},
       );
 
-  _ida.Future<_ii8jaug4.RoomBoard> checkIn({
+  _ida.Future<_i10mk8nc.RoomBoard> checkIn({
     required int roomId,
     required bool kept,
     String? note,
     required bool shareToFeed,
     String? dayKey,
-  }) => caller.callServerEndpoint<_ii8jaug4.RoomBoard>(
+  }) => caller.callServerEndpoint<_i10mk8nc.RoomBoard>(
     'vow',
     'checkIn',
     {
@@ -531,11 +544,11 @@ class EndpointVow extends _isc.EndpointRef {
   );
 
   /// Latest messages in a room (oldest → newest for UI), paginated.
-  _ida.Future<_i534l2u7.MessagePage> listMessages(
+  _ida.Future<_iyo4lhzo.MessagePage> listMessages(
     int roomId, {
     required int limit,
     required int offset,
-  }) => caller.callServerEndpoint<_i534l2u7.MessagePage>(
+  }) => caller.callServerEndpoint<_iyo4lhzo.MessagePage>(
     'vow',
     'listMessages',
     {
@@ -546,10 +559,10 @@ class EndpointVow extends _isc.EndpointRef {
   );
 
   /// Live chat + activity stream (new messages only).
-  _ida.Stream<_ih997mkf.VowMessage> watchChat(int roomId) =>
+  _ida.Stream<_ivrxaead.VowMessage> watchChat(int roomId) =>
       caller.callStreamingServerEndpoint<
-        _ida.Stream<_ih997mkf.VowMessage>,
-        _ih997mkf.VowMessage
+        _ida.Stream<_ivrxaead.VowMessage>,
+        _ivrxaead.VowMessage
       >(
         'vow',
         'watchChat',
@@ -557,10 +570,10 @@ class EndpointVow extends _isc.EndpointRef {
         {},
       );
 
-  _ida.Future<_ih997mkf.VowMessage> sendMessage({
+  _ida.Future<_ivrxaead.VowMessage> sendMessage({
     required int roomId,
     required String body,
-  }) => caller.callServerEndpoint<_ih997mkf.VowMessage>(
+  }) => caller.callServerEndpoint<_ivrxaead.VowMessage>(
     'vow',
     'sendMessage',
     {
@@ -570,35 +583,35 @@ class EndpointVow extends _isc.EndpointRef {
   );
 
   /// Public pulse: only explicitly shared keep/break posts (never chat).
-  _ida.Future<List<_i6pzb9we.FeedItem>> listActivityFeed({
+  _ida.Future<List<_il1o33u2.FeedItem>> listActivityFeed({
     required int limit,
-  }) => caller.callServerEndpoint<List<_i6pzb9we.FeedItem>>(
+  }) => caller.callServerEndpoint<List<_il1o33u2.FeedItem>>(
     'vow',
     'listActivityFeed',
     {'limit': limit},
   );
 
   /// Profile tab: rooms you joined + today’s keep/break tally.
-  _ida.Future<_i0nn5j0b.KeptProfile> getMyProfile({String? dayKey}) =>
-      caller.callServerEndpoint<_i0nn5j0b.KeptProfile>(
+  _ida.Future<_i6f1u50o.KeptProfile> getMyProfile({String? dayKey}) =>
+      caller.callServerEndpoint<_i6f1u50o.KeptProfile>(
         'vow',
         'getMyProfile',
         {'dayKey': dayKey},
       );
 
   /// Vows the viewer belongs to and has not checked in for on [dayKey].
-  _ida.Future<List<_i7afbb30.OpenVow>> listOpenVows({String? dayKey}) =>
-      caller.callServerEndpoint<List<_i7afbb30.OpenVow>>(
+  _ida.Future<List<_i2cxm1rx.OpenVow>> listOpenVows({String? dayKey}) =>
+      caller.callServerEndpoint<List<_i2cxm1rx.OpenVow>>(
         'vow',
         'listOpenVows',
         {'dayKey': dayKey},
       );
 
   /// Mixed Instagram-style timeline: activity + habit articles (paginated).
-  _ida.Future<_iz9ecaq5.HomeFeedPage> listHomeFeed({
+  _ida.Future<_iglmi3wi.HomeFeedPage> listHomeFeed({
     required int limit,
     required int offset,
-  }) => caller.callServerEndpoint<_iz9ecaq5.HomeFeedPage>(
+  }) => caller.callServerEndpoint<_iglmi3wi.HomeFeedPage>(
     'vow',
     'listHomeFeed',
     {
@@ -608,10 +621,10 @@ class EndpointVow extends _isc.EndpointRef {
   );
 
   /// Toggle like on a shared keep/break post (not journal articles).
-  _ida.Future<_iiywv5iv.HomeCard> toggleLike({
+  _ida.Future<_i39k8mbk.HomeCard> toggleLike({
     required String targetType,
     required int targetId,
-  }) => caller.callServerEndpoint<_iiywv5iv.HomeCard>(
+  }) => caller.callServerEndpoint<_i39k8mbk.HomeCard>(
     'vow',
     'toggleLike',
     {
@@ -620,12 +633,12 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_igqbfxbc.FeedCommentPage> listComments({
+  _ida.Future<_ifefczrq.FeedCommentPage> listComments({
     required String targetType,
     required int targetId,
     required int limit,
     required int offset,
-  }) => caller.callServerEndpoint<_igqbfxbc.FeedCommentPage>(
+  }) => caller.callServerEndpoint<_ifefczrq.FeedCommentPage>(
     'vow',
     'listComments',
     {
@@ -636,11 +649,11 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_i8vdcaj8.FeedComment> addComment({
+  _ida.Future<_inhmfaby.FeedComment> addComment({
     required String targetType,
     required int targetId,
     required String body,
-  }) => caller.callServerEndpoint<_i8vdcaj8.FeedComment>(
+  }) => caller.callServerEndpoint<_inhmfaby.FeedComment>(
     'vow',
     'addComment',
     {
@@ -650,8 +663,8 @@ class EndpointVow extends _isc.EndpointRef {
     },
   );
 
-  _ida.Future<_i67mpgzs.BlogPost> getBlogPost(String slug) =>
-      caller.callServerEndpoint<_i67mpgzs.BlogPost>(
+  _ida.Future<_icx7zhy9.BlogPost> getBlogPost(String slug) =>
+      caller.callServerEndpoint<_icx7zhy9.BlogPost>(
         'vow',
         'getBlogPost',
         {'slug': slug},

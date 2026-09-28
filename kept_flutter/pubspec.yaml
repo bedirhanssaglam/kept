@@ -28,8 +28,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
   cupertino_native: ^0.1.1
+  easy_localization: ^3.0.8
   flutter:
     sdk: flutter
+  flutter_riverpod: ^2.6.1
   google_fonts: ^8.1.0
   kept_client:
     path: ../kept_client
@@ -53,7 +55,6 @@ dependency_overrides:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -71,6 +72,7 @@ flutter:
   # https://flutter.dev/assets-and-images/#from-packages
   assets:
     - assets/config.json
+    - assets/translations/
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

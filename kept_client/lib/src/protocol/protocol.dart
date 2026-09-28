@@ -11,8 +11,8 @@
 // ignore_for_file: dead_code, unnecessary_type_check
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:kept_client/src/protocol/vows/feed_item.dart' as _i6pzb9we;
-import 'package:kept_client/src/protocol/vows/open_vow.dart' as _i7afbb30;
+import 'package:kept_client/src/protocol/vows/feed/feed_item.dart' as _il1o33u2;
+import 'package:kept_client/src/protocol/vows/room/open_vow.dart' as _i2cxm1rx;
 import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
     as _iacc;
 import 'package:serverpod_auth_idp_client/serverpod_auth_idp_client.dart'
@@ -21,53 +21,53 @@ import 'package:serverpod_client/serverpod_client.dart' as _isc;
 import 'auth/email_already_registered_exception.dart' as _ifkvqf5h;
 import 'auth/username_exception.dart' as _i6auzokb;
 import 'greetings/greeting.dart' as _izw8z7ou;
-import 'vows/blog_post.dart' as _ibeas2fs;
-import 'vows/feed_comment.dart' as _i5srmehb;
-import 'vows/feed_comment_page.dart' as _i2g4ey88;
-import 'vows/feed_item.dart' as _i3210eu2;
-import 'vows/feed_like.dart' as _itnngz98;
-import 'vows/home_card.dart' as _im0nwja5;
-import 'vows/home_feed_page.dart' as _iyfj34j3;
-import 'vows/join_request.dart' as _iabb3f3a;
-import 'vows/join_request_page.dart' as _i5vd9zri;
-import 'vows/kept_profile.dart' as _ixf78lra;
-import 'vows/member_day_status.dart' as _i65tc21s;
-import 'vows/member_page.dart' as _iy6vp3i6;
-import 'vows/message_page.dart' as _i4vydc8o;
-import 'vows/open_vow.dart' as _i6ufruid;
-import 'vows/room_board.dart' as _idd0e55h;
-import 'vows/vow_check_in.dart' as _iiejv3p6;
+import 'vows/chat/message_page.dart' as _i7elbagc;
+import 'vows/chat/vow_message.dart' as _i1w29guz;
+import 'vows/check_in/vow_check_in.dart' as _iniohzds;
+import 'vows/feed/blog_post.dart' as _ierdsgli;
+import 'vows/feed/feed_comment.dart' as _iqrrdsa2;
+import 'vows/feed/feed_comment_page.dart' as _i3tiu6aa;
+import 'vows/feed/feed_item.dart' as _i3sk9684;
+import 'vows/feed/feed_like.dart' as _irknecxh;
+import 'vows/feed/home_card.dart' as _ijxtms38;
+import 'vows/feed/home_feed_page.dart' as _ig5j3ok4;
+import 'vows/profile/kept_profile.dart' as _ily5j06k;
+import 'vows/room/join_request.dart' as _ij8wkdse;
+import 'vows/room/join_request_page.dart' as _i7ftyo6r;
+import 'vows/room/member_day_status.dart' as _idpvt9xu;
+import 'vows/room/member_page.dart' as _ixj1qrzj;
+import 'vows/room/open_vow.dart' as _i8tz11yp;
+import 'vows/room/room_board.dart' as _iq7dfraf;
+import 'vows/room/vow_invite.dart' as _i5jag40z;
+import 'vows/room/vow_membership.dart' as _idfq387w;
+import 'vows/room/vow_room.dart' as _ic2c10je;
+import 'vows/room/vow_room_page.dart' as _ivdncx6h;
 import 'vows/vow_exception.dart' as _iz96iiq6;
-import 'vows/vow_invite.dart' as _iwq3va4n;
-import 'vows/vow_membership.dart' as _imwe36zt;
-import 'vows/vow_message.dart' as _ip5iwkae;
-import 'vows/vow_room.dart' as _i4wblqhy;
-import 'vows/vow_room_page.dart' as _ioquy3ul;
 export 'auth/email_already_registered_exception.dart';
 export 'auth/username_exception.dart';
 export 'greetings/greeting.dart';
-export 'vows/blog_post.dart';
-export 'vows/feed_comment.dart';
-export 'vows/feed_comment_page.dart';
-export 'vows/feed_item.dart';
-export 'vows/feed_like.dart';
-export 'vows/home_card.dart';
-export 'vows/home_feed_page.dart';
-export 'vows/join_request.dart';
-export 'vows/join_request_page.dart';
-export 'vows/kept_profile.dart';
-export 'vows/member_day_status.dart';
-export 'vows/member_page.dart';
-export 'vows/message_page.dart';
-export 'vows/open_vow.dart';
-export 'vows/room_board.dart';
-export 'vows/vow_check_in.dart';
+export 'vows/chat/message_page.dart';
+export 'vows/chat/vow_message.dart';
+export 'vows/check_in/vow_check_in.dart';
+export 'vows/feed/blog_post.dart';
+export 'vows/feed/feed_comment.dart';
+export 'vows/feed/feed_comment_page.dart';
+export 'vows/feed/feed_item.dart';
+export 'vows/feed/feed_like.dart';
+export 'vows/feed/home_card.dart';
+export 'vows/feed/home_feed_page.dart';
+export 'vows/profile/kept_profile.dart';
+export 'vows/room/join_request.dart';
+export 'vows/room/join_request_page.dart';
+export 'vows/room/member_day_status.dart';
+export 'vows/room/member_page.dart';
+export 'vows/room/open_vow.dart';
+export 'vows/room/room_board.dart';
+export 'vows/room/vow_invite.dart';
+export 'vows/room/vow_membership.dart';
+export 'vows/room/vow_room.dart';
+export 'vows/room/vow_room_page.dart';
 export 'vows/vow_exception.dart';
-export 'vows/vow_invite.dart';
-export 'vows/vow_membership.dart';
-export 'vows/vow_message.dart';
-export 'vows/vow_room.dart';
-export 'vows/vow_room_page.dart';
 export 'client.dart';
 
 class Protocol extends _isc.SerializationManager {
@@ -113,71 +113,71 @@ class Protocol extends _isc.SerializationManager {
     if (t == _izw8z7ou.Greeting) {
       return _izw8z7ou.Greeting.fromJson(data) as T;
     }
-    if (t == _ibeas2fs.BlogPost) {
-      return _ibeas2fs.BlogPost.fromJson(data) as T;
+    if (t == _i7elbagc.MessagePage) {
+      return _i7elbagc.MessagePage.fromJson(data) as T;
     }
-    if (t == _i5srmehb.FeedComment) {
-      return _i5srmehb.FeedComment.fromJson(data) as T;
+    if (t == _i1w29guz.VowMessage) {
+      return _i1w29guz.VowMessage.fromJson(data) as T;
     }
-    if (t == _i2g4ey88.FeedCommentPage) {
-      return _i2g4ey88.FeedCommentPage.fromJson(data) as T;
+    if (t == _iniohzds.VowCheckIn) {
+      return _iniohzds.VowCheckIn.fromJson(data) as T;
     }
-    if (t == _i3210eu2.FeedItem) {
-      return _i3210eu2.FeedItem.fromJson(data) as T;
+    if (t == _ierdsgli.BlogPost) {
+      return _ierdsgli.BlogPost.fromJson(data) as T;
     }
-    if (t == _itnngz98.FeedLike) {
-      return _itnngz98.FeedLike.fromJson(data) as T;
+    if (t == _iqrrdsa2.FeedComment) {
+      return _iqrrdsa2.FeedComment.fromJson(data) as T;
     }
-    if (t == _im0nwja5.HomeCard) {
-      return _im0nwja5.HomeCard.fromJson(data) as T;
+    if (t == _i3tiu6aa.FeedCommentPage) {
+      return _i3tiu6aa.FeedCommentPage.fromJson(data) as T;
     }
-    if (t == _iyfj34j3.HomeFeedPage) {
-      return _iyfj34j3.HomeFeedPage.fromJson(data) as T;
+    if (t == _i3sk9684.FeedItem) {
+      return _i3sk9684.FeedItem.fromJson(data) as T;
     }
-    if (t == _iabb3f3a.JoinRequest) {
-      return _iabb3f3a.JoinRequest.fromJson(data) as T;
+    if (t == _irknecxh.FeedLike) {
+      return _irknecxh.FeedLike.fromJson(data) as T;
     }
-    if (t == _i5vd9zri.JoinRequestPage) {
-      return _i5vd9zri.JoinRequestPage.fromJson(data) as T;
+    if (t == _ijxtms38.HomeCard) {
+      return _ijxtms38.HomeCard.fromJson(data) as T;
     }
-    if (t == _ixf78lra.KeptProfile) {
-      return _ixf78lra.KeptProfile.fromJson(data) as T;
+    if (t == _ig5j3ok4.HomeFeedPage) {
+      return _ig5j3ok4.HomeFeedPage.fromJson(data) as T;
     }
-    if (t == _i65tc21s.MemberDayStatus) {
-      return _i65tc21s.MemberDayStatus.fromJson(data) as T;
+    if (t == _ily5j06k.KeptProfile) {
+      return _ily5j06k.KeptProfile.fromJson(data) as T;
     }
-    if (t == _iy6vp3i6.MemberPage) {
-      return _iy6vp3i6.MemberPage.fromJson(data) as T;
+    if (t == _ij8wkdse.JoinRequest) {
+      return _ij8wkdse.JoinRequest.fromJson(data) as T;
     }
-    if (t == _i4vydc8o.MessagePage) {
-      return _i4vydc8o.MessagePage.fromJson(data) as T;
+    if (t == _i7ftyo6r.JoinRequestPage) {
+      return _i7ftyo6r.JoinRequestPage.fromJson(data) as T;
     }
-    if (t == _i6ufruid.OpenVow) {
-      return _i6ufruid.OpenVow.fromJson(data) as T;
+    if (t == _idpvt9xu.MemberDayStatus) {
+      return _idpvt9xu.MemberDayStatus.fromJson(data) as T;
     }
-    if (t == _idd0e55h.RoomBoard) {
-      return _idd0e55h.RoomBoard.fromJson(data) as T;
+    if (t == _ixj1qrzj.MemberPage) {
+      return _ixj1qrzj.MemberPage.fromJson(data) as T;
     }
-    if (t == _iiejv3p6.VowCheckIn) {
-      return _iiejv3p6.VowCheckIn.fromJson(data) as T;
+    if (t == _i8tz11yp.OpenVow) {
+      return _i8tz11yp.OpenVow.fromJson(data) as T;
+    }
+    if (t == _iq7dfraf.RoomBoard) {
+      return _iq7dfraf.RoomBoard.fromJson(data) as T;
+    }
+    if (t == _i5jag40z.VowInvite) {
+      return _i5jag40z.VowInvite.fromJson(data) as T;
+    }
+    if (t == _idfq387w.VowMembership) {
+      return _idfq387w.VowMembership.fromJson(data) as T;
+    }
+    if (t == _ic2c10je.VowRoom) {
+      return _ic2c10je.VowRoom.fromJson(data) as T;
+    }
+    if (t == _ivdncx6h.VowRoomPage) {
+      return _ivdncx6h.VowRoomPage.fromJson(data) as T;
     }
     if (t == _iz96iiq6.VowException) {
       return _iz96iiq6.VowException.fromJson(data) as T;
-    }
-    if (t == _iwq3va4n.VowInvite) {
-      return _iwq3va4n.VowInvite.fromJson(data) as T;
-    }
-    if (t == _imwe36zt.VowMembership) {
-      return _imwe36zt.VowMembership.fromJson(data) as T;
-    }
-    if (t == _ip5iwkae.VowMessage) {
-      return _ip5iwkae.VowMessage.fromJson(data) as T;
-    }
-    if (t == _i4wblqhy.VowRoom) {
-      return _i4wblqhy.VowRoom.fromJson(data) as T;
-    }
-    if (t == _ioquy3ul.VowRoomPage) {
-      return _ioquy3ul.VowRoomPage.fromJson(data) as T;
     }
     if (t == _isc.getType<_ifkvqf5h.EmailAlreadyRegisteredException?>()) {
       return (data != null
@@ -192,124 +192,124 @@ class Protocol extends _isc.SerializationManager {
     if (t == _isc.getType<_izw8z7ou.Greeting?>()) {
       return (data != null ? _izw8z7ou.Greeting.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_ibeas2fs.BlogPost?>()) {
-      return (data != null ? _ibeas2fs.BlogPost.fromJson(data) : null) as T;
+    if (t == _isc.getType<_i7elbagc.MessagePage?>()) {
+      return (data != null ? _i7elbagc.MessagePage.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_i5srmehb.FeedComment?>()) {
-      return (data != null ? _i5srmehb.FeedComment.fromJson(data) : null) as T;
+    if (t == _isc.getType<_i1w29guz.VowMessage?>()) {
+      return (data != null ? _i1w29guz.VowMessage.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_i2g4ey88.FeedCommentPage?>()) {
-      return (data != null ? _i2g4ey88.FeedCommentPage.fromJson(data) : null)
+    if (t == _isc.getType<_iniohzds.VowCheckIn?>()) {
+      return (data != null ? _iniohzds.VowCheckIn.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_ierdsgli.BlogPost?>()) {
+      return (data != null ? _ierdsgli.BlogPost.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_iqrrdsa2.FeedComment?>()) {
+      return (data != null ? _iqrrdsa2.FeedComment.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_i3tiu6aa.FeedCommentPage?>()) {
+      return (data != null ? _i3tiu6aa.FeedCommentPage.fromJson(data) : null)
           as T;
     }
-    if (t == _isc.getType<_i3210eu2.FeedItem?>()) {
-      return (data != null ? _i3210eu2.FeedItem.fromJson(data) : null) as T;
+    if (t == _isc.getType<_i3sk9684.FeedItem?>()) {
+      return (data != null ? _i3sk9684.FeedItem.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_itnngz98.FeedLike?>()) {
-      return (data != null ? _itnngz98.FeedLike.fromJson(data) : null) as T;
+    if (t == _isc.getType<_irknecxh.FeedLike?>()) {
+      return (data != null ? _irknecxh.FeedLike.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_im0nwja5.HomeCard?>()) {
-      return (data != null ? _im0nwja5.HomeCard.fromJson(data) : null) as T;
+    if (t == _isc.getType<_ijxtms38.HomeCard?>()) {
+      return (data != null ? _ijxtms38.HomeCard.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_iyfj34j3.HomeFeedPage?>()) {
-      return (data != null ? _iyfj34j3.HomeFeedPage.fromJson(data) : null) as T;
+    if (t == _isc.getType<_ig5j3ok4.HomeFeedPage?>()) {
+      return (data != null ? _ig5j3ok4.HomeFeedPage.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_iabb3f3a.JoinRequest?>()) {
-      return (data != null ? _iabb3f3a.JoinRequest.fromJson(data) : null) as T;
+    if (t == _isc.getType<_ily5j06k.KeptProfile?>()) {
+      return (data != null ? _ily5j06k.KeptProfile.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_i5vd9zri.JoinRequestPage?>()) {
-      return (data != null ? _i5vd9zri.JoinRequestPage.fromJson(data) : null)
+    if (t == _isc.getType<_ij8wkdse.JoinRequest?>()) {
+      return (data != null ? _ij8wkdse.JoinRequest.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_i7ftyo6r.JoinRequestPage?>()) {
+      return (data != null ? _i7ftyo6r.JoinRequestPage.fromJson(data) : null)
           as T;
     }
-    if (t == _isc.getType<_ixf78lra.KeptProfile?>()) {
-      return (data != null ? _ixf78lra.KeptProfile.fromJson(data) : null) as T;
-    }
-    if (t == _isc.getType<_i65tc21s.MemberDayStatus?>()) {
-      return (data != null ? _i65tc21s.MemberDayStatus.fromJson(data) : null)
+    if (t == _isc.getType<_idpvt9xu.MemberDayStatus?>()) {
+      return (data != null ? _idpvt9xu.MemberDayStatus.fromJson(data) : null)
           as T;
     }
-    if (t == _isc.getType<_iy6vp3i6.MemberPage?>()) {
-      return (data != null ? _iy6vp3i6.MemberPage.fromJson(data) : null) as T;
+    if (t == _isc.getType<_ixj1qrzj.MemberPage?>()) {
+      return (data != null ? _ixj1qrzj.MemberPage.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_i4vydc8o.MessagePage?>()) {
-      return (data != null ? _i4vydc8o.MessagePage.fromJson(data) : null) as T;
+    if (t == _isc.getType<_i8tz11yp.OpenVow?>()) {
+      return (data != null ? _i8tz11yp.OpenVow.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_i6ufruid.OpenVow?>()) {
-      return (data != null ? _i6ufruid.OpenVow.fromJson(data) : null) as T;
+    if (t == _isc.getType<_iq7dfraf.RoomBoard?>()) {
+      return (data != null ? _iq7dfraf.RoomBoard.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_idd0e55h.RoomBoard?>()) {
-      return (data != null ? _idd0e55h.RoomBoard.fromJson(data) : null) as T;
+    if (t == _isc.getType<_i5jag40z.VowInvite?>()) {
+      return (data != null ? _i5jag40z.VowInvite.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_iiejv3p6.VowCheckIn?>()) {
-      return (data != null ? _iiejv3p6.VowCheckIn.fromJson(data) : null) as T;
+    if (t == _isc.getType<_idfq387w.VowMembership?>()) {
+      return (data != null ? _idfq387w.VowMembership.fromJson(data) : null)
+          as T;
+    }
+    if (t == _isc.getType<_ic2c10je.VowRoom?>()) {
+      return (data != null ? _ic2c10je.VowRoom.fromJson(data) : null) as T;
+    }
+    if (t == _isc.getType<_ivdncx6h.VowRoomPage?>()) {
+      return (data != null ? _ivdncx6h.VowRoomPage.fromJson(data) : null) as T;
     }
     if (t == _isc.getType<_iz96iiq6.VowException?>()) {
       return (data != null ? _iz96iiq6.VowException.fromJson(data) : null) as T;
     }
-    if (t == _isc.getType<_iwq3va4n.VowInvite?>()) {
-      return (data != null ? _iwq3va4n.VowInvite.fromJson(data) : null) as T;
-    }
-    if (t == _isc.getType<_imwe36zt.VowMembership?>()) {
-      return (data != null ? _imwe36zt.VowMembership.fromJson(data) : null)
-          as T;
-    }
-    if (t == _isc.getType<_ip5iwkae.VowMessage?>()) {
-      return (data != null ? _ip5iwkae.VowMessage.fromJson(data) : null) as T;
-    }
-    if (t == _isc.getType<_i4wblqhy.VowRoom?>()) {
-      return (data != null ? _i4wblqhy.VowRoom.fromJson(data) : null) as T;
-    }
-    if (t == _isc.getType<_ioquy3ul.VowRoomPage?>()) {
-      return (data != null ? _ioquy3ul.VowRoomPage.fromJson(data) : null) as T;
-    }
-    if (t == List<_i5srmehb.FeedComment>) {
+    if (t == List<_i1w29guz.VowMessage>) {
       return (data as List)
-              .map((e) => deserialize<_i5srmehb.FeedComment>(e))
+              .map((e) => deserialize<_i1w29guz.VowMessage>(e))
               .toList()
           as T;
     }
-    if (t == List<_im0nwja5.HomeCard>) {
+    if (t == List<_iqrrdsa2.FeedComment>) {
       return (data as List)
-              .map((e) => deserialize<_im0nwja5.HomeCard>(e))
+              .map((e) => deserialize<_iqrrdsa2.FeedComment>(e))
               .toList()
           as T;
     }
-    if (t == List<_iabb3f3a.JoinRequest>) {
+    if (t == List<_ijxtms38.HomeCard>) {
       return (data as List)
-              .map((e) => deserialize<_iabb3f3a.JoinRequest>(e))
+              .map((e) => deserialize<_ijxtms38.HomeCard>(e))
               .toList()
           as T;
     }
-    if (t == List<_i4wblqhy.VowRoom>) {
+    if (t == List<_ic2c10je.VowRoom>) {
       return (data as List)
-              .map((e) => deserialize<_i4wblqhy.VowRoom>(e))
+              .map((e) => deserialize<_ic2c10je.VowRoom>(e))
               .toList()
           as T;
     }
-    if (t == List<_i65tc21s.MemberDayStatus>) {
+    if (t == List<_ij8wkdse.JoinRequest>) {
       return (data as List)
-              .map((e) => deserialize<_i65tc21s.MemberDayStatus>(e))
+              .map((e) => deserialize<_ij8wkdse.JoinRequest>(e))
               .toList()
           as T;
     }
-    if (t == List<_ip5iwkae.VowMessage>) {
+    if (t == List<_idpvt9xu.MemberDayStatus>) {
       return (data as List)
-              .map((e) => deserialize<_ip5iwkae.VowMessage>(e))
+              .map((e) => deserialize<_idpvt9xu.MemberDayStatus>(e))
               .toList()
           as T;
     }
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList() as T;
     }
-    if (t == List<_i6pzb9we.FeedItem>) {
+    if (t == List<_il1o33u2.FeedItem>) {
       return (data as List)
-              .map((e) => deserialize<_i6pzb9we.FeedItem>(e))
+              .map((e) => deserialize<_il1o33u2.FeedItem>(e))
               .toList()
           as T;
     }
-    if (t == List<_i7afbb30.OpenVow>) {
+    if (t == List<_i2cxm1rx.OpenVow>) {
       return (data as List)
-              .map((e) => deserialize<_i7afbb30.OpenVow>(e))
+              .map((e) => deserialize<_i2cxm1rx.OpenVow>(e))
               .toList()
           as T;
     }
@@ -328,28 +328,28 @@ class Protocol extends _isc.SerializationManager {
         'EmailAlreadyRegisteredException',
       _i6auzokb.UsernameException => 'UsernameException',
       _izw8z7ou.Greeting => 'Greeting',
-      _ibeas2fs.BlogPost => 'BlogPost',
-      _i5srmehb.FeedComment => 'FeedComment',
-      _i2g4ey88.FeedCommentPage => 'FeedCommentPage',
-      _i3210eu2.FeedItem => 'FeedItem',
-      _itnngz98.FeedLike => 'FeedLike',
-      _im0nwja5.HomeCard => 'HomeCard',
-      _iyfj34j3.HomeFeedPage => 'HomeFeedPage',
-      _iabb3f3a.JoinRequest => 'JoinRequest',
-      _i5vd9zri.JoinRequestPage => 'JoinRequestPage',
-      _ixf78lra.KeptProfile => 'KeptProfile',
-      _i65tc21s.MemberDayStatus => 'MemberDayStatus',
-      _iy6vp3i6.MemberPage => 'MemberPage',
-      _i4vydc8o.MessagePage => 'MessagePage',
-      _i6ufruid.OpenVow => 'OpenVow',
-      _idd0e55h.RoomBoard => 'RoomBoard',
-      _iiejv3p6.VowCheckIn => 'VowCheckIn',
+      _i7elbagc.MessagePage => 'MessagePage',
+      _i1w29guz.VowMessage => 'VowMessage',
+      _iniohzds.VowCheckIn => 'VowCheckIn',
+      _ierdsgli.BlogPost => 'BlogPost',
+      _iqrrdsa2.FeedComment => 'FeedComment',
+      _i3tiu6aa.FeedCommentPage => 'FeedCommentPage',
+      _i3sk9684.FeedItem => 'FeedItem',
+      _irknecxh.FeedLike => 'FeedLike',
+      _ijxtms38.HomeCard => 'HomeCard',
+      _ig5j3ok4.HomeFeedPage => 'HomeFeedPage',
+      _ily5j06k.KeptProfile => 'KeptProfile',
+      _ij8wkdse.JoinRequest => 'JoinRequest',
+      _i7ftyo6r.JoinRequestPage => 'JoinRequestPage',
+      _idpvt9xu.MemberDayStatus => 'MemberDayStatus',
+      _ixj1qrzj.MemberPage => 'MemberPage',
+      _i8tz11yp.OpenVow => 'OpenVow',
+      _iq7dfraf.RoomBoard => 'RoomBoard',
+      _i5jag40z.VowInvite => 'VowInvite',
+      _idfq387w.VowMembership => 'VowMembership',
+      _ic2c10je.VowRoom => 'VowRoom',
+      _ivdncx6h.VowRoomPage => 'VowRoomPage',
       _iz96iiq6.VowException => 'VowException',
-      _iwq3va4n.VowInvite => 'VowInvite',
-      _imwe36zt.VowMembership => 'VowMembership',
-      _ip5iwkae.VowMessage => 'VowMessage',
-      _i4wblqhy.VowRoom => 'VowRoom',
-      _ioquy3ul.VowRoomPage => 'VowRoomPage',
       _ => null,
     };
   }
@@ -370,50 +370,50 @@ class Protocol extends _isc.SerializationManager {
         return 'UsernameException';
       case _izw8z7ou.Greeting():
         return 'Greeting';
-      case _ibeas2fs.BlogPost():
-        return 'BlogPost';
-      case _i5srmehb.FeedComment():
-        return 'FeedComment';
-      case _i2g4ey88.FeedCommentPage():
-        return 'FeedCommentPage';
-      case _i3210eu2.FeedItem():
-        return 'FeedItem';
-      case _itnngz98.FeedLike():
-        return 'FeedLike';
-      case _im0nwja5.HomeCard():
-        return 'HomeCard';
-      case _iyfj34j3.HomeFeedPage():
-        return 'HomeFeedPage';
-      case _iabb3f3a.JoinRequest():
-        return 'JoinRequest';
-      case _i5vd9zri.JoinRequestPage():
-        return 'JoinRequestPage';
-      case _ixf78lra.KeptProfile():
-        return 'KeptProfile';
-      case _i65tc21s.MemberDayStatus():
-        return 'MemberDayStatus';
-      case _iy6vp3i6.MemberPage():
-        return 'MemberPage';
-      case _i4vydc8o.MessagePage():
+      case _i7elbagc.MessagePage():
         return 'MessagePage';
-      case _i6ufruid.OpenVow():
-        return 'OpenVow';
-      case _idd0e55h.RoomBoard():
-        return 'RoomBoard';
-      case _iiejv3p6.VowCheckIn():
+      case _i1w29guz.VowMessage():
+        return 'VowMessage';
+      case _iniohzds.VowCheckIn():
         return 'VowCheckIn';
+      case _ierdsgli.BlogPost():
+        return 'BlogPost';
+      case _iqrrdsa2.FeedComment():
+        return 'FeedComment';
+      case _i3tiu6aa.FeedCommentPage():
+        return 'FeedCommentPage';
+      case _i3sk9684.FeedItem():
+        return 'FeedItem';
+      case _irknecxh.FeedLike():
+        return 'FeedLike';
+      case _ijxtms38.HomeCard():
+        return 'HomeCard';
+      case _ig5j3ok4.HomeFeedPage():
+        return 'HomeFeedPage';
+      case _ily5j06k.KeptProfile():
+        return 'KeptProfile';
+      case _ij8wkdse.JoinRequest():
+        return 'JoinRequest';
+      case _i7ftyo6r.JoinRequestPage():
+        return 'JoinRequestPage';
+      case _idpvt9xu.MemberDayStatus():
+        return 'MemberDayStatus';
+      case _ixj1qrzj.MemberPage():
+        return 'MemberPage';
+      case _i8tz11yp.OpenVow():
+        return 'OpenVow';
+      case _iq7dfraf.RoomBoard():
+        return 'RoomBoard';
+      case _i5jag40z.VowInvite():
+        return 'VowInvite';
+      case _idfq387w.VowMembership():
+        return 'VowMembership';
+      case _ic2c10je.VowRoom():
+        return 'VowRoom';
+      case _ivdncx6h.VowRoomPage():
+        return 'VowRoomPage';
       case _iz96iiq6.VowException():
         return 'VowException';
-      case _iwq3va4n.VowInvite():
-        return 'VowInvite';
-      case _imwe36zt.VowMembership():
-        return 'VowMembership';
-      case _ip5iwkae.VowMessage():
-        return 'VowMessage';
-      case _i4wblqhy.VowRoom():
-        return 'VowRoom';
-      case _ioquy3ul.VowRoomPage():
-        return 'VowRoomPage';
     }
     className = _iaic.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -447,71 +447,71 @@ class Protocol extends _isc.SerializationManager {
     if (dataClassName == 'Greeting') {
       return deserialize<_izw8z7ou.Greeting>(data['data']);
     }
-    if (dataClassName == 'BlogPost') {
-      return deserialize<_ibeas2fs.BlogPost>(data['data']);
-    }
-    if (dataClassName == 'FeedComment') {
-      return deserialize<_i5srmehb.FeedComment>(data['data']);
-    }
-    if (dataClassName == 'FeedCommentPage') {
-      return deserialize<_i2g4ey88.FeedCommentPage>(data['data']);
-    }
-    if (dataClassName == 'FeedItem') {
-      return deserialize<_i3210eu2.FeedItem>(data['data']);
-    }
-    if (dataClassName == 'FeedLike') {
-      return deserialize<_itnngz98.FeedLike>(data['data']);
-    }
-    if (dataClassName == 'HomeCard') {
-      return deserialize<_im0nwja5.HomeCard>(data['data']);
-    }
-    if (dataClassName == 'HomeFeedPage') {
-      return deserialize<_iyfj34j3.HomeFeedPage>(data['data']);
-    }
-    if (dataClassName == 'JoinRequest') {
-      return deserialize<_iabb3f3a.JoinRequest>(data['data']);
-    }
-    if (dataClassName == 'JoinRequestPage') {
-      return deserialize<_i5vd9zri.JoinRequestPage>(data['data']);
-    }
-    if (dataClassName == 'KeptProfile') {
-      return deserialize<_ixf78lra.KeptProfile>(data['data']);
-    }
-    if (dataClassName == 'MemberDayStatus') {
-      return deserialize<_i65tc21s.MemberDayStatus>(data['data']);
-    }
-    if (dataClassName == 'MemberPage') {
-      return deserialize<_iy6vp3i6.MemberPage>(data['data']);
-    }
     if (dataClassName == 'MessagePage') {
-      return deserialize<_i4vydc8o.MessagePage>(data['data']);
+      return deserialize<_i7elbagc.MessagePage>(data['data']);
     }
-    if (dataClassName == 'OpenVow') {
-      return deserialize<_i6ufruid.OpenVow>(data['data']);
-    }
-    if (dataClassName == 'RoomBoard') {
-      return deserialize<_idd0e55h.RoomBoard>(data['data']);
+    if (dataClassName == 'VowMessage') {
+      return deserialize<_i1w29guz.VowMessage>(data['data']);
     }
     if (dataClassName == 'VowCheckIn') {
-      return deserialize<_iiejv3p6.VowCheckIn>(data['data']);
+      return deserialize<_iniohzds.VowCheckIn>(data['data']);
+    }
+    if (dataClassName == 'BlogPost') {
+      return deserialize<_ierdsgli.BlogPost>(data['data']);
+    }
+    if (dataClassName == 'FeedComment') {
+      return deserialize<_iqrrdsa2.FeedComment>(data['data']);
+    }
+    if (dataClassName == 'FeedCommentPage') {
+      return deserialize<_i3tiu6aa.FeedCommentPage>(data['data']);
+    }
+    if (dataClassName == 'FeedItem') {
+      return deserialize<_i3sk9684.FeedItem>(data['data']);
+    }
+    if (dataClassName == 'FeedLike') {
+      return deserialize<_irknecxh.FeedLike>(data['data']);
+    }
+    if (dataClassName == 'HomeCard') {
+      return deserialize<_ijxtms38.HomeCard>(data['data']);
+    }
+    if (dataClassName == 'HomeFeedPage') {
+      return deserialize<_ig5j3ok4.HomeFeedPage>(data['data']);
+    }
+    if (dataClassName == 'KeptProfile') {
+      return deserialize<_ily5j06k.KeptProfile>(data['data']);
+    }
+    if (dataClassName == 'JoinRequest') {
+      return deserialize<_ij8wkdse.JoinRequest>(data['data']);
+    }
+    if (dataClassName == 'JoinRequestPage') {
+      return deserialize<_i7ftyo6r.JoinRequestPage>(data['data']);
+    }
+    if (dataClassName == 'MemberDayStatus') {
+      return deserialize<_idpvt9xu.MemberDayStatus>(data['data']);
+    }
+    if (dataClassName == 'MemberPage') {
+      return deserialize<_ixj1qrzj.MemberPage>(data['data']);
+    }
+    if (dataClassName == 'OpenVow') {
+      return deserialize<_i8tz11yp.OpenVow>(data['data']);
+    }
+    if (dataClassName == 'RoomBoard') {
+      return deserialize<_iq7dfraf.RoomBoard>(data['data']);
+    }
+    if (dataClassName == 'VowInvite') {
+      return deserialize<_i5jag40z.VowInvite>(data['data']);
+    }
+    if (dataClassName == 'VowMembership') {
+      return deserialize<_idfq387w.VowMembership>(data['data']);
+    }
+    if (dataClassName == 'VowRoom') {
+      return deserialize<_ic2c10je.VowRoom>(data['data']);
+    }
+    if (dataClassName == 'VowRoomPage') {
+      return deserialize<_ivdncx6h.VowRoomPage>(data['data']);
     }
     if (dataClassName == 'VowException') {
       return deserialize<_iz96iiq6.VowException>(data['data']);
-    }
-    if (dataClassName == 'VowInvite') {
-      return deserialize<_iwq3va4n.VowInvite>(data['data']);
-    }
-    if (dataClassName == 'VowMembership') {
-      return deserialize<_imwe36zt.VowMembership>(data['data']);
-    }
-    if (dataClassName == 'VowMessage') {
-      return deserialize<_ip5iwkae.VowMessage>(data['data']);
-    }
-    if (dataClassName == 'VowRoom') {
-      return deserialize<_i4wblqhy.VowRoom>(data['data']);
-    }
-    if (dataClassName == 'VowRoomPage') {
-      return deserialize<_ioquy3ul.VowRoomPage>(data['data']);
     }
     if (dataClassName.startsWith('serverpod_auth_idp.')) {
       data['className'] = dataClassName.substring(19);
