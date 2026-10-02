@@ -75,7 +75,7 @@ class _TodayTabState extends State<_TodayTab> {
                 children: [
                   KeptChip(
                     label: policyLabel,
-                    color: room.joinPolicy == 'open'
+                    color: room.joinPolicy == VowPolicy.open
                         ? KeptTheme.kept
                         : KeptTheme.pending,
                   ),
@@ -207,9 +207,9 @@ class _TodayTabState extends State<_TodayTab> {
                       const SizedBox(height: 8),
                       Text(
                         switch (room.joinPolicy) {
-                          'approval' => l10n.joinApprovalHelp,
-                          'invite' => l10n.joinInviteHelp,
-                          'closed' => l10n.joinClosedHelp,
+                          VowPolicy.approval => l10n.joinApprovalHelp,
+                          VowPolicy.invite => l10n.joinInviteHelp,
+                          VowPolicy.closed => l10n.joinClosedHelp,
                           _ => l10n.joinOpenHelp,
                         },
                         style: GoogleFonts.manrope(
@@ -217,7 +217,7 @@ class _TodayTabState extends State<_TodayTab> {
                           fontSize: 13,
                         ),
                       ),
-                      if (room.joinPolicy == 'invite' &&
+                      if (room.joinPolicy == VowPolicy.invite &&
                           board.myRequestStatus != 'pending') ...[
                         const SizedBox(height: 12),
                         TextField(
@@ -256,7 +256,7 @@ class _TodayTabState extends State<_TodayTab> {
                           ),
                         ),
                       ],
-                      if (room.joinPolicy != 'closed' &&
+                      if (room.joinPolicy != VowPolicy.closed &&
                           board.myRequestStatus != 'pending') ...[
                         const SizedBox(height: 12),
                         KeptPrimaryButton(
@@ -269,7 +269,7 @@ class _TodayTabState extends State<_TodayTab> {
                               ? null
                               : () {
                                   final code = _inviteController.text.trim();
-                                  if (room.joinPolicy == 'invite') {
+                                  if (room.joinPolicy == VowPolicy.invite) {
                                     if (code.isEmpty) {
                                       ScaffoldMessenger.of(
                                         context,

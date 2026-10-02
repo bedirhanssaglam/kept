@@ -1,5 +1,6 @@
 import 'package:kept_client/kept_client.dart';
 
+import '../../features/vows/domain/vow_codes.dart';
 import '../../client.dart' as app;
 import '../utility/constants/kept_day.dart';
 
@@ -67,7 +68,7 @@ class VowRepository {
     required String category,
     String? displayName,
     bool isPublic = true,
-    String joinPolicy = 'open',
+    String joinPolicy = VowPolicy.open,
     int durationDays = 0,
     String startsOn = '',
   }) {

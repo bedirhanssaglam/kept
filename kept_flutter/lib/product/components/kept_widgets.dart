@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../features/vows/domain/vow_labels.dart';
+import '../../features/vows/domain/vow_codes.dart';
 import '../init/language/localization.dart';
 import '../theme/kept_theme.dart';
 import '../utility/layout/kept_breakpoints.dart';
@@ -30,10 +31,10 @@ class CategoryStyle {
 
   static Color _color(String category, Color muted) {
     return switch (category) {
-      'health' => const Color(0xFF5EEAD4),
-      'quit' => const Color(0xFFFF9B8A),
-      'move' => const Color(0xFF93C5FD),
-      'focus' => const Color(0xFFFDE68A),
+      VowCategory.health => const Color(0xFF5EEAD4),
+      VowCategory.quit => const Color(0xFFFF9B8A),
+      VowCategory.move => const Color(0xFF93C5FD),
+      VowCategory.focus => const Color(0xFFFDE68A),
       _ => muted,
     };
   }

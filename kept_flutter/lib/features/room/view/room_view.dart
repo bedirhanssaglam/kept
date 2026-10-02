@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kept_client/kept_client.dart';
@@ -19,7 +18,6 @@ import '../../../product/service/vow_repository.dart';
 import '../../../features/vows/domain/vow_codes.dart';
 import '../../../features/vows/domain/vow_labels.dart';
 import '../../../product/init/language/localization.dart';
-import '../../../product/navigation/room_links.dart';
 import '../../auth/view/sign_in_sheet.dart';
 import 'members_view.dart';
 
@@ -65,7 +63,7 @@ class _RoomViewState extends ConsumerState<RoomView>
 
   bool _canSeeChat(RoomBoard? board) {
     if (board == null) return false;
-    return board.isMember || board.room.joinPolicy == 'open';
+    return board.isMember || board.room.joinPolicy == VowPolicy.open;
   }
 
   Future<void> _listenBoard() async {
@@ -176,22 +174,6 @@ class _RoomViewState extends ConsumerState<RoomView>
     }
   }
 
-  Future<void> _shareRoom(VowRoom room) async {
-    final id = room.id;
-    if (id == null) return;
-    final link = RoomLinks.uri(id).toString();
-    final box = context.findRenderObject() as RenderBox?;
-    final origin = box == null
-        ? null
-        : box.localToGlobal(Offset.zero) & box.size;
-    await SharePlus.instance.share(
-      ShareParams(
-        text: '${room.title}\n$link',
-        sharePositionOrigin: origin,
-      ),
-    );
-  }
-
   void _jumpChatToEnd() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!_chatScroll.hasClients) return;
@@ -217,7 +199,7 @@ class _RoomViewState extends ConsumerState<RoomView>
     if (board == null) return false;
     final policy = board.room.joinPolicy;
 
-    if (policy == 'closed') {
+    if (policy == VowPolicy.closed) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -229,7 +211,7 @@ class _RoomViewState extends ConsumerState<RoomView>
       return false;
     }
 
-    if (policy == 'approval') {
+    if (policy == VowPolicy.approval) {
       if (board.myRequestStatus == 'pending') {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -261,7 +243,7 @@ class _RoomViewState extends ConsumerState<RoomView>
       return false;
     }
 
-    if (policy == 'invite') {
+    if (policy == VowPolicy.invite) {
       final code = (inviteCode ?? await _askInviteCode())?.trim();
       if (code == null || code.isEmpty) return false;
       try {
@@ -635,7 +617,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                             ),
                           ),
                         ),
-                        if (board != null) ...[
+                        if (board != null)
                           Text(
                             context.l10n.inRoom(board.room.memberCount),
                             style: GoogleFonts.manrope(
@@ -643,15 +625,6 @@ class _RoomViewState extends ConsumerState<RoomView>
                               fontSize: 12,
                             ),
                           ),
-                          IconButton(
-                            tooltip: context.l10n.shareRoom,
-                            onPressed: () => _shareRoom(board.room),
-                            icon: Icon(
-                              Icons.ios_share_rounded,
-                              color: context.kept.paper,
-                            ),
-                          ),
-                        ],
                       ],
                     ),
                   ),
@@ -826,7 +799,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                             sending: _sending,
                             onSend: _sendChat,
                             onJoin: () {
-                              if (board.room.joinPolicy == 'invite') {
+                              if (board.room.joinPolicy == VowPolicy.invite) {
                                 _tabs.animateTo(0);
                               } else {
                                 _offerJoin();

@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kept_client/kept_client.dart';
 
+import '../../../features/vows/domain/vow_codes.dart';
 import '../../../product/components/async_data_widget.dart';
+import '../../../product/init/language/localization.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/components/kept_widgets.dart';
 import '../view_model/blog_article_view_model.dart';
@@ -28,7 +30,7 @@ class _BlogArticleViewState extends ConsumerState<BlogArticleView> {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text(
-              'Could not load article.\n$error',
+              context.l10n.couldNotLoadArticle('$error'),
               style: TextStyle(color: KeptTheme.broke),
             ),
           ),
@@ -40,10 +42,10 @@ class _BlogArticleViewState extends ConsumerState<BlogArticleView> {
           final cat = CategoryStyle.of(
             context,
             switch (post.topic) {
-              'water' => 'health',
-              'move' => 'move',
-              'focus' => 'focus',
-              _ => 'custom',
+              BlogTopic.water => VowCategory.health,
+              VowCategory.move => VowCategory.move,
+              VowCategory.focus => VowCategory.focus,
+              _ => VowCategory.custom,
             },
           );
 
@@ -58,7 +60,7 @@ class _BlogArticleViewState extends ConsumerState<BlogArticleView> {
                   color: context.kept.paper,
                 ),
                 title: Text(
-                  'Kept Journal',
+                  context.l10n.keptJournal,
                   style: GoogleFonts.sora(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,

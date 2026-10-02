@@ -26,6 +26,11 @@ abstract final class VowCategory {
   static const custom = 'custom';
 }
 
+abstract final class BlogTopic {
+  static const water = 'water';
+  static const habits = 'habits';
+}
+
 abstract final class VowActivityKind {
   static const kept = 'kept';
   static const broke = 'broke';

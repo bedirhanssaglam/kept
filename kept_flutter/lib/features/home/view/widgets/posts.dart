@@ -450,21 +450,21 @@ class _PostVisual {
 
   static _PostVisual ofActivity(AppStrings l10n, String kind) {
     switch (kind) {
-      case 'kept':
+      case VowActivityKind.kept:
         return _PostVisual(
           icon: Icons.check_rounded,
           color: KeptTheme.kept,
           gradient: const [Color(0xFF1B3D2F), Color(0xFF0F1A14)],
           headline: l10n.keptIt,
         );
-      case 'broke':
+      case VowActivityKind.broke:
         return _PostVisual(
           icon: Icons.close_rounded,
           color: KeptTheme.broke,
           gradient: const [Color(0xFF3D1F1C), Color(0xFF140E0D)],
           headline: l10n.brokeIt,
         );
-      case 'joined':
+      case VowActivityKind.joined:
         return _PostVisual(
           icon: Icons.person_add_alt_1_rounded,
           color: KeptTheme.pending,
@@ -483,21 +483,21 @@ class _PostVisual {
 
   static _PostVisual ofTopic(AppStrings l10n, String topic) {
     switch (topic) {
-      case 'water':
+      case BlogTopic.water:
         return _PostVisual(
           icon: Icons.water_drop_rounded,
           color: const Color(0xFF5EEAD4),
           gradient: const [Color(0xFF12353A), Color(0xFF0A1416)],
           headline: l10n.categoryWater,
         );
-      case 'focus':
+      case VowCategory.focus:
         return _PostVisual(
           icon: Icons.center_focus_strong_rounded,
           color: const Color(0xFFFDE68A),
           gradient: const [Color(0xFF3A3214), Color(0xFF12100A)],
           headline: l10n.categoryFocus,
         );
-      case 'move':
+      case VowCategory.move:
         return _PostVisual(
           icon: Icons.directions_walk_rounded,
           color: const Color(0xFF93C5FD),

@@ -62,7 +62,7 @@ class _ChatTab extends StatelessWidget {
                   height: 1.45,
                 ),
               ),
-              if (joinPolicy != 'closed') ...[
+              if (joinPolicy != VowPolicy.closed) ...[
                 const SizedBox(height: 18),
                 KeptPrimaryButton(
                   label: joinPolicy == VowPolicy.approval
@@ -173,12 +173,12 @@ class _MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isSystem = message.kind != 'chat';
+    final isSystem = message.kind != VowActivityKind.chat;
     if (isSystem) {
       final color = switch (message.kind) {
-        'kept' => KeptTheme.kept,
-        'broke' => KeptTheme.broke,
-        'joined' => KeptTheme.pending,
+        VowActivityKind.kept => KeptTheme.kept,
+        VowActivityKind.broke => KeptTheme.broke,
+        VowActivityKind.joined => KeptTheme.pending,
         _ => context.kept.mist,
       };
       return Padding(

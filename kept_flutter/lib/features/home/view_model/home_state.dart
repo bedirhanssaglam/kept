@@ -8,6 +8,7 @@ class HomeState {
     required this.greetingName,
     required this.hasMore,
     required this.loadingMore,
+    this.checkingRoomId,
   });
 
   const HomeState.initial()
@@ -15,13 +16,15 @@ class HomeState {
       openVows = const AsyncLoading(),
       greetingName = null,
       hasMore = false,
-      loadingMore = false;
+      loadingMore = false,
+      checkingRoomId = null;
 
   final AsyncValue<List<HomeCard>> feed;
   final AsyncValue<List<OpenVow>> openVows;
   final String? greetingName;
   final bool hasMore;
   final bool loadingMore;
+  final int? checkingRoomId;
 
   HomeState copyWith({
     AsyncValue<List<HomeCard>>? feed,
@@ -29,7 +32,9 @@ class HomeState {
     String? greetingName,
     bool? hasMore,
     bool? loadingMore,
+    int? checkingRoomId,
     bool clearGreeting = false,
+    bool clearChecking = false,
   }) {
     return HomeState(
       feed: feed ?? this.feed,
@@ -37,6 +42,9 @@ class HomeState {
       greetingName: clearGreeting ? null : greetingName ?? this.greetingName,
       hasMore: hasMore ?? this.hasMore,
       loadingMore: loadingMore ?? this.loadingMore,
+      checkingRoomId: clearChecking
+          ? null
+          : checkingRoomId ?? this.checkingRoomId,
     );
   }
 }

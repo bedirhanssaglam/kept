@@ -63,6 +63,8 @@ final class AppStrings {
   String get iBrokeIt => 'iBrokeIt'.tr();
   String get feedQuiet => 'feedQuiet'.tr();
   String get openRoom => 'openRoom'.tr();
+  String couldNotLoadArticle(String error) =>
+      'couldNotLoadArticle'.tr(namedArgs: {'error': error.toString()});
   String get keptJournal => 'keptJournal'.tr();
   String get article => 'article'.tr();
   String get readArticle => 'readArticle'.tr();
@@ -163,6 +165,8 @@ final class AppStrings {
   String get continueAction => 'continueAction'.tr();
   String get keepYourWord => 'keepYourWord'.tr();
   String get signInSheetBody => 'signInSheetBody'.tr();
+  String authFailed(String error) =>
+      'authFailed'.tr(namedArgs: {'error': error.toString()});
   String get signedIn => 'signedIn'.tr();
   String get comments => 'comments'.tr();
   String get noComments => 'noComments'.tr();
@@ -195,7 +199,6 @@ final class AppStrings {
   String get postKept => 'postKept'.tr();
   String get postBroke => 'postBroke'.tr();
   String get vowRoom => 'vowRoom'.tr();
-  String get shareRoom => 'shareRoom'.tr();
   String get tabToday => 'tabToday'.tr();
   String get tabChat => 'tabChat'.tr();
   String get official => 'official'.tr();

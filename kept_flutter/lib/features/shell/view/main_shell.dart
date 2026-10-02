@@ -5,22 +5,19 @@ import 'package:kept_client/kept_client.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
-import '../../../product/utility/layout/kept_breakpoints.dart';
-import '../../../product/theme/kept_theme.dart';
 import '../../../product/components/kept_native.dart';
+import '../../../product/init/language/localization.dart';
+import '../../../product/theme/kept_theme.dart';
+import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../auth/view/sign_in_sheet.dart';
 import '../../create/view/create_vow_view.dart';
 import '../../discover/view/discover_view.dart';
 import '../../home/view/home_view.dart';
 import '../../profile/view/profile_view.dart';
-import '../../../product/init/language/localization.dart';
-import '../../../product/navigation/room_links.dart';
 import '../../room/view/room_view.dart';
 
 part 'widgets/navigation.dart';
 
-/// Root shell: Home · Discover · Profile (+ create via home FAB).
-/// Compact: bottom bar. Wide (≥600): navigation rail.
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
 
@@ -33,27 +30,6 @@ class _MainShellState extends State<MainShell> {
   final _homeKey = GlobalKey<HomeViewState>();
   final _discoverKey = GlobalKey<DiscoverViewState>();
   final _profileKey = GlobalKey<ProfileViewState>();
-
-  @override
-  void initState() {
-    super.initState();
-    RoomLinks.pendingRoomId.addListener(_openPendingRoom);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _openPendingRoom());
-  }
-
-  @override
-  void dispose() {
-    RoomLinks.pendingRoomId.removeListener(_openPendingRoom);
-    super.dispose();
-  }
-
-  void _openPendingRoom() {
-    final roomId = RoomLinks.pendingRoomId.value;
-    if (roomId == null || !mounted) return;
-    if (!client.auth.isAuthenticated) return;
-    RoomLinks.pendingRoomId.value = null;
-    _openRoom(roomId);
-  }
 
   Future<void> _openRoom(int roomId) async {
     await Navigator.of(context).push(
@@ -88,9 +64,7 @@ class _MainShellState extends State<MainShell> {
         builder: (context, constraints) {
           final wide = constraints.maxWidth >= KeptBreakpoints.compact;
           final bottomInset = MediaQuery.paddingOf(context).bottom;
-          final barReserve = wide
-              ? 24.0
-              : (keptUsesNativeCupertino ? 70.0 : 72.0) + bottomInset;
+          final barReserve = wide ? 24.0 : (keptUsesNativeCupertino ? 70.0 : 72.0) + bottomInset;
 
           final pages = IndexedStack(
             index: _index,

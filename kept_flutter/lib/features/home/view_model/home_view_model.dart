@@ -59,11 +59,21 @@ class HomeViewModel extends BaseViewModel<HomeState> {
   }
 
   Future<void> checkOpenVow(int roomId, bool kept) async {
-    await ref.read(vowRepositoryProvider).checkIn(roomId: roomId, kept: kept);
-    final open = await ref.read(vowRepositoryProvider).listOpenVows();
     final current = state.valueOrNull;
-    if (current == null) return;
-    state = AsyncData(current.copyWith(openVows: AsyncData(open)));
+    if (current == null || current.checkingRoomId != null) return;
+    state = AsyncData(current.copyWith(checkingRoomId: roomId));
+    try {
+      await ref.read(vowRepositoryProvider).checkIn(roomId: roomId, kept: kept);
+      final open = await ref.read(vowRepositoryProvider).listOpenVows();
+      final latest = state.valueOrNull ?? current;
+      state = AsyncData(
+        latest.copyWith(openVows: AsyncData(open), clearChecking: true),
+      );
+    } catch (_) {
+      final latest = state.valueOrNull ?? current;
+      state = AsyncData(latest.copyWith(clearChecking: true));
+      rethrow;
+    }
   }
 
   void replaceCard(HomeCard updated) {
@@ -108,6 +118,7 @@ class HomeViewModel extends BaseViewModel<HomeState> {
         greetingName: null,
         hasMore: feed.hasMore,
         loadingMore: false,
+        checkingRoomId: null,
       );
     }
     final results = await Future.wait([
@@ -124,6 +135,7 @@ class HomeViewModel extends BaseViewModel<HomeState> {
       greetingName: profile.displayName,
       hasMore: feed.hasMore,
       loadingMore: false,
+      checkingRoomId: null,
     );
   }
 }

@@ -8,7 +8,6 @@ import 'client.dart';
 import 'features/onboarding/view/app_gate.dart';
 import 'product/init/language/locale_enums.dart';
 import 'product/init/theme/appearance.dart';
-import 'product/navigation/room_links.dart';
 import 'product/theme/kept_theme.dart';
 
 void main() async {
@@ -32,9 +31,7 @@ void main() async {
       path: 'assets/translations',
       fallbackLocale: LocaleEnums.en.locale,
       useOnlyLangCode: true,
-      child: const ProviderScope(
-        child: RoomLinkHost(child: KeptApp()),
-      ),
+      child: const ProviderScope(child: KeptApp()),
     ),
   );
 }

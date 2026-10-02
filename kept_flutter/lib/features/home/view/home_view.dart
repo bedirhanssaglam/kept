@@ -5,6 +5,7 @@ import 'package:kept_client/kept_client.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
+import '../../../features/vows/domain/vow_codes.dart';
 import '../../../product/utility/activity_line.dart';
 import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../../product/theme/kept_theme.dart';
@@ -37,7 +38,6 @@ class HomeView extends ConsumerStatefulWidget {
 
 class HomeViewState extends ConsumerState<HomeView> {
   final _scroll = ScrollController();
-  int? _checkingRoom;
 
   HomeViewModel get _model => ref.read(homeViewModelProvider.notifier);
 
@@ -72,8 +72,6 @@ class HomeViewState extends ConsumerState<HomeView> {
   Future<void> refresh() => _model.refresh();
 
   Future<void> _checkOpen(OpenVow vow, bool kept) async {
-    if (_checkingRoom != null) return;
-    setState(() => _checkingRoom = vow.roomId);
     try {
       await _model.checkOpenVow(vow.roomId, kept);
     } catch (error) {
@@ -81,8 +79,6 @@ class HomeViewState extends ConsumerState<HomeView> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('$error'), backgroundColor: KeptTheme.broke),
       );
-    } finally {
-      if (mounted) setState(() => _checkingRoom = null);
     }
   }
 
@@ -202,7 +198,7 @@ class HomeViewState extends ConsumerState<HomeView> {
                         sliver: SliverToBoxAdapter(
                           child: _OpenVowsCard(
                             vows: open,
-                            checkingRoomId: _checkingRoom,
+                            checkingRoomId: data?.checkingRoomId,
                             onCheckIn: _checkOpen,
                           ),
                         ),
