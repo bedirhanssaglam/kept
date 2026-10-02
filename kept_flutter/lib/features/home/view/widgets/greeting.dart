@@ -9,18 +9,17 @@ class _HomeGreeting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hour = DateTime.now().hour;
-    final l10n = context.l10n;
     final hello = hour < 12
-        ? l10n.greetingMorning
+        ? LocaleKeys.greetingMorning.tr()
         : hour < 18
-        ? l10n.greetingAfternoon
-        : l10n.greetingEvening;
+        ? LocaleKeys.greetingAfternoon.tr()
+        : LocaleKeys.greetingEvening.tr();
     final who = (name != null && name!.trim().isNotEmpty)
         ? name!.trim().split(' ').first
         : signedIn
-        ? l10n.greetingFallbackName
+        ? LocaleKeys.greetingFallbackName.tr()
         : null;
-    final title = who == null ? l10n.appTitle : l10n.greetingNamed(hello, who);
+    final title = who == null ? LocaleKeys.appTitle.tr() : LocaleKeys.greetingNamed.tr(namedArgs: {'hello': (hello).toString(), 'name': (who).toString()});
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(18, 12, 10, 10),
@@ -42,7 +41,7 @@ class _HomeGreeting extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  who == null ? l10n.tagline : l10n.greetingSignedIn,
+                  who == null ? LocaleKeys.tagline.tr() : LocaleKeys.greetingSignedIn.tr(),
                   style: GoogleFonts.manrope(
                     fontSize: 13,
                     color: context.kept.mist,

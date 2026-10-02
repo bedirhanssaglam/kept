@@ -17,7 +17,7 @@ class _SignedOutBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            context.l10n.navProfile,
+            LocaleKeys.navProfile.tr(),
             style: GoogleFonts.sora(
               fontSize: 28,
               fontWeight: FontWeight.w700,
@@ -32,7 +32,7 @@ class _SignedOutBody extends StatelessWidget {
           ),
           const SizedBox(height: 18),
           Text(
-            context.l10n.ownYourWord,
+            LocaleKeys.ownYourWord.tr(),
             style: GoogleFonts.sora(
               fontSize: 26,
               fontWeight: FontWeight.w700,
@@ -41,7 +41,7 @@ class _SignedOutBody extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            context.l10n.signInProfileBody,
+            LocaleKeys.signInProfileBody.tr(),
             style: GoogleFonts.manrope(
               color: context.kept.mist,
               height: 1.45,
@@ -50,7 +50,7 @@ class _SignedOutBody extends StatelessWidget {
           ),
           const SizedBox(height: 28),
           KeptPrimaryButton(
-            label: context.l10n.signIn,
+            label: LocaleKeys.signIn.tr(),
             onPressed: onSignIn,
           ),
           const SizedBox(height: 28),
@@ -125,7 +125,7 @@ class _IdentityCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      context.l10n.activeVows(profile.memberRoomCount),
+                      LocaleKeys.activeVows.plural(profile.memberRoomCount),
                       style: GoogleFonts.manrope(
                         color: context.kept.mist,
                         fontSize: 13,
@@ -161,7 +161,7 @@ class _TodayStats extends StatelessWidget {
       children: [
         Expanded(
           child: _StatTile(
-            label: context.l10n.statKept,
+            label: LocaleKeys.statKept.tr(),
             value: '${profile.keptToday}',
             color: KeptTheme.kept,
           ),
@@ -169,7 +169,7 @@ class _TodayStats extends StatelessWidget {
         _statDivider(context),
         Expanded(
           child: _StatTile(
-            label: context.l10n.statBroke,
+            label: LocaleKeys.statBroke.tr(),
             value: '${profile.brokeToday}',
             color: KeptTheme.broke,
           ),
@@ -177,7 +177,7 @@ class _TodayStats extends StatelessWidget {
         _statDivider(context),
         Expanded(
           child: _StatTile(
-            label: context.l10n.statOpen,
+            label: LocaleKeys.statOpen.tr(),
             value: '${profile.pendingToday}',
             color: KeptTheme.pending,
           ),
@@ -258,9 +258,7 @@ class _ProfileRoomTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      vowSpanLine(
-                        context.l10n,
-                        durationDays: room.durationDays,
+                      vowSpanLine(durationDays: room.durationDays,
                         startsOn: room.startsOn,
                       ),
                       style: GoogleFonts.manrope(

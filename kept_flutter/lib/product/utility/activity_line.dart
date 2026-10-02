@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../features/vows/domain/vow_codes.dart';
-import '../init/language/app_strings.dart';
+import '../init/language/locale_keys.g.dart';
 
 /// System lines are stored in English. The UI rebuilds them from [kind]
 /// so the visible sentence follows the selected language.
-String activityLine(
-  AppStrings l10n, {
+String activityLine({
   required String kind,
   required String name,
   required String body,
@@ -15,16 +16,22 @@ String activityLine(
       final note = _note(body);
       final kept = kind == VowActivityKind.kept;
       if (note == null) {
-        return kept ? l10n.activityKept(name) : l10n.activityBroke(name);
+        return kept
+            ? LocaleKeys.activityKept.tr(namedArgs: {'name': name})
+            : LocaleKeys.activityBroke.tr(namedArgs: {'name': name});
       }
       return kept
-          ? l10n.activityKeptNote(name, note)
-          : l10n.activityBrokeNote(name, note);
+          ? LocaleKeys.activityKeptNote.tr(
+              namedArgs: {'name': name, 'note': note},
+            )
+          : LocaleKeys.activityBrokeNote.tr(
+              namedArgs: {'name': name, 'note': note},
+            );
     case VowActivityKind.joined:
       if (body.contains(ActivityBody.created)) {
-        return l10n.activityCreated(name);
+        return LocaleKeys.activityCreated.tr(namedArgs: {'name': name});
       }
-      return l10n.activityJoined(name);
+      return LocaleKeys.activityJoined.tr(namedArgs: {'name': name});
     default:
       return body;
   }

@@ -5,7 +5,6 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
 import '../../../product/theme/kept_theme.dart';
-import '../../../product/init/language/localization.dart';
 import '../../shell/view/main_shell.dart';
 import '../data/auth_flow.dart';
 import 'username_form.dart';
@@ -53,8 +52,7 @@ class _LoginViewState extends State<LoginView> {
 
   void _onControllerChanged() {
     // Leaving the post-code step clears a half-chosen username.
-    if (_controller.currentScreen != EmailFlowScreen.completeRegistration &&
-        _controller.currentScreen != EmailFlowScreen.verifyRegistration) {
+    if (_controller.currentScreen != EmailFlowScreen.completeRegistration && _controller.currentScreen != EmailFlowScreen.verifyRegistration) {
       // Keep pending username only through password completion.
     }
 
@@ -101,9 +99,7 @@ class _LoginViewState extends State<LoginView> {
 
   void _showError(Object error) {
     if (!mounted) return;
-    final message = error is EmailAlreadyRegisteredException
-        ? error.message
-        : '$error';
+    final message = error is EmailAlreadyRegisteredException ? error.message : '$error';
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
@@ -112,9 +108,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  bool get _showUsernameStep =>
-      _controller.currentScreen == EmailFlowScreen.completeRegistration &&
-      _pendingUsername == null;
+  bool get _showUsernameStep => _controller.currentScreen == EmailFlowScreen.completeRegistration && _pendingUsername == null;
 
   @override
   Widget build(BuildContext context) {
@@ -137,37 +131,20 @@ class _LoginViewState extends State<LoginView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Image.asset(
+                      'assets/images/app_logo.png',
+                      width: 56,
+                      height: 56,
+                      filterQuality: FilterQuality.high,
+                    ),
+                    const SizedBox(height: 18),
                     Text(
-                      'KEPT',
+                      'kept',
                       style: GoogleFonts.manrope(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                         letterSpacing: 3.2,
                         color: KeptTheme.accent,
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                    Text(
-                      _showUsernameStep
-                          ? context.l10n.almostThere
-                          : context.l10n.signInHeadline,
-                      style: GoogleFonts.sora(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        height: 1.15,
-                        letterSpacing: -0.7,
-                        color: context.kept.paper,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      _showUsernameStep
-                          ? context.l10n.usernameStepBody
-                          : context.l10n.emailStepBody,
-                      style: GoogleFonts.manrope(
-                        fontSize: 14,
-                        height: 1.45,
-                        color: context.kept.mist,
                       ),
                     ),
                   ],

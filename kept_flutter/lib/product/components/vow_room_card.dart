@@ -3,9 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kept_client/kept_client.dart';
 
 import '../../features/vows/domain/vow_labels.dart';
-import '../init/language/localization.dart';
 import '../theme/kept_theme.dart';
 import 'kept_widgets.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../init/language/locale_keys.g.dart';
 
 /// The public room card used on Discover and on the create-vow preview.
 class VowRoomCard extends StatelessWidget {
@@ -56,11 +57,9 @@ class VowRoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     final cat = CategoryStyle.of(context, category);
-    final policy = vowPolicyShort(l10n, joinPolicy);
+    final policy = vowPolicyShort(joinPolicy);
     final span = vowSpanLine(
-      l10n,
       durationDays: durationDays,
       startsOn: startsOn,
     );
@@ -89,7 +88,7 @@ class VowRoomCard extends StatelessWidget {
                     KeptChip(label: policy, color: KeptTheme.pending),
                     const Spacer(),
                     Text(
-                      l10n.memberCount(memberCount),
+                      LocaleKeys.memberCount.plural(memberCount),
                       style: GoogleFonts.manrope(
                         fontSize: 12,
                         color: context.kept.mist,
@@ -125,7 +124,7 @@ class VowRoomCard extends StatelessWidget {
                   children: [
                     if (showEnter) ...[
                       Text(
-                        l10n.enterRoom,
+                        LocaleKeys.enterRoom.tr(),
                         style: GoogleFonts.manrope(
                           fontSize: 13,
                           fontWeight: FontWeight.w700,

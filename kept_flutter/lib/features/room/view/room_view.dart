@@ -17,9 +17,10 @@ import '../../../product/init/dependency/dependency_items.dart';
 import '../../../product/service/vow_repository.dart';
 import '../../../features/vows/domain/vow_codes.dart';
 import '../../../features/vows/domain/vow_labels.dart';
-import '../../../product/init/language/localization.dart';
 import '../../auth/view/sign_in_sheet.dart';
 import 'members_view.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 part 'widgets/today_tab.dart';
 part 'widgets/chat_tab.dart';
@@ -203,7 +204,7 @@ class _RoomViewState extends ConsumerState<RoomView>
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(context.l10n.vowClosed),
+            content: Text(LocaleKeys.vowClosed.tr()),
             backgroundColor: KeptTheme.broke,
           ),
         );
@@ -216,7 +217,7 @@ class _RoomViewState extends ConsumerState<RoomView>
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(context.l10n.requestPending),
+              content: Text(LocaleKeys.requestPending.tr()),
             ),
           );
         }
@@ -229,7 +230,7 @@ class _RoomViewState extends ConsumerState<RoomView>
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(context.l10n.requestSent),
+              content: Text(LocaleKeys.requestSent.tr()),
             ),
           );
         }
@@ -285,7 +286,7 @@ class _RoomViewState extends ConsumerState<RoomView>
         return AlertDialog(
           backgroundColor: context.kept.panel,
           title: Text(
-            context.l10n.inviteCode,
+            LocaleKeys.inviteCode.tr(),
             style: GoogleFonts.sora(color: context.kept.paper),
           ),
           content: TextField(
@@ -294,18 +295,18 @@ class _RoomViewState extends ConsumerState<RoomView>
             textCapitalization: TextCapitalization.characters,
             style: TextStyle(color: context.kept.paper),
             decoration: InputDecoration(
-              hintText: context.l10n.inviteHint,
+              hintText: LocaleKeys.inviteHint.tr(),
               hintStyle: TextStyle(color: context.kept.mist),
             ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(context.l10n.cancel),
+              child: Text(LocaleKeys.cancel.tr()),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, controller.text.trim()),
-              child: Text(context.l10n.join),
+              child: Text(LocaleKeys.join.tr()),
             ),
           ],
         );
@@ -336,7 +337,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    context.l10n.joinRequests,
+                    LocaleKeys.joinRequests.tr(),
                     style: GoogleFonts.sora(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -346,7 +347,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                   const SizedBox(height: 12),
                   if (page.items.isEmpty)
                     Text(
-                      context.l10n.noPendingRequests,
+                      LocaleKeys.noPendingRequests.tr(),
                       style: GoogleFonts.manrope(color: context.kept.mist),
                     )
                   else
@@ -361,7 +362,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                           ),
                         ),
                         subtitle: Text(
-                          context.l10n.wantsToJoin,
+                          LocaleKeys.wantsToJoin.tr(),
                           style: GoogleFonts.manrope(color: context.kept.mist),
                         ),
                         trailing: Row(
@@ -474,8 +475,8 @@ class _RoomViewState extends ConsumerState<RoomView>
                 children: [
                   Text(
                     kept
-                        ? context.l10n.noteKeptPrompt
-                        : context.l10n.noteBrokePrompt,
+                        ? LocaleKeys.noteKeptPrompt.tr()
+                        : LocaleKeys.noteBrokePrompt.tr(),
                     style: GoogleFonts.sora(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -484,7 +485,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    context.l10n.noteBody,
+                    LocaleKeys.noteBody.tr(),
                     style: GoogleFonts.manrope(
                       color: context.kept.mist,
                       fontSize: 13,
@@ -497,8 +498,8 @@ class _RoomViewState extends ConsumerState<RoomView>
                     style: TextStyle(color: context.kept.paper),
                     decoration: InputDecoration(
                       hintText: kept
-                          ? context.l10n.noteKeptHint
-                          : context.l10n.noteBrokeHint,
+                          ? LocaleKeys.noteKeptHint.tr()
+                          : LocaleKeys.noteBrokeHint.tr(),
                       hintStyle: TextStyle(color: context.kept.mist),
                       filled: true,
                       fillColor: context.kept.ink,
@@ -511,15 +512,15 @@ class _RoomViewState extends ConsumerState<RoomView>
                   const SizedBox(height: 12),
                   KeptNativeSwitchTile(
                     value: shareToFeed,
-                    title: context.l10n.shareToFeed,
-                    subtitle: context.l10n.shareToFeedHelp,
+                    title: LocaleKeys.shareToFeed.tr(),
+                    subtitle: LocaleKeys.shareToFeedHelp.tr(),
                     onChanged: (v) => setModalState(() => shareToFeed = v),
                   ),
                   const SizedBox(height: 8),
                   KeptPrimaryButton(
                     label: kept
-                        ? context.l10n.postKept
-                        : context.l10n.postBroke,
+                        ? LocaleKeys.postKept.tr()
+                        : LocaleKeys.postBroke.tr(),
                     onPressed: () => Navigator.pop(context, (
                       note: controller.text.trim(),
                       shareToFeed: shareToFeed,
@@ -527,7 +528,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text(context.l10n.cancel),
+                    child: Text(LocaleKeys.cancel.tr()),
                   ),
                 ],
               ),
@@ -607,7 +608,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                         ),
                         Expanded(
                           child: Text(
-                            room?.title ?? context.l10n.vowRoom,
+                            room?.title ?? LocaleKeys.vowRoom.tr(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.sora(
@@ -619,7 +620,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                         ),
                         if (board != null)
                           Text(
-                            context.l10n.inRoom(board.room.memberCount),
+                            LocaleKeys.inRoom.tr(namedArgs: {'count': (board.room.memberCount).toString()}),
                             style: GoogleFonts.manrope(
                               color: context.kept.mist,
                               fontSize: 12,
@@ -653,14 +654,12 @@ class _RoomViewState extends ConsumerState<RoomView>
                               width: double.infinity,
                               child: CNSegmentedControl(
                                 labels: [
-                                  context.l10n.tabToday,
+                                  LocaleKeys.tabToday.tr(),
                                   !_canSeeChat(board)
-                                      ? context.l10n.tabChat
+                                      ? LocaleKeys.tabChat.tr()
                                       : _messages.isEmpty
-                                      ? context.l10n.tabChat
-                                      : context.l10n.tabChatCount(
-                                          _messages.length,
-                                        ),
+                                      ? LocaleKeys.tabChat.tr()
+                                      : LocaleKeys.tabChatCount.tr(namedArgs: {'count': (_messages.length).toString()}),
                                 ],
                                 selectedIndex: _tabs.index,
                                 onValueChanged: (i) {
@@ -695,15 +694,13 @@ class _RoomViewState extends ConsumerState<RoomView>
                                   fontSize: 13,
                                 ),
                                 tabs: [
-                                  Tab(text: context.l10n.tabToday),
+                                  Tab(text: LocaleKeys.tabToday.tr()),
                                   Tab(
                                     text: !_canSeeChat(board)
-                                        ? context.l10n.tabChat
+                                        ? LocaleKeys.tabChat.tr()
                                         : _messages.isEmpty
-                                        ? context.l10n.tabChat
-                                        : context.l10n.tabChatCount(
-                                            _messages.length,
-                                          ),
+                                        ? LocaleKeys.tabChat.tr()
+                                        : LocaleKeys.tabChatCount.tr(namedArgs: {'count': (_messages.length).toString()}),
                                   ),
                                 ],
                               ),
@@ -750,7 +747,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                                         builder: (context) => AlertDialog(
                                           backgroundColor: context.kept.panel,
                                           title: Text(
-                                            context.l10n.inviteCode,
+                                            LocaleKeys.inviteCode.tr(),
                                             style: GoogleFonts.sora(
                                               color: context.kept.paper,
                                             ),
@@ -768,7 +765,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                                             TextButton(
                                               onPressed: () =>
                                                   Navigator.pop(context),
-                                              child: Text(context.l10n.done),
+                                              child: Text(LocaleKeys.done.tr()),
                                             ),
                                           ],
                                         ),

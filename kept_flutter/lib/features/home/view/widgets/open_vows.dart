@@ -13,7 +13,7 @@ class _OpenVowsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final countLabel = context.l10n.vowsStillOpen(vows.length);
+    final countLabel = LocaleKeys.vowsStillOpen.plural(vows.length);
     final border = BorderSide(
       color: KeptTheme.pending.withValues(alpha: 0.45),
     );
@@ -47,7 +47,7 @@ class _OpenVowsCard extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            context.l10n.closeTheDayHere,
+            LocaleKeys.closeTheDayHere.tr(),
             style: GoogleFonts.manrope(fontSize: 13, color: context.kept.mist),
           ),
           children: [
@@ -91,11 +91,10 @@ class _OpenVowRow extends StatelessWidget {
       kept: vow.keptCount,
       broken: vow.brokenCount,
     );
-    final l10n = context.l10n;
     final verdict = percent == null
-        ? l10n.noOneHasSpoken
-        : l10n.percentKept(percent);
-    final quiet = l10n.stillQuiet(vow.pendingCount);
+        ? LocaleKeys.noOneHasSpoken.tr()
+        : LocaleKeys.percentKept.tr(namedArgs: {'percent': (percent).toString()});
+    final quiet = LocaleKeys.stillQuiet.plural(vow.pendingCount);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -138,7 +137,7 @@ class _OpenVowRow extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  l10n.iKeptIt,
+                  LocaleKeys.iKeptIt.tr(),
                   style: GoogleFonts.sora(fontWeight: FontWeight.w700),
                 ),
               ),
@@ -156,7 +155,7 @@ class _OpenVowRow extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  l10n.iBrokeIt,
+                  LocaleKeys.iBrokeIt.tr(),
                   style: GoogleFonts.sora(fontWeight: FontWeight.w700),
                 ),
               ),

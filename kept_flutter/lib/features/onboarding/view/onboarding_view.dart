@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../product/theme/kept_theme.dart';
-import '../../../product/init/language/localization.dart';
 import '../../../product/components/kept_native.dart';
 import '../../../product/components/kept_widgets.dart';
 import '../data/onboarding_prefs.dart';
 import 'login_view.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
@@ -19,25 +20,19 @@ class _OnboardingViewState extends State<OnboardingView> {
   final _page = PageController();
   int _index = 0;
 
-  List<({IconData icon, String title, String body})> _pages(
-    BuildContext context,
-  ) {
-    final l10n = context.l10n;
+  List<({String title, String body})> _pages(BuildContext context) {
     return [
       (
-        icon: Icons.public_rounded,
-        title: l10n.onboardingPublicTitle,
-        body: l10n.onboardingPublicBody,
+        title: LocaleKeys.onboardingPublicTitle.tr(),
+        body: LocaleKeys.onboardingPublicBody.tr(),
       ),
       (
-        icon: Icons.verified_rounded,
-        title: l10n.onboardingDailyTitle,
-        body: l10n.onboardingDailyBody,
+        title: LocaleKeys.onboardingDailyTitle.tr(),
+        body: LocaleKeys.onboardingDailyBody.tr(),
       ),
       (
-        icon: Icons.groups_rounded,
-        title: l10n.onboardingLiveTitle,
-        body: l10n.onboardingLiveBody,
+        title: LocaleKeys.onboardingLiveTitle.tr(),
+        body: LocaleKeys.onboardingLiveBody.tr(),
       ),
     ];
   }
@@ -99,7 +94,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                           height: 36,
                           width: 88,
                           child: CNButton(
-                            label: context.l10n.skip,
+                            label: LocaleKeys.skip.tr(),
                             onPressed: _finish,
                             tint: context.kept.mist,
                             height: 36,
@@ -110,7 +105,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       : TextButton(
                           onPressed: _finish,
                           child: Text(
-                            context.l10n.skip,
+                            LocaleKeys.skip.tr(),
                             style: GoogleFonts.manrope(
                               color: context.kept.mist,
                               fontWeight: FontWeight.w600,
@@ -132,21 +127,11 @@ class _OnboardingViewState extends State<OnboardingView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Spacer(flex: 2),
-                          Container(
+                          Image.asset(
+                            'assets/images/app_logo.png',
                             width: 88,
                             height: 88,
-                            decoration: BoxDecoration(
-                              color: KeptTheme.accent.withValues(alpha: 0.14),
-                              borderRadius: BorderRadius.circular(28),
-                              border: Border.all(
-                                color: KeptTheme.accent.withValues(alpha: 0.35),
-                              ),
-                            ),
-                            child: Icon(
-                              page.icon,
-                              size: 42,
-                              color: KeptTheme.accent,
-                            ),
+                            filterQuality: FilterQuality.high,
                           ),
                           const SizedBox(height: 36),
                           Text(
@@ -210,7 +195,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     ),
                     const SizedBox(height: 22),
                     KeptPrimaryButton(
-                      label: last ? context.l10n.letsGo : context.l10n.next,
+                      label: last ? LocaleKeys.letsGo.tr() : LocaleKeys.next.tr(),
                       onPressed: _next,
                     ),
                   ],

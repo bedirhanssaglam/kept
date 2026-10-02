@@ -6,7 +6,6 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
 import '../../../features/vows/domain/vow_codes.dart';
-import '../../../product/init/language/localization.dart';
 import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../../product/components/vow_room_card.dart';
 import '../../../product/theme/kept_theme.dart';
@@ -16,6 +15,8 @@ import '../../../product/components/kept_widgets.dart';
 import '../../../product/init/dependency/dependency_items.dart';
 import '../../../product/service/vow_repository.dart';
 import '../../auth/view/sign_in_sheet.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 part 'widgets/category_chip.dart';
 part 'widgets/choice_bar.dart';
@@ -71,7 +72,7 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
   }
 
   void _useDraft(int index) {
-    final draft = _drafts(context.l10n)[index];
+    final draft = _drafts()[index];
     _filling = true;
     _title.text = draft.title;
     _rule.text = draft.rule;
@@ -90,23 +91,21 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
   }
 
   List<(String, String)> _categories(BuildContext context) {
-    final l10n = context.l10n;
     return [
-      (VowCategory.health, l10n.categoryHealth),
-      (VowCategory.quit, l10n.categoryQuit),
-      (VowCategory.move, l10n.categoryMove),
-      (VowCategory.focus, l10n.categoryFocus),
-      (VowCategory.custom, l10n.categoryCustom),
+      (VowCategory.health, LocaleKeys.categoryHealth.tr()),
+      (VowCategory.quit, LocaleKeys.categoryQuit.tr()),
+      (VowCategory.move, LocaleKeys.categoryMove.tr()),
+      (VowCategory.focus, LocaleKeys.categoryFocus.tr()),
+      (VowCategory.custom, LocaleKeys.categoryCustom.tr()),
     ];
   }
 
   List<(String, String, String)> _policies(BuildContext context) {
-    final l10n = context.l10n;
     return [
-      (VowPolicy.open, l10n.policyOpenLabel, l10n.policyOpenHelp),
-      (VowPolicy.approval, l10n.policyApprovalLabel, l10n.policyApprovalHelp),
-      (VowPolicy.invite, l10n.policyInviteLabel, l10n.policyInviteHelp),
-      (VowPolicy.closed, l10n.policyClosedLabel, l10n.policyClosedHelp),
+      (VowPolicy.open, LocaleKeys.policyOpenLabel.tr(), LocaleKeys.policyOpenHelp.tr()),
+      (VowPolicy.approval, LocaleKeys.policyApprovalLabel.tr(), LocaleKeys.policyApprovalHelp.tr()),
+      (VowPolicy.invite, LocaleKeys.policyInviteLabel.tr(), LocaleKeys.policyInviteHelp.tr()),
+      (VowPolicy.closed, LocaleKeys.policyClosedLabel.tr(), LocaleKeys.policyClosedHelp.tr()),
     ];
   }
 
@@ -186,7 +185,7 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
               const SizedBox(height: 10),
             ],
             Text(
-              context.l10n.makeANewVow,
+              LocaleKeys.makeANewVow.tr(),
               style: GoogleFonts.sora(
                 fontSize: widget.asTab ? 30 : 28,
                 fontWeight: FontWeight.w700,
@@ -196,7 +195,7 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
             ),
             const SizedBox(height: 8),
             Text(
-              context.l10n.createLead,
+              LocaleKeys.createLead.tr(),
               style: GoogleFonts.manrope(
                 color: context.kept.mist,
                 height: 1.45,
@@ -206,18 +205,18 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
             _ExampleList(selected: _example, onSelect: _useDraft),
             const SizedBox(height: 22),
             Text(
-              context.l10n.fieldTitle,
+              LocaleKeys.fieldTitle.tr(),
               style: GoogleFonts.manrope(color: context.kept.mist),
             ),
             const SizedBox(height: 8),
             TextField(
               controller: _title,
               style: TextStyle(color: context.kept.paper),
-              decoration: _inputDecoration(context.l10n.titleHint),
+              decoration: _inputDecoration(LocaleKeys.titleHint.tr()),
             ),
             const SizedBox(height: 18),
             Text(
-              context.l10n.fieldRule,
+              LocaleKeys.fieldRule.tr(),
               style: GoogleFonts.manrope(color: context.kept.mist),
             ),
             const SizedBox(height: 8),
@@ -225,11 +224,11 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
               controller: _rule,
               maxLines: 3,
               style: TextStyle(color: context.kept.paper),
-              decoration: _inputDecoration(context.l10n.ruleHint),
+              decoration: _inputDecoration(LocaleKeys.ruleHint.tr()),
             ),
             const SizedBox(height: 18),
             Text(
-              context.l10n.fieldCategory,
+              LocaleKeys.fieldCategory.tr(),
               style: GoogleFonts.manrope(color: context.kept.mist),
             ),
             const SizedBox(height: 10),
@@ -247,35 +246,35 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
             ),
             const SizedBox(height: 22),
             Text(
-              context.l10n.fieldLength,
+              LocaleKeys.fieldLength.tr(),
               style: GoogleFonts.manrope(color: context.kept.mist),
             ),
             const SizedBox(height: 10),
             _ChoiceBar(
               labels: [
-                context.l10n.durationWeek,
-                context.l10n.durationThreeWeeks,
-                context.l10n.durationOpen,
+                LocaleKeys.durationWeek.tr(),
+                LocaleKeys.durationThreeWeeks.tr(),
+                LocaleKeys.durationOpen.tr(),
               ],
               selectedIndex: _lengths.indexOf(_length).clamp(0, 2),
               onChanged: (i) => setState(() => _length = _lengths[i]),
             ),
             const SizedBox(height: 22),
             Text(
-              context.l10n.fieldStart,
+              LocaleKeys.fieldStart.tr(),
               style: GoogleFonts.manrope(color: context.kept.mist),
             ),
             const SizedBox(height: 10),
             _ChoiceBar(
-              labels: [context.l10n.startsToday, context.l10n.startsTomorrow],
+              labels: [LocaleKeys.startsToday.tr(), LocaleKeys.startsTomorrow.tr()],
               selectedIndex: _startsTomorrow ? 1 : 0,
               onChanged: (i) => setState(() => _startsTomorrow = i == 1),
             ),
             const SizedBox(height: 8),
             Text(
               _startsTomorrow
-                  ? context.l10n.startTomorrowHelp
-                  : context.l10n.startTodayHelp,
+                  ? LocaleKeys.startTomorrowHelp.tr()
+                  : LocaleKeys.startTodayHelp.tr(),
               style: GoogleFonts.manrope(
                 fontSize: 12,
                 color: context.kept.mist,
@@ -283,7 +282,7 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
             ),
             const SizedBox(height: 22),
             Text(
-              context.l10n.whoCanJoin,
+              LocaleKeys.whoCanJoin.tr(),
               style: GoogleFonts.manrope(color: context.kept.mist),
             ),
             const SizedBox(height: 10),
@@ -393,7 +392,7 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
             ],
             const SizedBox(height: 28),
             KeptPrimaryButton(
-              label: _saving ? context.l10n.creating : context.l10n.createVow,
+              label: _saving ? LocaleKeys.creating.tr() : LocaleKeys.createVow.tr(),
               onPressed: _saving ? null : _submit,
             ),
           ],
@@ -420,7 +419,7 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
         backgroundColor: Colors.transparent,
         foregroundColor: context.kept.paper,
         title: Text(
-          context.l10n.newVow,
+          LocaleKeys.newVow.tr(),
           style: GoogleFonts.sora(fontWeight: FontWeight.w600),
         ),
       ),

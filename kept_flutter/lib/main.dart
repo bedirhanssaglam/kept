@@ -6,7 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'client.dart';
 import 'features/onboarding/view/app_gate.dart';
-import 'product/init/language/locale_enums.dart';
+import 'product/init/language/codegen_loader.g.dart';
+import 'product/init/language/locale_keys.g.dart';
 import 'product/init/theme/appearance.dart';
 import 'product/theme/kept_theme.dart';
 
@@ -27,10 +28,11 @@ void main() async {
   await loadAppearancePrefs();
   runApp(
     EasyLocalization(
-      supportedLocales: LocaleEnums.supported,
+      supportedLocales: const [Locale('en')],
       path: 'assets/translations',
-      fallbackLocale: LocaleEnums.en.locale,
+      fallbackLocale: const Locale('en'),
       useOnlyLangCode: true,
+      assetLoader: const CodegenLoader(),
       child: const ProviderScope(child: KeptApp()),
     ),
   );
@@ -46,13 +48,17 @@ class KeptApp extends ConsumerWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: lightIcons ? Brightness.light : Brightness.dark,
+        statusBarIconBrightness: lightIcons
+            ? Brightness.light
+            : Brightness.dark,
         systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: lightIcons ? Brightness.light : Brightness.dark,
+        systemNavigationBarIconBrightness: lightIcons
+            ? Brightness.light
+            : Brightness.dark,
       ),
     );
     return MaterialApp(
-      onGenerateTitle: (context) => 'appTitle'.tr(),
+      onGenerateTitle: (_) => LocaleKeys.appTitle.tr(),
       debugShowCheckedModeBanner: false,
       theme: KeptTheme.light(),
       darkTheme: KeptTheme.dark(),

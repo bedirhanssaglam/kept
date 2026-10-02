@@ -9,8 +9,9 @@ import '../../../product/theme/kept_theme.dart';
 import '../../../product/components/kept_native.dart';
 import '../../../product/init/dependency/dependency_items.dart';
 import '../../../product/service/vow_repository.dart';
-import '../../../product/init/language/localization.dart';
 import '../../auth/view/sign_in_sheet.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 Future<int?> showFeedCommentsSheet(
   BuildContext context, {
@@ -147,7 +148,7 @@ class _FeedCommentsSheetState extends ConsumerState<_FeedCommentsSheet> {
                 children: [
                   Expanded(
                     child: Text(
-                      context.l10n.comments,
+                      LocaleKeys.comments.tr(),
                       style: GoogleFonts.sora(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -181,7 +182,7 @@ class _FeedCommentsSheetState extends ConsumerState<_FeedCommentsSheet> {
                   : _comments.isEmpty
                   ? Center(
                       child: Text(
-                        context.l10n.noComments,
+                        LocaleKeys.noComments.tr(),
                         style: GoogleFonts.manrope(color: context.kept.mist),
                       ),
                     )
@@ -275,7 +276,7 @@ class _FeedCommentsSheetState extends ConsumerState<_FeedCommentsSheet> {
                       controller: _controller,
                       style: TextStyle(color: context.kept.paper),
                       decoration: InputDecoration(
-                        hintText: context.l10n.addComment,
+                        hintText: LocaleKeys.addComment.tr(),
                         hintStyle: TextStyle(color: context.kept.mist),
                         filled: true,
                         fillColor: context.kept.ink,

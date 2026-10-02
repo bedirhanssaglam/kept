@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
-import '../../../product/init/language/localization.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 class SignInView extends StatefulWidget {
   final Widget child;
@@ -46,14 +47,14 @@ class _SignInViewState extends State<SignInView> {
               disableAnonymousSignInWidget: true,
               onAuthenticated: () {
                 context.showSnackBar(
-                  message: context.l10n.signedIn,
+                  message: LocaleKeys.signedIn.tr(),
                   backgroundColor: colors.primaryContainer,
                   foregroundColor: colors.onPrimaryContainer,
                 );
               },
               onError: (error) {
                 context.showSnackBar(
-                  message: context.l10n.authFailed('$error'),
+                  message: LocaleKeys.authFailed.tr(namedArgs: {'error': '$error'}),
                   backgroundColor: colors.errorContainer,
                   foregroundColor: colors.onErrorContainer,
                 );

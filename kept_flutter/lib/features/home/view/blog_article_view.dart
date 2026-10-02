@@ -5,10 +5,11 @@ import 'package:kept_client/kept_client.dart';
 
 import '../../../features/vows/domain/vow_codes.dart';
 import '../../../product/components/async_data_widget.dart';
-import '../../../product/init/language/localization.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/components/kept_widgets.dart';
 import '../view_model/blog_article_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 class BlogArticleView extends ConsumerStatefulWidget {
   const BlogArticleView({super.key, required this.slug});
@@ -30,7 +31,7 @@ class _BlogArticleViewState extends ConsumerState<BlogArticleView> {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text(
-              context.l10n.couldNotLoadArticle('$error'),
+              LocaleKeys.couldNotLoadArticle.tr(namedArgs: {'error': '$error'}),
               style: TextStyle(color: KeptTheme.broke),
             ),
           ),
@@ -60,7 +61,7 @@ class _BlogArticleViewState extends ConsumerState<BlogArticleView> {
                   color: context.kept.paper,
                 ),
                 title: Text(
-                  context.l10n.keptJournal,
+                  LocaleKeys.keptJournal.tr(),
                   style: GoogleFonts.sora(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,

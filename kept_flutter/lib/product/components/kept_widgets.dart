@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../features/vows/domain/vow_labels.dart';
 import '../../features/vows/domain/vow_codes.dart';
-import '../init/language/localization.dart';
 import '../theme/kept_theme.dart';
 import '../utility/layout/kept_breakpoints.dart';
 import 'kept_native.dart';
@@ -24,7 +23,7 @@ class CategoryStyle {
 
   static CategoryStyle of(BuildContext context, String category) {
     return CategoryStyle(
-      vowCategoryLabel(context.l10n, category),
+      vowCategoryLabel(category),
       _color(category, context.kept.mist),
     );
   }

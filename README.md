@@ -86,7 +86,15 @@ scripts/         backend, web, mobile, and all three together
 
 Sign-in, check-in, and the room stream are Serverpod endpoints. `serverpod generate` rewrites `kept_client` after a model or endpoint change. Schema changes go through `serverpod create-migration` inside `kept_server`.
 
-Copy is JSON in `kept_flutter/assets/translations`, English and Turkish. There is no generated arb file.
+UI copy lives in `kept_flutter/assets/translations/en.json`. Generate keys with:
+
+```bash
+cd kept_flutter
+dart run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart -O lib/product/init/language
+dart run easy_localization:generate -S assets/translations -O lib/product/init/language -o codegen_loader.g.dart
+```
+
+Use `LocaleKeys.someKey.tr()` (or `.plural(n)`) in Dart. English only for now.
 
 ## Deploy
 

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,14 +10,14 @@ import '../../../features/vows/domain/vow_labels.dart';
 import '../../../product/components/async_data_widget.dart';
 import '../../../product/components/kept_native.dart';
 import '../../../product/components/kept_widgets.dart';
-import '../../../product/init/language/locale_enums.dart';
-import '../../../product/init/language/localization.dart';
 import '../../../product/init/theme/appearance.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../auth/view/sign_in_sheet.dart';
 import '../view_model/profile_state.dart';
 import '../view_model/profile_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 part 'widgets/preferences.dart';
 part 'widgets/profile_body.dart';
@@ -64,11 +63,11 @@ class ProfileViewState extends ConsumerState<ProfileView> {
             padding: const EdgeInsets.all(24),
             children: [
               Text(
-                context.l10n.couldNotLoadProfile('$error'),
+                LocaleKeys.couldNotLoadProfile.tr(namedArgs: {'error': '$error'}),
                 style: TextStyle(color: KeptTheme.broke),
               ),
               const SizedBox(height: 16),
-              KeptPrimaryButton(label: context.l10n.retry, onPressed: refresh),
+              KeptPrimaryButton(label: LocaleKeys.retry.tr(), onPressed: refresh),
             ],
           ),
           onData: (state) {
@@ -95,7 +94,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                         children: [
                           Expanded(
                             child: Text(
-                              context.l10n.navProfile,
+                              LocaleKeys.navProfile.tr(),
                               style: GoogleFonts.sora(
                                 fontSize: 28,
                                 fontWeight: FontWeight.w700,
@@ -106,7 +105,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                           TextButton(
                             onPressed: _signOut,
                             child: Text(
-                              context.l10n.signOut,
+                              LocaleKeys.signOut.tr(),
                               style: GoogleFonts.manrope(
                                 color: context.kept.mist,
                                 fontWeight: FontWeight.w600,
@@ -121,7 +120,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                       const _PreferencesCard(),
                       const SizedBox(height: 28),
                       Text(
-                        context.l10n.yourRooms,
+                        LocaleKeys.yourRooms.tr(),
                         style: GoogleFonts.sora(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -130,7 +129,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        profile.rooms.isEmpty ? context.l10n.roomsEmptyHint : context.l10n.roomsTapHint,
+                        profile.rooms.isEmpty ? LocaleKeys.roomsEmptyHint.tr() : LocaleKeys.roomsTapHint.tr(),
                         style: GoogleFonts.manrope(
                           color: context.kept.mist,
                           fontSize: 13,
@@ -146,7 +145,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                             border: Border.all(color: context.kept.line),
                           ),
                           child: Text(
-                            context.l10n.noMemberships,
+                            LocaleKeys.noMemberships.tr(),
                             style: GoogleFonts.manrope(
                               color: context.kept.mist,
                             ),

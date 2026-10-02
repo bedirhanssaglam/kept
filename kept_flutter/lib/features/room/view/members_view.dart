@@ -7,7 +7,8 @@ import '../../../product/theme/kept_theme.dart';
 import '../../../product/init/dependency/dependency_items.dart';
 import '../../../product/service/vow_repository.dart';
 import '../../../features/vows/domain/vow_labels.dart';
-import '../../../product/init/language/localization.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 class MembersView extends ConsumerStatefulWidget {
   const MembersView({super.key, required this.roomId, required this.title});
@@ -99,7 +100,7 @@ class _MembersViewState extends ConsumerState<MembersView> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
-          context.l10n.membersTitle(widget.title),
+          LocaleKeys.membersTitle.tr(namedArgs: {'title': (widget.title).toString()}),
           style: GoogleFonts.sora(fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),
@@ -173,7 +174,7 @@ class _MembersViewState extends ConsumerState<MembersView> {
                                 ),
                               ),
                               Text(
-                                vowRoleLabel(context.l10n, m.role),
+                                vowRoleLabel(m.role),
                                 style: GoogleFonts.manrope(
                                   fontSize: 12,
                                   color: context.kept.mist,
@@ -183,7 +184,7 @@ class _MembersViewState extends ConsumerState<MembersView> {
                           ),
                         ),
                         Text(
-                          vowDayStatus(context.l10n, m.kept),
+                          vowDayStatus(m.kept),
                           style: GoogleFonts.manrope(
                             fontWeight: FontWeight.w700,
                             fontSize: 12,

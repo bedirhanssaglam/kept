@@ -43,7 +43,7 @@ class _PostActions extends StatelessWidget {
         if (card.likeCount > 0) ...[
           const SizedBox(height: 8),
           Text(
-            context.l10n.likeCount(card.likeCount),
+            LocaleKeys.likeCount.plural(card.likeCount),
             style: GoogleFonts.manrope(
               fontWeight: FontWeight.w700,
               color: context.kept.paper,
@@ -56,7 +56,7 @@ class _PostActions extends StatelessWidget {
           GestureDetector(
             onTap: onComment,
             child: Text(
-              context.l10n.viewComments(card.commentCount),
+              LocaleKeys.viewComments.plural(card.commentCount),
               style: GoogleFonts.manrope(
                 color: context.kept.mist,
                 fontWeight: FontWeight.w600,
@@ -88,7 +88,7 @@ class _ActivityPost extends StatelessWidget {
     final light = Theme.of(context).brightness == Brightness.light;
     final ink = light ? context.kept.paper : Colors.white;
     final item = card.activity!;
-    final style = _PostVisual.ofActivity(context.l10n, item.kind);
+    final style = _PostVisual.ofActivity(item.kind);
     final mediaH = keptFeedMediaHeight(context, ratio: 0.92);
 
     return Column(
@@ -126,7 +126,7 @@ class _ActivityPost extends StatelessWidget {
                 ),
               ),
               Text(
-                _relativeTime(context.l10n, item.createdAt.toLocal()),
+                _relativeTime(item.createdAt.toLocal()),
                 style: GoogleFonts.manrope(
                   fontSize: 12,
                   color: context.kept.mist,
@@ -218,9 +218,7 @@ class _ActivityPost extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                activityLine(
-                  context.l10n,
-                  kind: item.kind,
+                activityLine(kind: item.kind,
                   name: item.displayName,
                   body: item.body,
                 ),
@@ -233,7 +231,7 @@ class _ActivityPost extends StatelessWidget {
               GestureDetector(
                 onTap: onOpenRoom,
                 child: Text(
-                  context.l10n.openRoom,
+                  LocaleKeys.openRoom.tr(),
                   style: GoogleFonts.manrope(
                     color: context.kept.mist,
                     fontWeight: FontWeight.w600,
@@ -261,7 +259,7 @@ class _ArticlePost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final post = card.article!;
-    final visual = _PostVisual.ofTopic(context.l10n, post.topic);
+    final visual = _PostVisual.ofTopic(post.topic);
     final light = Theme.of(context).brightness == Brightness.light;
     final ink = light ? context.kept.paper : Colors.white;
     final mediaH = keptFeedMediaHeight(context, ratio: 0.85);
@@ -281,7 +279,7 @@ class _ArticlePost extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      context.l10n.keptJournal,
+                      LocaleKeys.keptJournal.tr(),
                       style: GoogleFonts.manrope(
                         fontWeight: FontWeight.w700,
                         color: context.kept.paper,
@@ -301,7 +299,7 @@ class _ArticlePost extends StatelessWidget {
                 ),
               ),
               Text(
-                _relativeTime(context.l10n, post.publishedAt.toLocal()),
+                _relativeTime(post.publishedAt.toLocal()),
                 style: GoogleFonts.manrope(
                   fontSize: 12,
                   color: context.kept.mist,
@@ -330,7 +328,7 @@ class _ArticlePost extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                KeptChip(label: context.l10n.article, color: visual.color),
+                KeptChip(label: LocaleKeys.article.tr(), color: visual.color),
                 const Spacer(),
                 Text(
                   post.title,
@@ -363,7 +361,7 @@ class _ArticlePost extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: '${context.l10n.keptJournal} ',
+                      text: '${LocaleKeys.keptJournal.tr()} ',
                       style: GoogleFonts.manrope(
                         fontWeight: FontWeight.w700,
                         color: context.kept.paper,
@@ -383,7 +381,7 @@ class _ArticlePost extends StatelessWidget {
               GestureDetector(
                 onTap: onOpen,
                 child: Text(
-                  context.l10n.readArticle,
+                  LocaleKeys.readArticle.tr(),
                   style: GoogleFonts.manrope(
                     color: KeptTheme.accent,
                     fontWeight: FontWeight.w700,
@@ -442,68 +440,68 @@ class _PostVisual {
   final List<Color> gradient;
   final String headline;
 
-  static _PostVisual ofActivity(AppStrings l10n, String kind) {
+  static _PostVisual ofActivity(String kind) {
     switch (kind) {
       case VowActivityKind.kept:
         return _PostVisual(
           icon: Icons.check_rounded,
           color: KeptTheme.kept,
           gradient: const [Color(0xFF1B3D2F), Color(0xFF0F1A14)],
-          headline: l10n.keptIt,
+          headline: LocaleKeys.keptIt.tr(),
         );
       case VowActivityKind.broke:
         return _PostVisual(
           icon: Icons.close_rounded,
           color: KeptTheme.broke,
           gradient: const [Color(0xFF3D1F1C), Color(0xFF140E0D)],
-          headline: l10n.brokeIt,
+          headline: LocaleKeys.brokeIt.tr(),
         );
       case VowActivityKind.joined:
         return _PostVisual(
           icon: Icons.person_add_alt_1_rounded,
           color: KeptTheme.pending,
           gradient: const [Color(0xFF3A3218), Color(0xFF14110A)],
-          headline: l10n.steppedIn,
+          headline: LocaleKeys.steppedIn.tr(),
         );
       default:
         return _PostVisual(
           icon: Icons.chat_bubble_rounded,
           color: KeptTheme.mist,
           gradient: const [Color(0xFF1C2621), Color(0xFF0C100E)],
-          headline: l10n.saidSomething,
+          headline: LocaleKeys.saidSomething.tr(),
         );
     }
   }
 
-  static _PostVisual ofTopic(AppStrings l10n, String topic) {
+  static _PostVisual ofTopic(String topic) {
     switch (topic) {
       case BlogTopic.water:
         return _PostVisual(
           icon: Icons.water_drop_rounded,
           color: const Color(0xFF5EEAD4),
           gradient: const [Color(0xFF12353A), Color(0xFF0A1416)],
-          headline: l10n.categoryWater,
+          headline: LocaleKeys.categoryWater.tr(),
         );
       case VowCategory.focus:
         return _PostVisual(
           icon: Icons.center_focus_strong_rounded,
           color: const Color(0xFFFDE68A),
           gradient: const [Color(0xFF3A3214), Color(0xFF12100A)],
-          headline: l10n.categoryFocus,
+          headline: LocaleKeys.categoryFocus.tr(),
         );
       case VowCategory.move:
         return _PostVisual(
           icon: Icons.directions_walk_rounded,
           color: const Color(0xFF93C5FD),
           gradient: const [Color(0xFF1A2A3D), Color(0xFF0C1218)],
-          headline: l10n.categoryMove,
+          headline: LocaleKeys.categoryMove.tr(),
         );
       default:
         return _PostVisual(
           icon: Icons.auto_awesome_rounded,
           color: KeptTheme.accent,
           gradient: const [Color(0xFF243528), Color(0xFF0E1411)],
-          headline: l10n.categoryHabits,
+          headline: LocaleKeys.categoryHabits.tr(),
         );
     }
   }
@@ -523,11 +521,11 @@ List<Color> _feedWash(BuildContext context, Color accent) {
   ];
 }
 
-String _relativeTime(AppStrings l10n, DateTime t) {
+String _relativeTime(DateTime t) {
   final diff = DateTime.now().difference(t);
-  if (diff.inMinutes < 1) return l10n.timeNow;
-  if (diff.inMinutes < 60) return l10n.timeMinutes(diff.inMinutes);
-  if (diff.inHours < 24) return l10n.timeHours(diff.inHours);
-  if (diff.inDays < 7) return l10n.timeDays(diff.inDays);
+  if (diff.inMinutes < 1) return LocaleKeys.timeNow.tr();
+  if (diff.inMinutes < 60) return LocaleKeys.timeMinutes.tr(namedArgs: {'count': (diff.inMinutes).toString()});
+  if (diff.inHours < 24) return LocaleKeys.timeHours.tr(namedArgs: {'count': (diff.inHours).toString()});
+  if (diff.inDays < 7) return LocaleKeys.timeDays.tr(namedArgs: {'count': (diff.inDays).toString()});
   return '${t.day}.${t.month}';
 }

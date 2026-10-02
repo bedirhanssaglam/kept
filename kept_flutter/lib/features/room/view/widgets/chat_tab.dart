@@ -27,10 +27,10 @@ class _ChatTab extends StatelessWidget {
   Widget build(BuildContext context) {
     if (locked) {
       final hint = switch (joinPolicy) {
-        VowPolicy.invite => context.l10n.chatInviteOnly,
-        VowPolicy.approval => context.l10n.chatNeedsApproval,
-        VowPolicy.closed => context.l10n.chatMembersOnly,
-        _ => context.l10n.chatJoinToSee,
+        VowPolicy.invite => LocaleKeys.chatInviteOnly.tr(),
+        VowPolicy.approval => LocaleKeys.chatNeedsApproval.tr(),
+        VowPolicy.closed => LocaleKeys.chatMembersOnly.tr(),
+        _ => LocaleKeys.chatJoinToSee.tr(),
       };
       return Center(
         child: Padding(
@@ -45,7 +45,7 @@ class _ChatTab extends StatelessWidget {
               ),
               const SizedBox(height: 14),
               Text(
-                context.l10n.chatForMembers,
+                LocaleKeys.chatForMembers.tr(),
                 textAlign: TextAlign.center,
                 style: GoogleFonts.sora(
                   fontWeight: FontWeight.w700,
@@ -66,10 +66,10 @@ class _ChatTab extends StatelessWidget {
                 const SizedBox(height: 18),
                 KeptPrimaryButton(
                   label: joinPolicy == VowPolicy.approval
-                      ? context.l10n.requestToJoin
+                      ? LocaleKeys.requestToJoin.tr()
                       : joinPolicy == VowPolicy.invite
-                      ? context.l10n.enterInviteOnToday
-                      : context.l10n.joinThisVow,
+                      ? LocaleKeys.enterInviteOnToday.tr()
+                      : LocaleKeys.joinThisVow.tr(),
                   onPressed: onJoin,
                 ),
               ],
@@ -87,7 +87,7 @@ class _ChatTab extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(24),
                     child: Text(
-                      context.l10n.chatEmpty,
+                      LocaleKeys.chatEmpty.tr(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.manrope(
                         color: context.kept.mist,
@@ -128,7 +128,7 @@ class _ChatTab extends StatelessWidget {
                   maxLines: 4,
                   style: TextStyle(color: context.kept.paper),
                   decoration: InputDecoration(
-                    hintText: context.l10n.chatHint,
+                    hintText: LocaleKeys.chatHint.tr(),
                     hintStyle: TextStyle(color: context.kept.mist),
                     filled: true,
                     fillColor: context.kept.ink,
@@ -192,9 +192,7 @@ class _MessageBubble extends StatelessWidget {
               border: Border.all(color: color.withValues(alpha: 0.28)),
             ),
             child: Text(
-              activityLine(
-                context.l10n,
-                kind: message.kind,
+              activityLine(kind: message.kind,
                 name: message.displayName,
                 body: message.body,
               ),

@@ -6,7 +6,6 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
 import '../../../product/components/kept_native.dart';
-import '../../../product/init/language/localization.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../auth/view/sign_in_sheet.dart';
@@ -15,6 +14,8 @@ import '../../discover/view/discover_view.dart';
 import '../../home/view/home_view.dart';
 import '../../profile/view/profile_view.dart';
 import '../../room/view/room_view.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 part 'widgets/navigation.dart';
 
@@ -62,7 +63,7 @@ class _MainShellState extends State<MainShell> {
         style: CNButtonStyle.prominentGlass,
         tint: KeptTheme.accent,
         materialIcon: Icons.add_rounded,
-        tooltip: context.l10n.newVow,
+        tooltip: LocaleKeys.newVow.tr(),
       );
     }
     return FloatingActionButton(
@@ -170,15 +171,15 @@ class _MainShellState extends State<MainShell> {
                         onTap: (i) => setState(() => _index = i),
                         items: [
                           CNTabBarItem(
-                            label: context.l10n.navHome,
+                            label: LocaleKeys.navHome.tr(),
                             icon: CNSymbol('house.fill'),
                           ),
                           CNTabBarItem(
-                            label: context.l10n.navDiscover,
+                            label: LocaleKeys.navDiscover.tr(),
                             icon: CNSymbol('safari.fill'),
                           ),
                           CNTabBarItem(
-                            label: context.l10n.navProfile,
+                            label: LocaleKeys.navProfile.tr(),
                             icon: CNSymbol('person.crop.circle'),
                           ),
                         ],

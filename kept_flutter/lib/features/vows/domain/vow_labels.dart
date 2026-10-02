@@ -1,5 +1,7 @@
-import '../../../product/init/language/app_strings.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../../product/utility/constants/kept_day.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 import 'vow_codes.dart';
 
 bool vowHasStarted(String startsOn, String today) {
@@ -22,72 +24,75 @@ String shiftDayKey(String key, int days) {
   return KeptDay.key(date);
 }
 
-String vowLengthLabel(AppStrings l10n, int days) {
+String vowLengthLabel(int days) {
   return switch (days) {
-    VowLength.week => l10n.durationWeek,
-    VowLength.threeWeeks => l10n.durationThreeWeeks,
-    _ => l10n.durationOpen,
+    VowLength.week => LocaleKeys.durationWeek.tr(),
+    VowLength.threeWeeks => LocaleKeys.durationThreeWeeks.tr(),
+    _ => LocaleKeys.durationOpen.tr(),
   };
 }
 
 /// A start line only while the first day is still ahead.
-String? vowUpcomingStart(AppStrings l10n, String startsOn, String today) {
+String? vowUpcomingStart(String startsOn, String today) {
   if (startsOn.isEmpty || today.compareTo(startsOn) >= 0) return null;
-  if (startsOn == shiftDayKey(today, 1)) return l10n.startsTomorrowLabel;
-  return l10n.startsOnDay(startsOn);
+  if (startsOn == shiftDayKey(today, 1)) {
+    return LocaleKeys.startsTomorrowLabel.tr();
+  }
+  return LocaleKeys.startsOnDay.tr(namedArgs: {'day': startsOn});
 }
 
-String vowSpanLine(
-  AppStrings l10n, {
+String vowSpanLine({
   required int durationDays,
   required String startsOn,
   String? today,
 }) {
   final day = today ?? KeptDay.key();
-  if (vowHasEnded(startsOn, durationDays, day)) return l10n.vowFinished;
-  final length = vowLengthLabel(l10n, durationDays);
-  final start = vowUpcomingStart(l10n, startsOn, day);
+  if (vowHasEnded(startsOn, durationDays, day)) {
+    return LocaleKeys.vowFinished.tr();
+  }
+  final length = vowLengthLabel(durationDays);
+  final start = vowUpcomingStart(startsOn, day);
   if (start == null) return length;
   return '$length · $start';
 }
 
-String vowCategoryLabel(AppStrings l10n, String category) {
+String vowCategoryLabel(String category) {
   return switch (category) {
-    VowCategory.health => l10n.categoryHealth,
-    VowCategory.quit => l10n.categoryQuit,
-    VowCategory.move => l10n.categoryMove,
-    VowCategory.focus => l10n.categoryFocus,
-    _ => l10n.categoryCustom,
+    VowCategory.health => LocaleKeys.categoryHealth.tr(),
+    VowCategory.quit => LocaleKeys.categoryQuit.tr(),
+    VowCategory.move => LocaleKeys.categoryMove.tr(),
+    VowCategory.focus => LocaleKeys.categoryFocus.tr(),
+    _ => LocaleKeys.categoryCustom.tr(),
   };
 }
 
-String vowPolicyShort(AppStrings l10n, String policy) {
+String vowPolicyShort(String policy) {
   return switch (policy) {
-    VowPolicy.approval => l10n.policyApprovalShort,
-    VowPolicy.invite => l10n.policyInviteShort,
-    VowPolicy.closed => l10n.policyClosedShort,
-    _ => l10n.policyOpen,
+    VowPolicy.approval => LocaleKeys.policyApprovalShort.tr(),
+    VowPolicy.invite => LocaleKeys.policyInviteShort.tr(),
+    VowPolicy.closed => LocaleKeys.policyClosedShort.tr(),
+    _ => LocaleKeys.policyOpen.tr(),
   };
 }
 
-String vowPolicyChip(AppStrings l10n, String policy) {
+String vowPolicyChip(String policy) {
   return switch (policy) {
-    VowPolicy.approval => l10n.policyApproval,
-    VowPolicy.invite => l10n.policyInvite,
-    VowPolicy.closed => l10n.policyClosed,
-    _ => l10n.policyOpenToJoin,
+    VowPolicy.approval => LocaleKeys.policyApproval.tr(),
+    VowPolicy.invite => LocaleKeys.policyInvite.tr(),
+    VowPolicy.closed => LocaleKeys.policyClosed.tr(),
+    _ => LocaleKeys.policyOpenToJoin.tr(),
   };
 }
 
-String vowRoleLabel(AppStrings l10n, String role) {
+String vowRoleLabel(String role) {
   return switch (role) {
-    VowRole.owner => l10n.roleOwner,
-    VowRole.admin => l10n.roleAdmin,
-    _ => l10n.roleMember,
+    VowRole.owner => LocaleKeys.roleOwner.tr(),
+    VowRole.admin => LocaleKeys.roleAdmin.tr(),
+    _ => LocaleKeys.roleMember.tr(),
   };
 }
 
-String vowDayStatus(AppStrings l10n, bool? kept) {
-  if (kept == null) return l10n.statusQuiet;
-  return kept ? l10n.statusKept : l10n.statusBroke;
+String vowDayStatus(bool? kept) {
+  if (kept == null) return LocaleKeys.statusQuiet.tr();
+  return kept ? LocaleKeys.statusKept.tr() : LocaleKeys.statusBroke.tr();
 }

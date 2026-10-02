@@ -3,9 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../product/theme/kept_theme.dart';
-import '../../../product/init/language/localization.dart';
 import '../../../product/components/kept_widgets.dart';
 import '../data/auth_flow.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 /// Shared @username field used during registration and fallback setup.
 class UsernameForm extends StatefulWidget {
@@ -53,7 +54,7 @@ class _UsernameFormState extends State<UsernameForm> {
 
   Future<void> _submit() async {
     if (!isKeptUsernameValid(_controller.text)) {
-      setState(() => _error = context.l10n.usernameRules);
+      setState(() => _error = LocaleKeys.usernameRules.tr());
       return;
     }
 
@@ -76,7 +77,7 @@ class _UsernameFormState extends State<UsernameForm> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          widget.title ?? context.l10n.chooseUsername,
+          widget.title ?? LocaleKeys.chooseUsername.tr(),
           style: GoogleFonts.sora(
             fontSize: 28,
             fontWeight: FontWeight.w700,
@@ -87,7 +88,7 @@ class _UsernameFormState extends State<UsernameForm> {
         ),
         const SizedBox(height: 10),
         Text(
-          widget.subtitle ?? context.l10n.usernameSubtitle,
+          widget.subtitle ?? LocaleKeys.usernameSubtitle.tr(),
           style: GoogleFonts.manrope(
             fontSize: 14,
             height: 1.45,
@@ -120,7 +121,7 @@ class _UsernameFormState extends State<UsernameForm> {
               fontSize: 18,
               fontWeight: FontWeight.w700,
             ),
-            hintText: context.l10n.usernameHint,
+            hintText: LocaleKeys.usernameHint.tr(),
             hintStyle: GoogleFonts.manrope(color: context.kept.mist),
             filled: true,
             fillColor: context.kept.ink,
@@ -153,7 +154,7 @@ class _UsernameFormState extends State<UsernameForm> {
           const Center(child: CircularProgressIndicator.adaptive())
         else
           KeptPrimaryButton(
-            label: widget.buttonLabel ?? context.l10n.continueAction,
+            label: widget.buttonLabel ?? LocaleKeys.continueAction.tr(),
             onPressed: _submit,
           ),
       ],

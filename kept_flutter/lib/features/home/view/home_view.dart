@@ -8,7 +8,6 @@ import '../../../client.dart';
 import '../../../features/vows/domain/vow_codes.dart';
 import '../../../product/components/kept_widgets.dart';
 import '../../../product/init/dependency/dependency_items.dart';
-import '../../../product/init/language/localization.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/utility/activity_line.dart';
 import '../../../product/utility/layout/kept_breakpoints.dart';
@@ -16,6 +15,8 @@ import '../../auth/view/sign_in_sheet.dart';
 import '../view_model/home_view_model.dart';
 import 'blog_article_view.dart';
 import 'feed_comments_sheet.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 part 'widgets/greeting.dart';
 part 'widgets/open_vows.dart';
@@ -163,7 +164,7 @@ class HomeViewState extends ConsumerState<HomeView> {
                   ),
                   children: [
                     Text(
-                      context.l10n.feedLoadFailed(loadError),
+                      LocaleKeys.feedLoadFailed.tr(namedArgs: {'error': (loadError).toString()}),
                       style: TextStyle(color: KeptTheme.broke),
                     ),
                   ],
@@ -207,7 +208,7 @@ class HomeViewState extends ConsumerState<HomeView> {
                         ),
                         sliver: SliverToBoxAdapter(
                           child: Text(
-                            context.l10n.feedQuiet,
+                            LocaleKeys.feedQuiet.tr(),
                             style: GoogleFonts.manrope(
                               color: context.kept.mist,
                               height: 1.45,

@@ -4,10 +4,11 @@ import 'package:kept_client/kept_client.dart';
 
 import '../../../client.dart';
 import '../../../product/theme/kept_theme.dart';
-import '../../../product/init/language/localization.dart';
 import '../../shell/view/main_shell.dart';
 import '../data/auth_flow.dart';
 import 'username_form.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 /// Fallback when a signed-in user still has no global username.
 class UsernameSetupView extends StatefulWidget {
@@ -57,8 +58,8 @@ class _UsernameSetupViewState extends State<UsernameSetupView> {
                   child: SingleChildScrollView(
                     child: UsernameForm(
                       initialUsername: widget.initialUsername,
-                      title: context.l10n.chooseUsername,
-                      subtitle: context.l10n.usernameSubtitle,
+                      title: LocaleKeys.chooseUsername.tr(),
+                      subtitle: LocaleKeys.usernameSubtitle.tr(),
                       onSubmit: (name) async {
                         try {
                           await client.userProfileEdit.changeUserName(name);

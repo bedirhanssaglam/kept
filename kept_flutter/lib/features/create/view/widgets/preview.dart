@@ -19,7 +19,6 @@ class _VowPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     final trimmedTitle = title.trim();
     final trimmedRule = rule.trim();
     final startsOn = startsTomorrow
@@ -30,13 +29,13 @@ class _VowPreview extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          l10n.previewLead,
+          LocaleKeys.previewLead.tr(),
           style: GoogleFonts.manrope(color: context.kept.mist),
         ),
         const SizedBox(height: 10),
         VowRoomCard(
-          title: trimmedTitle.isEmpty ? l10n.previewEmptyTitle : trimmedTitle,
-          rule: trimmedRule.isEmpty ? l10n.previewEmptyRule : trimmedRule,
+          title: trimmedTitle.isEmpty ? LocaleKeys.previewEmptyTitle.tr() : trimmedTitle,
+          rule: trimmedRule.isEmpty ? LocaleKeys.previewEmptyRule.tr() : trimmedRule,
           category: category,
           joinPolicy: joinPolicy,
           memberCount: 1,

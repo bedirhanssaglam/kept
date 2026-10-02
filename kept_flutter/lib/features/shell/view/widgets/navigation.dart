@@ -32,7 +32,7 @@ class _KeptNavigationRail extends StatelessWidget {
                     ? Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          context.l10n.appTitle,
+                          LocaleKeys.appTitle.tr(),
                           style: GoogleFonts.sora(
                             fontSize: 22,
                             fontWeight: FontWeight.w700,
@@ -83,17 +83,17 @@ class _KeptNavigationRail extends StatelessWidget {
                     NavigationRailDestination(
                       icon: Icon(Icons.home_outlined),
                       selectedIcon: Icon(Icons.home_rounded),
-                      label: Text(context.l10n.navHome),
+                      label: Text(LocaleKeys.navHome.tr()),
                     ),
                     NavigationRailDestination(
                       icon: Icon(Icons.explore_outlined),
                       selectedIcon: Icon(Icons.explore_rounded),
-                      label: Text(context.l10n.navDiscover),
+                      label: Text(LocaleKeys.navDiscover.tr()),
                     ),
                     NavigationRailDestination(
                       icon: Icon(Icons.person_outline_rounded),
                       selectedIcon: Icon(Icons.person_rounded),
-                      label: Text(context.l10n.navProfile),
+                      label: Text(LocaleKeys.navProfile.tr()),
                     ),
                   ],
                 ),
@@ -113,7 +113,7 @@ class _KeptNavigationRail extends StatelessWidget {
                                 height: 44,
                                 width: double.infinity,
                                 child: CNButton(
-                                  label: context.l10n.newVow,
+                                  label: LocaleKeys.newVow.tr(),
                                   onPressed: onCreate,
                                   tint: KeptTheme.accent,
                                   height: 44,
@@ -134,7 +134,7 @@ class _KeptNavigationRail extends StatelessWidget {
                                 ),
                                 icon: Icon(Icons.add_rounded),
                                 label: Text(
-                                  context.l10n.newVow,
+                                  LocaleKeys.newVow.tr(),
                                   style: GoogleFonts.sora(
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -149,7 +149,7 @@ class _KeptNavigationRail extends StatelessWidget {
                         style: CNButtonStyle.filled,
                         tint: KeptTheme.accent,
                         materialIcon: Icons.add_rounded,
-                        tooltip: context.l10n.newVow,
+                        tooltip: LocaleKeys.newVow.tr(),
                       )
                     : FloatingActionButton(
                         onPressed: onCreate,
@@ -191,7 +191,7 @@ class _MaterialBottomBar extends StatelessWidget {
               child: _NavItem(
                 selected: index == 0,
                 icon: Icons.home_rounded,
-                label: context.l10n.navHome,
+                label: LocaleKeys.navHome.tr(),
                 onTap: () => onChanged(0),
               ),
             ),
@@ -199,7 +199,7 @@ class _MaterialBottomBar extends StatelessWidget {
               child: _NavItem(
                 selected: index == 1,
                 icon: Icons.explore_rounded,
-                label: context.l10n.navDiscover,
+                label: LocaleKeys.navDiscover.tr(),
                 onTap: () => onChanged(1),
               ),
             ),
@@ -207,7 +207,7 @@ class _MaterialBottomBar extends StatelessWidget {
               child: _NavItem(
                 selected: index == 2,
                 icon: Icons.person_rounded,
-                label: context.l10n.navProfile,
+                label: LocaleKeys.navProfile.tr(),
                 onTap: () => onChanged(2),
               ),
             ),

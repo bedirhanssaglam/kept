@@ -8,18 +8,18 @@ class _VowDraft {
   final String category;
 }
 
-List<_VowDraft> _drafts(AppStrings l10n) => [
+List<_VowDraft> _drafts() => [
   _VowDraft(
-    l10n.exampleWaterTitle,
-    l10n.exampleWaterRule,
+    LocaleKeys.exampleWaterTitle.tr(),
+    LocaleKeys.exampleWaterRule.tr(),
     VowCategory.health,
   ),
   _VowDraft(
-    l10n.examplePhoneTitle,
-    l10n.examplePhoneRule,
+    LocaleKeys.examplePhoneTitle.tr(),
+    LocaleKeys.examplePhoneRule.tr(),
     VowCategory.quit,
   ),
-  _VowDraft(l10n.exampleWalkTitle, l10n.exampleWalkRule, VowCategory.move),
+  _VowDraft(LocaleKeys.exampleWalkTitle.tr(), LocaleKeys.exampleWalkRule.tr(), VowCategory.move),
 ];
 
 class _ExampleList extends StatelessWidget {
@@ -30,12 +30,12 @@ class _ExampleList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final drafts = _drafts(context.l10n);
+    final drafts = _drafts();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          context.l10n.examplesLead,
+          LocaleKeys.examplesLead.tr(),
           style: GoogleFonts.manrope(color: context.kept.mist),
         ),
         const SizedBox(height: 10),

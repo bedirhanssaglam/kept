@@ -8,7 +8,8 @@ import '../../../product/theme/kept_theme.dart';
 import '../../../product/components/async_data_widget.dart';
 import '../../../product/components/vow_room_card.dart';
 import '../view_model/discover_view_model.dart';
-import '../../../product/init/language/localization.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 class DiscoverView extends ConsumerStatefulWidget {
   const DiscoverView({
@@ -59,7 +60,7 @@ class DiscoverViewState extends ConsumerState<DiscoverView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        context.l10n.navDiscover,
+                        LocaleKeys.navDiscover.tr(),
                         style: GoogleFonts.sora(
                           fontSize: wide ? 32 : 28,
                           fontWeight: FontWeight.w700,
@@ -69,7 +70,7 @@ class DiscoverViewState extends ConsumerState<DiscoverView> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        context.l10n.discoverSubtitle,
+                        LocaleKeys.discoverSubtitle.tr(),
                         style: GoogleFonts.manrope(
                           color: context.kept.mist,
                           height: 1.4,
@@ -102,7 +103,7 @@ class DiscoverViewState extends ConsumerState<DiscoverView> {
                         ),
                         children: [
                           Text(
-                            context.l10n.couldNotLoadVows('$error'),
+                            LocaleKeys.couldNotLoadVows.tr(namedArgs: {'error': '$error'}),
                             style: TextStyle(color: KeptTheme.broke),
                           ),
                         ],
@@ -119,7 +120,7 @@ class DiscoverViewState extends ConsumerState<DiscoverView> {
                             ),
                             children: [
                               Text(
-                                context.l10n.noPublicVows,
+                                LocaleKeys.noPublicVows.tr(),
                                 style: GoogleFonts.manrope(
                                   color: context.kept.mist,
                                   height: 1.45,

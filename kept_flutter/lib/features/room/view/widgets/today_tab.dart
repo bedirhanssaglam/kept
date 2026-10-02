@@ -46,11 +46,10 @@ class _TodayTabState extends State<_TodayTab> {
       broken: board.brokenCount,
     );
     final progress = percent == null ? 0.0 : percent / 100;
-    final l10n = context.l10n;
-    final quietLabel = l10n.stillQuiet(board.pendingCount);
+    final quietLabel = LocaleKeys.stillQuiet.plural(board.pendingCount);
     final verdict = percent == null
-        ? l10n.noOneHasSpoken
-        : l10n.percentKept(percent);
+        ? LocaleKeys.noOneHasSpoken.tr()
+        : LocaleKeys.percentKept.tr(namedArgs: {'percent': (percent).toString()});
     final myStatus = widget.myUserId.isEmpty
         ? null
         : board.members
@@ -62,7 +61,7 @@ class _TodayTabState extends State<_TodayTab> {
     final started = vowHasStarted(room.startsOn, today);
     final ended = vowHasEnded(room.startsOn, room.durationDays, today);
     final openToday = started && !ended;
-    final policyLabel = vowPolicyChip(l10n, room.joinPolicy);
+    final policyLabel = vowPolicyChip(room.joinPolicy);
     final pendingRequests = board.pendingRequestCount;
 
     return Column(
@@ -81,11 +80,11 @@ class _TodayTabState extends State<_TodayTab> {
                   ),
                   if (room.isOfficial) ...[
                     const SizedBox(width: 8),
-                    KeptChip(label: l10n.official, color: KeptTheme.accent),
+                    KeptChip(label: LocaleKeys.official.tr(), color: KeptTheme.accent),
                   ],
                   const SizedBox(width: 8),
                   KeptChip(
-                    label: vowLengthLabel(l10n, room.durationDays),
+                    label: vowLengthLabel(room.durationDays),
                     color: context.kept.mist,
                   ),
                 ],
@@ -102,7 +101,7 @@ class _TodayTabState extends State<_TodayTab> {
               if (!openToday) ...[
                 const SizedBox(height: 8),
                 Text(
-                  ended ? l10n.vowFinished : l10n.vowNotStarted,
+                  ended ? LocaleKeys.vowFinished.tr() : LocaleKeys.vowNotStarted.tr(),
                   style: GoogleFonts.manrope(
                     color: KeptTheme.pending,
                     fontWeight: FontWeight.w700,
@@ -159,17 +158,14 @@ class _TodayTabState extends State<_TodayTab> {
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            l10n.todayLine(board.dayKey),
+                            LocaleKeys.todayLine.tr(namedArgs: {'day': (board.dayKey).toString()}),
                             style: GoogleFonts.manrope(
                               color: context.kept.mist,
                               fontSize: 12,
                             ),
                           ),
                           Text(
-                            l10n.yesterdayLine(
-                              board.yesterdayKeptCount,
-                              board.yesterdayBrokenCount,
-                            ),
+                            LocaleKeys.yesterdayLine.tr(namedArgs: {'kept': (board.yesterdayKeptCount).toString(), 'broke': (board.yesterdayBrokenCount).toString()}),
                             style: GoogleFonts.manrope(
                               color: context.kept.mist,
                               fontSize: 12,
@@ -197,8 +193,8 @@ class _TodayTabState extends State<_TodayTab> {
                     children: [
                       Text(
                         board.myRequestStatus == 'pending'
-                            ? l10n.waitingApproval
-                            : l10n.joinToCheckIn,
+                            ? LocaleKeys.waitingApproval.tr()
+                            : LocaleKeys.joinToCheckIn.tr(),
                         style: GoogleFonts.sora(
                           fontWeight: FontWeight.w700,
                           color: context.kept.paper,
@@ -207,10 +203,10 @@ class _TodayTabState extends State<_TodayTab> {
                       const SizedBox(height: 8),
                       Text(
                         switch (room.joinPolicy) {
-                          VowPolicy.approval => l10n.joinApprovalHelp,
-                          VowPolicy.invite => l10n.joinInviteHelp,
-                          VowPolicy.closed => l10n.joinClosedHelp,
-                          _ => l10n.joinOpenHelp,
+                          VowPolicy.approval => LocaleKeys.joinApprovalHelp.tr(),
+                          VowPolicy.invite => LocaleKeys.joinInviteHelp.tr(),
+                          VowPolicy.closed => LocaleKeys.joinClosedHelp.tr(),
+                          _ => LocaleKeys.joinOpenHelp.tr(),
                         },
                         style: GoogleFonts.manrope(
                           color: context.kept.mist,
@@ -229,7 +225,7 @@ class _TodayTabState extends State<_TodayTab> {
                             fontWeight: FontWeight.w700,
                           ),
                           decoration: InputDecoration(
-                            hintText: context.l10n.inviteCode,
+                            hintText: LocaleKeys.inviteCode.tr(),
                             hintStyle: TextStyle(
                               color: context.kept.mist,
                               letterSpacing: 0,
@@ -261,10 +257,10 @@ class _TodayTabState extends State<_TodayTab> {
                         const SizedBox(height: 12),
                         KeptPrimaryButton(
                           label: room.joinPolicy == VowPolicy.approval
-                              ? l10n.requestToJoin
+                              ? LocaleKeys.requestToJoin.tr()
                               : room.joinPolicy == VowPolicy.invite
-                              ? l10n.joinWithCode
-                              : l10n.joinThisVow,
+                              ? LocaleKeys.joinWithCode.tr()
+                              : LocaleKeys.joinThisVow.tr(),
                           onPressed: busy
                               ? null
                               : () {
@@ -276,7 +272,7 @@ class _TodayTabState extends State<_TodayTab> {
                                       ).showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            l10n.enterInviteToJoin,
+                                            LocaleKeys.enterInviteToJoin.tr(),
                                           ),
                                         ),
                                       );
@@ -301,7 +297,7 @@ class _TodayTabState extends State<_TodayTab> {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: widget.onCreateInvite,
-                          child: Text(l10n.inviteCode),
+                          child: Text(LocaleKeys.inviteCode.tr()),
                         ),
                       ),
                     if (widget.onCreateInvite != null &&
@@ -314,7 +310,7 @@ class _TodayTabState extends State<_TodayTab> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(l10n.requests),
+                              Text(LocaleKeys.requests.tr()),
                               if (pendingRequests > 0) ...[
                                 const SizedBox(width: 8),
                                 Container(
@@ -366,9 +362,7 @@ class _TodayTabState extends State<_TodayTab> {
                 if (board.silentNames.length < board.pendingCount) ...[
                   const SizedBox(height: 8),
                   Text(
-                    l10n.andNMore(
-                      board.pendingCount - board.silentNames.length,
-                    ),
+                    LocaleKeys.andNMore.tr(namedArgs: {'count': (board.pendingCount - board.silentNames.length).toString()}),
                     style: GoogleFonts.manrope(
                       color: context.kept.mist,
                       fontSize: 12,
@@ -380,7 +374,7 @@ class _TodayTabState extends State<_TodayTab> {
               Row(
                 children: [
                   Text(
-                    l10n.members,
+                    LocaleKeys.members.tr(),
                     style: GoogleFonts.sora(
                       fontWeight: FontWeight.w700,
                       color: context.kept.paper,
@@ -390,7 +384,7 @@ class _TodayTabState extends State<_TodayTab> {
                   TextButton(
                     onPressed: widget.onSeeMembers,
                     child: Text(
-                      l10n.seeAllMembers(board.memberTotal),
+                      LocaleKeys.seeAllMembers.tr(namedArgs: {'count': (board.memberTotal).toString()}),
                       style: GoogleFonts.manrope(
                         color: KeptTheme.accent,
                         fontWeight: FontWeight.w700,
@@ -420,7 +414,7 @@ class _TodayTabState extends State<_TodayTab> {
                 ? Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Text(
-                      ended ? l10n.vowFinished : l10n.vowNotStarted,
+                      ended ? LocaleKeys.vowFinished.tr() : LocaleKeys.vowNotStarted.tr(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.sora(
                         fontWeight: FontWeight.w700,
@@ -446,7 +440,7 @@ class _TodayTabState extends State<_TodayTab> {
                       ),
                     ),
                     child: Text(
-                      myStatus == true ? l10n.loggedKept : l10n.loggedBroke,
+                      myStatus == true ? LocaleKeys.loggedKept.tr() : LocaleKeys.loggedBroke.tr(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.sora(
                         fontWeight: FontWeight.w700,
@@ -464,7 +458,7 @@ class _TodayTabState extends State<_TodayTab> {
                                 height: 48,
                                 width: double.infinity,
                                 child: CNButton(
-                                  label: l10n.iKeptIt,
+                                  label: LocaleKeys.iKeptIt.tr(),
                                   onPressed: busy ? null : widget.onKept,
                                   enabled: !busy,
                                   tint: KeptTheme.kept,
@@ -485,7 +479,7 @@ class _TodayTabState extends State<_TodayTab> {
                                   ),
                                 ),
                                 child: Text(
-                                  l10n.iKeptIt,
+                                  LocaleKeys.iKeptIt.tr(),
                                   style: GoogleFonts.sora(
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -499,7 +493,7 @@ class _TodayTabState extends State<_TodayTab> {
                                 height: 48,
                                 width: double.infinity,
                                 child: CNButton(
-                                  label: l10n.iBrokeIt,
+                                  label: LocaleKeys.iBrokeIt.tr(),
                                   onPressed: busy ? null : widget.onBroke,
                                   enabled: !busy,
                                   tint: KeptTheme.broke,
@@ -522,7 +516,7 @@ class _TodayTabState extends State<_TodayTab> {
                                   ),
                                 ),
                                 child: Text(
-                                  l10n.iBrokeIt,
+                                  LocaleKeys.iBrokeIt.tr(),
                                   style: GoogleFonts.sora(
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -548,18 +542,18 @@ class _MemberTile extends StatelessWidget {
     final String status;
     if (member.kept == null) {
       tone = KeptTheme.pending;
-      status = context.l10n.statusQuiet;
+      status = LocaleKeys.statusQuiet.tr();
     } else if (member.kept!) {
       tone = KeptTheme.kept;
-      status = context.l10n.statusKept;
+      status = LocaleKeys.statusKept.tr();
     } else {
       tone = KeptTheme.broke;
-      status = context.l10n.statusBroke;
+      status = LocaleKeys.statusBroke.tr();
     }
 
     final roleLabel = switch (member.role) {
-      VowRole.owner => context.l10n.roleOwner,
-      VowRole.admin => context.l10n.roleAdmin,
+      VowRole.owner => LocaleKeys.roleOwner.tr(),
+      VowRole.admin => LocaleKeys.roleAdmin.tr(),
       _ => null,
     };
 

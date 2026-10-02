@@ -7,8 +7,9 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 import '../../../client.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/components/kept_widgets.dart';
-import '../../../product/init/language/localization.dart';
 import 'sign_in_view.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../../product/init/language/locale_keys.g.dart';
 
 Future<bool> showSignInSheet(BuildContext context) async {
   final result = await showModalBottomSheet<bool>(
@@ -48,7 +49,7 @@ Future<bool> showSignInSheet(BuildContext context) async {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          context.l10n.keepYourWord,
+                          LocaleKeys.keepYourWord.tr(),
                           style: GoogleFonts.sora(
                             fontSize: 28,
                             fontWeight: FontWeight.w700,
@@ -57,7 +58,7 @@ Future<bool> showSignInSheet(BuildContext context) async {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          context.l10n.signInSheetBody,
+                          LocaleKeys.signInSheetBody.tr(),
                           style: GoogleFonts.manrope(
                             fontSize: 14,
                             color: context.kept.mist,
@@ -81,7 +82,7 @@ Future<bool> showSignInSheet(BuildContext context) async {
                             ),
                             const SizedBox(height: 14),
                             Text(
-                              context.l10n.signedIn,
+                              LocaleKeys.signedIn.tr(),
                               style: GoogleFonts.sora(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w700,
@@ -90,7 +91,7 @@ Future<bool> showSignInSheet(BuildContext context) async {
                             ),
                             const SizedBox(height: 22),
                             KeptPrimaryButton(
-                              label: context.l10n.continueAction,
+                              label: LocaleKeys.continueAction.tr(),
                               onPressed: () => Navigator.of(context).pop(true),
                             ),
                           ],
