@@ -35,8 +35,8 @@ dependencies:
   google_fonts: ^8.1.0
   kept_client:
     path: ../kept_client
-  serverpod_auth_idp_flutter: 4.0.0
-  serverpod_flutter: 4.0.0
+  serverpod_auth_idp_flutter: 4.0.3
+  serverpod_flutter: 4.0.3
   shared_preferences: ^2.5.5
 
 dev_dependencies:

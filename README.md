@@ -1,57 +1,99 @@
 # Kept
 
-Public vows. Shared accountability.
+A public promise, checked once a day, in front of the people who joined it.
 
-Join a promise like “drink 1L of water” or “no cigarettes today”. Check in every day. The room shows who **kept** it and who **broke** it — live.
+You open a vow — seven days, twenty-one, or open-ended — and every member answers the same question before midnight: **I kept it** or **I broke it**. The room board updates live. Nobody has to refresh.
 
-Built for the Serverpod **Build Something Real** hackathon.
+**Live now**
 
-## Product rules (MVP)
-
-- Discover public vow rooms
-- Create a vow (title + daily rule + category)
-- Join + daily check-in: kept / broke
-- Live board via Serverpod streams
-- No chat feed, no AI coach, no streaks spam
-
-## Stack
-
-| Package | Role |
+| | |
 |---|---|
-| `kept_server` | Serverpod 4 backend |
-| `kept_client` | Generated client |
-| `kept_flutter` | Flutter app (mobile + web) |
+| App | [kept-vows.serverpod.space](https://kept-vows.serverpod.space/) |
+| API | [kept-vows.api.serverpod.space](https://kept-vows.api.serverpod.space/) |
 
-## Architecture
+Built for the Serverpod **Build Something Real** hackathon. The live board is a Serverpod stream. Sign-in is Serverpod email auth. The deployment is Serverpod Cloud.
 
-Server models are grouped under `lib/src/models/` (`vows/room`, `vows/chat`, `vows/feed`, `vows/check_in`, `vows/profile`, `auth`). Endpoints live in `lib/src/endpoints/`.
+## Two-minute demo
 
-Flutter follows a feature `view` layout plus shared `product` code. Copy is `easy_localization` JSON (`assets/translations`, English fallback, Turkish when the device language is Turkish). Screens that talk to the server read `vowRepositoryProvider` (Riverpod).
+1. Open the live app and look at **Discover**. The first rooms are already there.
+2. Create a vow. Pick **21 days** and **Starts tomorrow**, or take one of the examples (a liter of water, no phone in bed, a twenty-minute walk). The card under the form is the room other people will join.
+3. Sign in with email. The verification code arrives in that inbox. On a local server with no SMTP configured, the code is printed in the API log instead.
+4. Open the room. You are the only name on today’s board.
+5. From a second browser, join the same room and press **I kept it**. The first screen moves without a reload: the count, the percent, and the name.
+6. Leave the other person quiet. The board still says so. Silence is the point.
 
-```
-kept_flutter/lib/
-  product/            theme, components, language, service, providers
-  features/<name>/view
-```
+The interface is English by default and Turkish when the device language is Turkish. Light and dark are both in the profile.
 
-## Run
+## Run it locally
 
-Requires Flutter **3.44.4+** (pinned **3.47.4** via FVM).
+Serverpod **4.0.3** needs **Flutter 3.44.4+** (Dart **3.12.2+**). 
 
 ```bash
-export PATH="$HOME/fvm/versions/3.47.4/bin:$HOME/.pub-cache/bin:$PATH"
-cd ~/kept
-serverpod start
+git clone https://github.com/flutter/flutter.git -b stable ~/development/flutter
+~/development/flutter/bin/flutter upgrade
+export PATH="$HOME/development/flutter/bin:$PATH"  
+flutter --version   # Flutter 3.44.4+ / Dart 3.12.2+
+dart install serverpod_cli
+# macOS: put the CLI on PATH
+export PATH="$HOME/Library/Application Support/Dart/install/bin:$PATH"
+serverpod version   # 4.0.3
 ```
 
-Open the project folder in Cursor for Serverpod MCP + hot reload.
+The scripts prefer `~/development/flutter` when it exists (`KEPT_FLUTTER_ROOT` overrides). 
 
-Email auth codes appear in the Serverpod CLI during development.
+From the repository root:
 
-## Demo script
+| Script | What comes up |
+|---|---|
+| `./scripts/all.sh` | API, web at http://127.0.0.1:7357, and a simulator if one is already booted |
+| `./scripts/backend.sh` | API on port 8080, Insights on 8081, embedded Postgres |
+| `./scripts/web.sh` | Flutter web at http://127.0.0.1:7357 (start the API first) |
+| `./scripts/mobile.sh` | The booted simulator, talking to localhost |
 
-1. Open Discover — seeded vows appear  
-2. Sign in → join “Drink 1 liter of water”  
-3. Tap **I kept it**  
-4. Second browser/device: same room updates live  
-5. Other user taps **I broke it** — board stats move
+A phone on the desk cannot use localhost. Give it this computer’s address:
+
+```bash
+SERVER_URL=http://<lan-ip>:8080/ ./scripts/mobile.sh <device-id>
+```
+
+Point a build at the live API with:
+
+```bash
+SERVER_URL=https://kept-vows.api.serverpod.space/ ./scripts/mobile.sh <device-id>
+```
+
+The Cloud database and the database inside `serverpod start` are not the same. Rooms you create locally stay on this machine.
+
+## What the product is
+
+Kept is one loop.
+
+- A vow has a title, a daily rule, a category, a length, and a start day.
+- Anyone can join an open room. Approval, invite, and closed rooms exist when the vow should stay smaller.
+- Each member gets one check-in per local calendar day, not per UTC day. The phone sends its own day.
+- The board shows who kept it, who broke it, and who has not spoken. Yesterday stays visible.
+
+The home feed and the room thread sit beside that loop. The thing to watch is the board.
+
+## How it is built
+
+```
+kept_server/     Serverpod API, auth, Postgres models, web host
+kept_client/     Generated client. Do not edit by hand.
+kept_flutter/    The app. Features live under lib/features/<name>/view
+scripts/         backend, web, mobile, and all three together
+```
+
+Sign-in, check-in, and the room stream are Serverpod endpoints. `serverpod generate` rewrites `kept_client` after a model or endpoint change. Schema changes go through `serverpod create-migration` inside `kept_server`.
+
+Copy is JSON in `kept_flutter/assets/translations`, English and Turkish. There is no generated arb file.
+
+## Deploy
+
+The live project id is `kept-vows`. From `kept_server`, with Flutter 3.44.4+ and Serverpod 4.0.3 on `PATH`:
+
+```bash
+scloud deploy
+```
+
+Cloud applies migrations and serves the web build. Details: [Serverpod Cloud](https://docs.serverpod.dev/cloud).

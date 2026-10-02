@@ -17,3 +17,7 @@ pubspec_overrides.yaml
 
 # Serverpod Cloud CLI
 .scloud/
+
+# FVM (this repo uses a normal Flutter install; see README)
+.fvm/
+.fvmrc
