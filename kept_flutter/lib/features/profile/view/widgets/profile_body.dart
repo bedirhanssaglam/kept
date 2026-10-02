@@ -1,14 +1,18 @@
 part of '../profile_view.dart';
 
 class _SignedOutBody extends StatelessWidget {
-  const _SignedOutBody({required this.onSignIn});
+  const _SignedOutBody({
+    required this.onSignIn,
+    required this.bottomPadding,
+  });
 
   final VoidCallback onSignIn;
+  final double bottomPadding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
+      padding: EdgeInsets.fromLTRB(24, 32, 24, bottomPadding + 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

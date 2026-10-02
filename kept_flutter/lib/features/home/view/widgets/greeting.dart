@@ -34,7 +34,7 @@ class _HomeGreeting extends StatelessWidget {
                 Text(
                   title,
                   style: GoogleFonts.sora(
-                    fontSize: 26,
+                    fontSize: 18,
                     fontWeight: FontWeight.w700,
                     letterSpacing: -0.6,
                     color: context.kept.paper,
@@ -50,19 +50,6 @@ class _HomeGreeting extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          KeptNativeIconButton(
-            symbol: 'bell',
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(context.l10n.notificationsSoon)),
-              );
-            },
-            size: 40,
-            style: CNButtonStyle.glass,
-            tint: context.kept.paper,
-            materialIcon: Icons.notifications_none_rounded,
-            tooltip: context.l10n.notifications,
           ),
         ],
       ),

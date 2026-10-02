@@ -6,20 +6,19 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
 import '../../../features/vows/domain/vow_codes.dart';
-import '../../../product/utility/activity_line.dart';
-import '../../../product/utility/layout/kept_breakpoints.dart';
-import '../../../product/theme/kept_theme.dart';
-import '../../../product/components/kept_native.dart';
 import '../../../product/components/kept_widgets.dart';
 import '../../../product/init/dependency/dependency_items.dart';
-import '../view_model/home_view_model.dart';
 import '../../../product/init/language/localization.dart';
+import '../../../product/theme/kept_theme.dart';
+import '../../../product/utility/activity_line.dart';
+import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../auth/view/sign_in_sheet.dart';
+import '../view_model/home_view_model.dart';
 import 'blog_article_view.dart';
 import 'feed_comments_sheet.dart';
 
-part 'widgets/open_vows.dart';
 part 'widgets/greeting.dart';
+part 'widgets/open_vows.dart';
 part 'widgets/posts.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -56,10 +55,7 @@ class HomeViewState extends ConsumerState<HomeView> {
 
   void _onScroll() {
     final data = ref.read(homeViewModelProvider).valueOrNull;
-    if (data == null ||
-        !data.hasMore ||
-        data.loadingMore ||
-        data.feed.isLoading) {
+    if (data == null || !data.hasMore || data.loadingMore || data.feed.isLoading) {
       return;
     }
     if (!_scroll.hasClients) return;
@@ -138,9 +134,7 @@ class HomeViewState extends ConsumerState<HomeView> {
         : null;
     final loadingMore = data?.loadingMore ?? false;
     final width = MediaQuery.sizeOf(context).width;
-    final sidePad = width > KeptBreakpoints.contentMax
-        ? (width - KeptBreakpoints.contentMax) / 2
-        : 0.0;
+    final sidePad = width > KeptBreakpoints.contentMax ? (width - KeptBreakpoints.contentMax) / 2 : 0.0;
 
     return ColoredBox(
       color: context.kept.void_,
@@ -238,8 +232,7 @@ class HomeViewState extends ConsumerState<HomeView> {
                               );
                             }
                             final card = feed[index];
-                            if (card.type == 'article' &&
-                                card.article != null) {
+                            if (card.type == 'article' && card.article != null) {
                               return _ArticlePost(
                                 card: card,
                                 onOpen: () => _openArticle(card.article!),
@@ -248,8 +241,7 @@ class HomeViewState extends ConsumerState<HomeView> {
                             if (card.activity != null) {
                               return _ActivityPost(
                                 card: card,
-                                onOpenRoom: () =>
-                                    widget.onOpenRoom(card.activity!.roomId),
+                                onOpenRoom: () => widget.onOpenRoom(card.activity!.roomId),
                                 onLike: () => _toggleLike(card),
                                 onComment: () => _openComments(card),
                               );

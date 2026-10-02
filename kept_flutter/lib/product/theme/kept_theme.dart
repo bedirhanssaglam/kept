@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 /// Surfaces that change between light and dark.
 class KeptPalette extends ThemeExtension<KeptPalette> {
@@ -119,12 +120,47 @@ abstract final class KeptTheme {
       onSurface: onSurface,
     );
 
+    final pinText = TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: palette.paper,
+      height: 1.1,
+    );
+    final pinDecoration = BoxDecoration(
+      color: palette.panel,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: palette.line),
+    );
+    final authIdpTheme = AuthIdpTheme.defaultTheme(
+      borderColor: accent,
+      defaultPinTheme: PinTheme(
+        height: 48,
+        textStyle: pinText,
+        decoration: pinDecoration,
+      ),
+      focusedPinTheme: PinTheme(
+        height: 48,
+        textStyle: pinText,
+        decoration: pinDecoration.copyWith(
+          border: Border.all(color: accent, width: 1.5),
+        ),
+      ),
+      errorPinTheme: PinTheme(
+        height: 48,
+        textStyle: pinText.copyWith(color: Colors.white),
+        decoration: BoxDecoration(
+          color: broke,
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
       scaffoldBackgroundColor: palette.void_,
       colorScheme: scheme,
-      extensions: [palette],
+      extensions: [palette, authIdpTheme],
       textTheme: body.copyWith(
         displayLarge: display.displayLarge?.copyWith(
           color: palette.paper,

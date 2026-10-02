@@ -39,11 +39,13 @@ require_flutter() {
     echo "  or set KEPT_FLUTTER_ROOT to that SDK directory." >&2
     exit 1
   fi
-  local flutter_line dart_line flutter_ver dart_ver
-  flutter_line="$(flutter --version 2>/dev/null | head -n 1 || true)"
-  dart_line="$(dart --version 2>/dev/null || true)"
-  flutter_ver="$(printf '%s\n' "${flutter_line}" | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | head -n 1 || true)"
-  dart_ver="$(printf '%s\n' "${dart_line}" | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' | head -n 1 || true)"
+  # Avoid `head` closing the pipe early — that can empty flutter --version.
+  local flutter_ver dart_ver
+  flutter_ver="$(flutter --version 2>/dev/null | sed -nE 's/^Flutter ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p' | sed -n '1p')"
+  dart_ver="$(dart --version 2>/dev/null | sed -nE 's/.*version: ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p' | sed -n '1p')"
+  if [[ -z "${dart_ver}" ]]; then
+    dart_ver="$(flutter --version 2>/dev/null | sed -nE 's/^Tools • Dart ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p' | sed -n '1p')"
+  fi
 
   if [[ -z "${flutter_ver}" ]] || [[ -z "${dart_ver}" ]]; then
     echo "Could not read Flutter / Dart versions. Install Flutter 3.44.4+ from https://docs.flutter.dev/get-started/install" >&2

@@ -23,9 +23,7 @@ class _PostActions extends StatelessWidget {
             GestureDetector(
               onTap: onLike,
               child: Icon(
-                card.likedByMe
-                    ? Icons.favorite_rounded
-                    : Icons.favorite_border_rounded,
+                card.likedByMe ? Icons.favorite_rounded : Icons.favorite_border_rounded,
                 color: card.likedByMe ? KeptTheme.broke : context.kept.paper,
                 size: 26,
               ),
@@ -133,10 +131,6 @@ class _ActivityPost extends StatelessWidget {
                   fontSize: 12,
                   color: context.kept.mist,
                 ),
-              ),
-              IconButton(
-                onPressed: onOpenRoom,
-                icon: Icon(Icons.more_horiz, color: context.kept.mist),
               ),
             ],
           ),

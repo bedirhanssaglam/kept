@@ -7,18 +7,18 @@ import 'package:kept_client/kept_client.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
-import '../../../product/utility/layout/kept_breakpoints.dart';
-import '../../../product/theme/kept_theme.dart';
-import '../../../product/components/kept_native.dart';
-import '../../../product/components/async_data_widget.dart';
-import '../../../product/components/kept_widgets.dart';
-import '../view_model/profile_state.dart';
-import '../view_model/profile_view_model.dart';
-import '../../../product/init/language/locale_enums.dart';
 import '../../../features/vows/domain/vow_labels.dart';
+import '../../../product/components/async_data_widget.dart';
+import '../../../product/components/kept_native.dart';
+import '../../../product/components/kept_widgets.dart';
+import '../../../product/init/language/locale_enums.dart';
 import '../../../product/init/language/localization.dart';
 import '../../../product/init/theme/appearance.dart';
+import '../../../product/theme/kept_theme.dart';
+import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../auth/view/sign_in_sheet.dart';
+import '../view_model/profile_state.dart';
+import '../view_model/profile_view_model.dart';
 
 part 'widgets/preferences.dart';
 part 'widgets/profile_body.dart';
@@ -74,7 +74,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
           onData: (state) {
             final profile = state?.profile.valueOrNull;
             if (state == null || !state.signedIn || profile == null) {
-              return _SignedOutBody(onSignIn: _signIn);
+              return _SignedOutBody(onSignIn: _signIn, bottomPadding: 24);
             }
             return RefreshIndicator(
               color: KeptTheme.accent,
@@ -82,10 +82,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
               onRefresh: refresh,
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final sidePad =
-                      constraints.maxWidth > KeptBreakpoints.contentMax
-                      ? (constraints.maxWidth - KeptBreakpoints.contentMax) / 2
-                      : 0.0;
+                  final sidePad = constraints.maxWidth > KeptBreakpoints.contentMax ? (constraints.maxWidth - KeptBreakpoints.contentMax) / 2 : 0.0;
                   return ListView(
                     padding: EdgeInsets.fromLTRB(
                       20 + sidePad,
@@ -133,9 +130,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        profile.rooms.isEmpty
-                            ? context.l10n.roomsEmptyHint
-                            : context.l10n.roomsTapHint,
+                        profile.rooms.isEmpty ? context.l10n.roomsEmptyHint : context.l10n.roomsTapHint,
                         style: GoogleFonts.manrope(
                           color: context.kept.mist,
                           fontSize: 13,
@@ -167,11 +162,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                           ),
                           child: Column(
                             children: [
-                              for (
-                                var i = 0;
-                                i < profile.rooms.length;
-                                i++
-                              ) ...[
+                              for (var i = 0; i < profile.rooms.length; i++) ...[
                                 if (i > 0)
                                   Divider(
                                     height: 1,

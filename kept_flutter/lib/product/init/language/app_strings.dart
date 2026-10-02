@@ -8,39 +8,26 @@ final class AppStrings {
     namedArgs: {'hello': hello.toString(), 'name': name.toString()},
   );
   String vowsStillOpen(int count) => 'vowsStillOpen'.plural(count);
-  String percentKept(int percent) =>
-      'percentKept'.tr(namedArgs: {'percent': percent.toString()});
+  String percentKept(int percent) => 'percentKept'.tr(namedArgs: {'percent': percent.toString()});
   String stillQuiet(int count) => 'stillQuiet'.plural(count);
-  String andNMore(int count) =>
-      'andNMore'.tr(namedArgs: {'count': count.toString()});
-  String feedLoadFailed(String error) =>
-      'feedLoadFailed'.tr(namedArgs: {'error': error.toString()});
-  String timeMinutes(int count) =>
-      'timeMinutes'.tr(namedArgs: {'count': count.toString()});
-  String timeHours(int count) =>
-      'timeHours'.tr(namedArgs: {'count': count.toString()});
-  String timeDays(int count) =>
-      'timeDays'.tr(namedArgs: {'count': count.toString()});
+  String andNMore(int count) => 'andNMore'.tr(namedArgs: {'count': count.toString()});
+  String feedLoadFailed(String error) => 'feedLoadFailed'.tr(namedArgs: {'error': error.toString()});
+  String timeMinutes(int count) => 'timeMinutes'.tr(namedArgs: {'count': count.toString()});
+  String timeHours(int count) => 'timeHours'.tr(namedArgs: {'count': count.toString()});
+  String timeDays(int count) => 'timeDays'.tr(namedArgs: {'count': count.toString()});
   String likeCount(int count) => 'likeCount'.plural(count);
   String viewComments(int count) => 'viewComments'.plural(count);
-  String couldNotLoadVows(String error) =>
-      'couldNotLoadVows'.tr(namedArgs: {'error': error.toString()});
+  String couldNotLoadVows(String error) => 'couldNotLoadVows'.tr(namedArgs: {'error': error.toString()});
   String memberCount(int count) => 'memberCount'.plural(count);
-  String couldNotLoadProfile(String error) =>
-      'couldNotLoadProfile'.tr(namedArgs: {'error': error.toString()});
-  String membersTitle(String title) =>
-      'membersTitle'.tr(namedArgs: {'title': title.toString()});
-  String inRoom(int count) =>
-      'inRoom'.tr(namedArgs: {'count': count.toString()});
-  String tabChatCount(int count) =>
-      'tabChatCount'.tr(namedArgs: {'count': count.toString()});
-  String todayLine(String day) =>
-      'todayLine'.tr(namedArgs: {'day': day.toString()});
+  String couldNotLoadProfile(String error) => 'couldNotLoadProfile'.tr(namedArgs: {'error': error.toString()});
+  String membersTitle(String title) => 'membersTitle'.tr(namedArgs: {'title': title.toString()});
+  String inRoom(int count) => 'inRoom'.tr(namedArgs: {'count': count.toString()});
+  String tabChatCount(int count) => 'tabChatCount'.tr(namedArgs: {'count': count.toString()});
+  String todayLine(String day) => 'todayLine'.tr(namedArgs: {'day': day.toString()});
   String yesterdayLine(int kept, int broke) => 'yesterdayLine'.tr(
     namedArgs: {'kept': kept.toString(), 'broke': broke.toString()},
   );
-  String seeAllMembers(int count) =>
-      'seeAllMembers'.tr(namedArgs: {'count': count.toString()});
+  String seeAllMembers(int count) => 'seeAllMembers'.tr(namedArgs: {'count': count.toString()});
   String verdictQuiet(String verdict, String quiet) => 'verdictQuiet'.tr(
     namedArgs: {'verdict': verdict.toString(), 'quiet': quiet.toString()},
   );
@@ -49,8 +36,6 @@ final class AppStrings {
   String get navDiscover => 'navDiscover'.tr();
   String get navProfile => 'navProfile'.tr();
   String get newVow => 'newVow'.tr();
-  String get notifications => 'notifications'.tr();
-  String get notificationsSoon => 'notificationsSoon'.tr();
   String get greetingMorning => 'greetingMorning'.tr();
   String get greetingAfternoon => 'greetingAfternoon'.tr();
   String get greetingEvening => 'greetingEvening'.tr();
@@ -63,8 +48,7 @@ final class AppStrings {
   String get iBrokeIt => 'iBrokeIt'.tr();
   String get feedQuiet => 'feedQuiet'.tr();
   String get openRoom => 'openRoom'.tr();
-  String couldNotLoadArticle(String error) =>
-      'couldNotLoadArticle'.tr(namedArgs: {'error': error.toString()});
+  String couldNotLoadArticle(String error) => 'couldNotLoadArticle'.tr(namedArgs: {'error': error.toString()});
   String get keptJournal => 'keptJournal'.tr();
   String get article => 'article'.tr();
   String get readArticle => 'readArticle'.tr();
@@ -125,8 +109,7 @@ final class AppStrings {
   String get startsToday => 'startsToday'.tr();
   String get startsTomorrow => 'startsTomorrow'.tr();
   String get startsTomorrowLabel => 'startsTomorrowLabel'.tr();
-  String startsOnDay(String day) =>
-      'startsOnDay'.tr(namedArgs: {'day': day.toString()});
+  String startsOnDay(String day) => 'startsOnDay'.tr(namedArgs: {'day': day.toString()});
   String get startTodayHelp => 'startTodayHelp'.tr();
   String get startTomorrowHelp => 'startTomorrowHelp'.tr();
   String get previewLead => 'previewLead'.tr();
@@ -165,8 +148,7 @@ final class AppStrings {
   String get continueAction => 'continueAction'.tr();
   String get keepYourWord => 'keepYourWord'.tr();
   String get signInSheetBody => 'signInSheetBody'.tr();
-  String authFailed(String error) =>
-      'authFailed'.tr(namedArgs: {'error': error.toString()});
+  String authFailed(String error) => 'authFailed'.tr(namedArgs: {'error': error.toString()});
   String get signedIn => 'signedIn'.tr();
   String get comments => 'comments'.tr();
   String get noComments => 'noComments'.tr();
@@ -226,18 +208,12 @@ final class AppStrings {
   String get about => 'about'.tr();
   String get aboutBody => 'aboutBody'.tr();
   String get versionLabel => 'versionLabel'.tr();
-  String activityKept(String name) =>
-      'activityKept'.tr(namedArgs: {'name': name});
-  String activityKeptNote(String name, String note) =>
-      'activityKeptNote'.tr(namedArgs: {'name': name, 'note': note});
-  String activityBroke(String name) =>
-      'activityBroke'.tr(namedArgs: {'name': name});
-  String activityBrokeNote(String name, String note) =>
-      'activityBrokeNote'.tr(namedArgs: {'name': name, 'note': note});
-  String activityJoined(String name) =>
-      'activityJoined'.tr(namedArgs: {'name': name});
-  String activityCreated(String name) =>
-      'activityCreated'.tr(namedArgs: {'name': name});
+  String activityKept(String name) => 'activityKept'.tr(namedArgs: {'name': name});
+  String activityKeptNote(String name, String note) => 'activityKeptNote'.tr(namedArgs: {'name': name, 'note': note});
+  String activityBroke(String name) => 'activityBroke'.tr(namedArgs: {'name': name});
+  String activityBrokeNote(String name, String note) => 'activityBrokeNote'.tr(namedArgs: {'name': name, 'note': note});
+  String activityJoined(String name) => 'activityJoined'.tr(namedArgs: {'name': name});
+  String activityCreated(String name) => 'activityCreated'.tr(namedArgs: {'name': name});
   String get chatHint => 'chatHint'.tr();
   String get language => 'language'.tr();
   String get languageEnglish => 'languageEnglish'.tr();

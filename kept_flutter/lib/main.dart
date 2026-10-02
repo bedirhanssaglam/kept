@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'client.dart';
 import 'features/onboarding/view/app_gate.dart';
@@ -46,13 +46,9 @@ class KeptApp extends ConsumerWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: lightIcons
-            ? Brightness.light
-            : Brightness.dark,
+        statusBarIconBrightness: lightIcons ? Brightness.light : Brightness.dark,
         systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: lightIcons
-            ? Brightness.light
-            : Brightness.dark,
+        systemNavigationBarIconBrightness: lightIcons ? Brightness.light : Brightness.dark,
       ),
     );
     return MaterialApp(
@@ -64,6 +60,13 @@ class KeptApp extends ConsumerWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
+      builder: (context, child) {
+        return GestureDetector(
+          behavior: HitTestBehavior.deferToChild,
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: child,
+        );
+      },
       home: const AppGate(),
     );
   }
