@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mailer/mailer.dart' as mailer;
 import 'package:mailer/smtp_server.dart';
 import 'package:serverpod/serverpod.dart';
@@ -64,8 +66,21 @@ Future<void> sendKeptVerificationEmail(
         '<p>It expires in 15 minutes. If you did not request this, ignore the email.</p>';
 
   try {
-    final report = await mailer.send(message, smtpServer);
+    // Cloud / blocked SMTP hosts can hang past the Flutter client timeout
+    // (~20s). Fail fast so registration still completes and the code is logged.
+    final report = await mailer
+        .send(message, smtpServer)
+        .timeout(const Duration(seconds: 8));
     session.log('Verification email sent to $toEmail ($report)');
+  } on TimeoutException catch (e) {
+    session.log(
+      'SMTP timed out sending to $toEmail: $e',
+      level: LogLevel.error,
+    );
+    session.log(
+      'Verification code for $toEmail: $verificationCode',
+      level: LogLevel.warning,
+    );
   } on mailer.MailerException catch (e) {
     session.log(
       'Failed to send verification email to $toEmail: $e',

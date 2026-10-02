@@ -4,7 +4,6 @@ import 'package:serverpod_auth_idp_server/core.dart';
 import 'package:serverpod_auth_idp_server/providers/email.dart';
 import 'package:serverpod_cloud_storage/serverpod_cloud_storage.dart';
 
-import 'src/auth/kept_email_sender.dart';
 import 'src/cache_busting.dart';
 import 'src/generated/serverpod.dart';
 import 'src/web/routes/app_config_route.dart';
@@ -24,11 +23,8 @@ void run(List<String> args) async {
       JwtConfigFromPasswords(),
     ],
     identityProviderBuilders: [
-      // Custom SMTP delivery (Serverpod Cloud only emails in staging/production).
-      EmailIdpConfigFromPasswords(
-        sendRegistrationVerificationCode: _sendRegistrationCode,
-        sendPasswordResetVerificationCode: _sendPasswordResetCode,
-      ),
+      // Cloud email in staging/production; codes logged locally in development.
+      ServerpodCloudEmailIdpConfig(appDisplayName: 'Kept'),
     ],
   );
 
@@ -99,34 +95,4 @@ void run(List<String> args) async {
 
   // Start the server.
   await pod.start();
-}
-
-Future<void> _sendRegistrationCode(
-  Session session, {
-  required String email,
-  required UuidValue accountRequestId,
-  required String verificationCode,
-  required Transaction? transaction,
-}) {
-  return sendKeptVerificationEmail(
-    session,
-    toEmail: email,
-    subject: 'Your Kept verification code',
-    verificationCode: verificationCode,
-  );
-}
-
-Future<void> _sendPasswordResetCode(
-  Session session, {
-  required String email,
-  required UuidValue passwordResetRequestId,
-  required String verificationCode,
-  required Transaction? transaction,
-}) {
-  return sendKeptVerificationEmail(
-    session,
-    toEmail: email,
-    subject: 'Reset your Kept password',
-    verificationCode: verificationCode,
-  );
 }
