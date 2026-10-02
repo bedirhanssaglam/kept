@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kept_client/kept_client.dart';
@@ -18,6 +19,7 @@ import '../../../product/service/vow_repository.dart';
 import '../../../features/vows/domain/vow_codes.dart';
 import '../../../features/vows/domain/vow_labels.dart';
 import '../../../product/init/language/localization.dart';
+import '../../../product/navigation/room_links.dart';
 import '../../auth/view/sign_in_sheet.dart';
 import 'members_view.dart';
 
@@ -172,6 +174,22 @@ class _RoomViewState extends ConsumerState<RoomView>
         setState(() => _error = '$e');
       }
     }
+  }
+
+  Future<void> _shareRoom(VowRoom room) async {
+    final id = room.id;
+    if (id == null) return;
+    final link = RoomLinks.uri(id).toString();
+    final box = context.findRenderObject() as RenderBox?;
+    final origin = box == null
+        ? null
+        : box.localToGlobal(Offset.zero) & box.size;
+    await SharePlus.instance.share(
+      ShareParams(
+        text: '${room.title}\n$link',
+        sharePositionOrigin: origin,
+      ),
+    );
   }
 
   void _jumpChatToEnd() {
@@ -617,7 +635,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                             ),
                           ),
                         ),
-                        if (board != null)
+                        if (board != null) ...[
                           Text(
                             context.l10n.inRoom(board.room.memberCount),
                             style: GoogleFonts.manrope(
@@ -625,6 +643,15 @@ class _RoomViewState extends ConsumerState<RoomView>
                               fontSize: 12,
                             ),
                           ),
+                          IconButton(
+                            tooltip: context.l10n.shareRoom,
+                            onPressed: () => _shareRoom(board.room),
+                            icon: Icon(
+                              Icons.ios_share_rounded,
+                              color: context.kept.paper,
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),

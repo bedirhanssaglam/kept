@@ -14,6 +14,7 @@ import '../../discover/view/discover_view.dart';
 import '../../home/view/home_view.dart';
 import '../../profile/view/profile_view.dart';
 import '../../../product/init/language/localization.dart';
+import '../../../product/navigation/room_links.dart';
 import '../../room/view/room_view.dart';
 
 part 'widgets/navigation.dart';
@@ -32,6 +33,27 @@ class _MainShellState extends State<MainShell> {
   final _homeKey = GlobalKey<HomeViewState>();
   final _discoverKey = GlobalKey<DiscoverViewState>();
   final _profileKey = GlobalKey<ProfileViewState>();
+
+  @override
+  void initState() {
+    super.initState();
+    RoomLinks.pendingRoomId.addListener(_openPendingRoom);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _openPendingRoom());
+  }
+
+  @override
+  void dispose() {
+    RoomLinks.pendingRoomId.removeListener(_openPendingRoom);
+    super.dispose();
+  }
+
+  void _openPendingRoom() {
+    final roomId = RoomLinks.pendingRoomId.value;
+    if (roomId == null || !mounted) return;
+    if (!client.auth.isAuthenticated) return;
+    RoomLinks.pendingRoomId.value = null;
+    _openRoom(roomId);
+  }
 
   Future<void> _openRoom(int roomId) async {
     await Navigator.of(context).push(

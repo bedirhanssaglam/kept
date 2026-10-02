@@ -195,6 +195,7 @@ final class AppStrings {
   String get postKept => 'postKept'.tr();
   String get postBroke => 'postBroke'.tr();
   String get vowRoom => 'vowRoom'.tr();
+  String get shareRoom => 'shareRoom'.tr();
   String get tabToday => 'tabToday'.tr();
   String get tabChat => 'tabChat'.tr();
   String get official => 'official'.tr();
