@@ -1,5 +1,9 @@
 # Kept
 
+<p align="center">
+  <img src="docs/app_logo.png" alt="Kept" width="120" />
+</p>
+
 A public promise, checked once a day, in front of the people who joined it.
 
 You open a vow — seven days, twenty-one, or open-ended — and every member answers the same question before midnight: **I kept it** or **I broke it**. The room board updates live. Nobody has to refresh.
@@ -22,7 +26,7 @@ Built for the Serverpod **Build Something Real** hackathon. The live board is a 
 5. From a second browser, join the same room and press **I kept it**. The first screen moves without a reload: the count, the percent, and the name.
 6. Leave the other person quiet. The board still says so. Silence is the point.
 
-The interface is English by default and Turkish when the device language is Turkish. Light and dark are both in the profile.
+The UI is English. Light and dark are both in the profile.
 
 ## Run it locally
 

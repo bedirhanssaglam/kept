@@ -51,18 +51,14 @@ class _LoginViewState extends State<LoginView> {
   }
 
   void _onControllerChanged() {
-    // Leaving the post-code step clears a half-chosen username.
-    if (_controller.currentScreen != EmailFlowScreen.completeRegistration && _controller.currentScreen != EmailFlowScreen.verifyRegistration) {
-      // Keep pending username only through password completion.
-    }
-
+    // Live email validation is shown inline on the field. Auth failures go
+    // through [onError]. Only custom server exceptions (not converted by the
+    // IDP package) need a snackbar from this listener.
     final error = _controller.error;
-    if (error == null || identical(error, _lastShownError)) return;
-    if (error is EmailAlreadyRegisteredException) {
-      _lastShownError = error;
-      _showError(error);
-    }
-    setState(() {});
+    if (error is! EmailAlreadyRegisteredException) return;
+    if (identical(error, _lastShownError)) return;
+    _lastShownError = error;
+    _showError(error);
   }
 
   Future<void> _onAuthenticated() async {
@@ -99,13 +95,19 @@ class _LoginViewState extends State<LoginView> {
 
   void _showError(Object error) {
     if (!mounted) return;
-    final message = error is EmailAlreadyRegisteredException ? error.message : '$error';
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: KeptTheme.broke,
-      ),
-    );
+    final message = switch (error) {
+      EmailAlreadyRegisteredException(:final message) => message,
+      final e => '$e',
+    };
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: KeptTheme.broke,
+          duration: const Duration(seconds: 5),
+        ),
+      );
   }
 
   bool get _showUsernameStep => _controller.currentScreen == EmailFlowScreen.completeRegistration && _pendingUsername == null;

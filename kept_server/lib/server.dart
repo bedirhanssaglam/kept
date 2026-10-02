@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:serverpod_auth_idp_server/core.dart';
-import 'package:serverpod_auth_idp_server/providers/email.dart';
 import 'package:serverpod_cloud_storage/serverpod_cloud_storage.dart';
 
+import 'src/auth/kept_email_idp_config.dart';
 import 'src/cache_busting.dart';
 import 'src/generated/serverpod.dart';
 import 'src/web/routes/app_config_route.dart';
@@ -23,8 +23,8 @@ void run(List<String> args) async {
       JwtConfigFromPasswords(),
     ],
     identityProviderBuilders: [
-      // Cloud email in staging/production; codes logged locally in development.
-      ServerpodCloudEmailIdpConfig(appDisplayName: 'Kept'),
+      // Cloud email + always log the code (spam / send failures).
+      keptEmailIdpConfig(appDisplayName: 'Kept'),
     ],
   );
 

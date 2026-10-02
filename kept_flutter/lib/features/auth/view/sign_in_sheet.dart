@@ -69,32 +69,35 @@ Future<bool> showSignInSheet(BuildContext context) async {
                     ),
                   ),
                   Expanded(
-                    child: SignInView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(24),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.verified_rounded,
-                              color: KeptTheme.kept,
-                              size: 52,
-                            ),
-                            const SizedBox(height: 14),
-                            Text(
-                              LocaleKeys.signedIn.tr(),
-                              style: GoogleFonts.sora(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
-                                color: context.kept.paper,
+                    child: Scaffold(
+                      backgroundColor: Colors.transparent,
+                      body: SignInView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.verified_rounded,
+                                color: KeptTheme.kept,
+                                size: 52,
                               ),
-                            ),
-                            const SizedBox(height: 22),
-                            KeptPrimaryButton(
-                              label: LocaleKeys.continueAction.tr(),
-                              onPressed: () => Navigator.of(context).pop(true),
-                            ),
-                          ],
+                              const SizedBox(height: 14),
+                              Text(
+                                LocaleKeys.signedIn.tr(),
+                                style: GoogleFonts.sora(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                  color: context.kept.paper,
+                                ),
+                              ),
+                              const SizedBox(height: 22),
+                              KeptPrimaryButton(
+                                label: LocaleKeys.continueAction.tr(),
+                                onPressed: () => Navigator.of(context).pop(true),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
