@@ -53,6 +53,27 @@ class _MainShellState extends State<MainShell> {
     await _openRoom(created!.id!);
   }
 
+  Widget _fab(BuildContext context) {
+    if (keptUsesNativeCupertino) {
+      return KeptNativeIconButton(
+        symbol: 'plus',
+        onPressed: _openCreate,
+        size: 56,
+        style: CNButtonStyle.prominentGlass,
+        tint: KeptTheme.accent,
+        materialIcon: Icons.add_rounded,
+        tooltip: context.l10n.newVow,
+      );
+    }
+    return FloatingActionButton(
+      onPressed: _openCreate,
+      backgroundColor: KeptTheme.accent,
+      foregroundColor: context.kept.void_,
+      elevation: 6,
+      child: Icon(Icons.add_rounded, size: 30),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTheme(
@@ -64,7 +85,9 @@ class _MainShellState extends State<MainShell> {
         builder: (context, constraints) {
           final wide = constraints.maxWidth >= KeptBreakpoints.compact;
           final bottomInset = MediaQuery.paddingOf(context).bottom;
-          final barReserve = wide ? 24.0 : (keptUsesNativeCupertino ? 70.0 : 72.0) + bottomInset;
+          final ios = keptUsesNativeCupertino;
+          final barReserve =
+              wide ? 24.0 : (ios ? 92.0 : 72.0) + bottomInset;
 
           final pages = IndexedStack(
             index: _index,
@@ -109,6 +132,64 @@ class _MainShellState extends State<MainShell> {
             );
           }
 
+          if (ios) {
+            return Scaffold(
+              backgroundColor: context.kept.void_,
+              body: Stack(
+                children: [
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: barReserve,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(child: pages),
+                        if (_index == 0)
+                          Positioned(
+                            right: 20,
+                            bottom: 16,
+                            child: _fab(context),
+                          ),
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        16,
+                        0,
+                        16,
+                        10 + bottomInset * 0.35,
+                      ),
+                      child: KeptNativeTabBar(
+                        height: 84,
+                        tint: KeptTheme.accent,
+                        currentIndex: _index,
+                        onTap: (i) => setState(() => _index = i),
+                        items: [
+                          CNTabBarItem(
+                            label: context.l10n.navHome,
+                            icon: CNSymbol('house.fill'),
+                          ),
+                          CNTabBarItem(
+                            label: context.l10n.navDiscover,
+                            icon: CNSymbol('safari.fill'),
+                          ),
+                          CNTabBarItem(
+                            label: context.l10n.navProfile,
+                            icon: CNSymbol('person.crop.circle'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+
           return Scaffold(
             backgroundColor: context.kept.void_,
             extendBody: true,
@@ -119,58 +200,17 @@ class _MainShellState extends State<MainShell> {
                   Positioned(
                     right: 20,
                     bottom: barReserve + 8,
-                    child: keptUsesNativeCupertino
-                        ? KeptNativeIconButton(
-                            symbol: 'plus',
-                            onPressed: _openCreate,
-                            size: 56,
-                            style: CNButtonStyle.prominentGlass,
-                            tint: KeptTheme.accent,
-                            materialIcon: Icons.add_rounded,
-                            tooltip: context.l10n.newVow,
-                          )
-                        : FloatingActionButton(
-                            onPressed: _openCreate,
-                            backgroundColor: KeptTheme.accent,
-                            foregroundColor: context.kept.void_,
-                            elevation: 6,
-                            child: Icon(Icons.add_rounded, size: 30),
-                          ),
+                    child: _fab(context),
                   ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: keptUsesNativeCupertino
-                      ? SafeArea(
-                          top: false,
-                          minimum: const EdgeInsets.only(bottom: 6),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: CNTabBar(
-                              shrinkCentered: false,
-                              tint: KeptTheme.accent,
-                              currentIndex: _index,
-                              onTap: (i) => setState(() => _index = i),
-                              items: [
-                                CNTabBarItem(
-                                  label: context.l10n.navHome,
-                                  icon: CNSymbol('house.fill'),
-                                ),
-                                CNTabBarItem(
-                                  label: context.l10n.navDiscover,
-                                  icon: CNSymbol('safari.fill'),
-                                ),
-                                CNTabBarItem(
-                                  label: context.l10n.navProfile,
-                                  icon: CNSymbol('person.crop.circle'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      : _MaterialBottomBar(
-                          index: _index,
-                          onChanged: (i) => setState(() => _index = i),
-                        ),
+                  child: SafeArea(
+                    top: false,
+                    child: _MaterialBottomBar(
+                      index: _index,
+                      onChanged: (i) => setState(() => _index = i),
+                    ),
+                  ),
                 ),
               ],
             ),

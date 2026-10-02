@@ -1,5 +1,6 @@
 import 'package:cupertino_native/cupertino_native.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/kept_theme.dart';
@@ -139,5 +140,69 @@ class KeptNativeIconButton extends StatelessWidget {
       tooltip: tooltip,
     );
     return button;
+  }
+}
+
+/// Native liquid-glass look + Flutter taps.
+///
+/// [CNTabBar] is a UiKitView: taps often never reach native (drag still does).
+/// Transparent hit targets on top call [onTap]; selection syncs via [currentIndex].
+class KeptNativeTabBar extends StatelessWidget {
+  const KeptNativeTabBar({
+    super.key,
+    required this.items,
+    required this.currentIndex,
+    required this.onTap,
+    this.tint = KeptTheme.accent,
+    this.height = 84,
+  });
+
+  final List<CNTabBarItem> items;
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+  final Color tint;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          CNTabBar(
+            items: items,
+            currentIndex: currentIndex,
+            onTap: onTap,
+            tint: tint,
+            height: height,
+            shrinkCentered: false,
+          ),
+          // Tap only — horizontal drag stays with the native UiKitView.
+          Row(
+            children: [
+              for (var i = 0; i < items.length; i++)
+                Expanded(
+                  child: RawGestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    gestures: <Type, GestureRecognizerFactory>{
+                      TapGestureRecognizer:
+                          GestureRecognizerFactoryWithHandlers<
+                            TapGestureRecognizer
+                          >(
+                            TapGestureRecognizer.new,
+                            (TapGestureRecognizer instance) {
+                              instance.onTap = () => onTap(i);
+                            },
+                          ),
+                    },
+                    child: const SizedBox.expand(),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
