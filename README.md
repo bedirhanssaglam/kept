@@ -19,12 +19,13 @@ Built for the Serverpod **Build Something Real** hackathon. The live board is a 
 
 ## Screens
 
-Open a set. The phone is the full path. The browser is the same product, wider.
+The phone is the full path. The browser is the same product, wider.
 
-<details>
-<summary><strong>Mobile</strong> — onboarding, home, the room, journal, profile</summary>
+### Mobile
 
-### Onboarding
+Onboarding, home, the room, journal, profile.
+
+#### Onboarding
 
 <table>
   <tr>
@@ -52,7 +53,7 @@ Open a set. The phone is the full path. The browser is the same product, wider.
   </tr>
 </table>
 
-### Home
+#### Home
 
 <table>
   <tr>
@@ -73,7 +74,7 @@ Open a set. The phone is the full path. The browser is the same product, wider.
   </tr>
 </table>
 
-### A vow to join, or one you write
+#### A vow to join, or one you write
 
 <table>
   <tr>
@@ -101,7 +102,7 @@ Open a set. The phone is the full path. The browser is the same product, wider.
   </tr>
 </table>
 
-### The room
+#### The room
 
 This is the product. The board is a Serverpod stream: a second person checks in, and the count, the percent, and the name move without a reload.
 
@@ -124,7 +125,7 @@ This is the product. The board is a Serverpod stream: a second person checks in,
   </tr>
 </table>
 
-### Around the card
+#### Around the card
 
 <table>
   <tr>
@@ -145,7 +146,7 @@ This is the product. The board is a Serverpod stream: a second person checks in,
   </tr>
 </table>
 
-### Journal
+#### Journal
 
 <table>
   <tr>
@@ -159,7 +160,7 @@ This is the product. The board is a Serverpod stream: a second person checks in,
   </tr>
 </table>
 
-### Sign in
+#### Sign in
 
 Serverpod email auth. The verification code arrives in that inbox.
 
@@ -178,10 +179,9 @@ Serverpod email auth. The verification code arrives in that inbox.
   </tr>
 </table>
 
-</details>
+### Web
 
-<details>
-<summary><strong>Web</strong> — sidebar, the day in the center, Discover as a grid</summary>
+Sidebar, the day in the center, Discover as a grid.
 
 <table>
   <tr>
@@ -225,8 +225,6 @@ Serverpod email auth. The verification code arrives in that inbox.
   <br />
   <sub>Email and password. The same Serverpod auth as on the phone.</sub>
 </p>
-
-</details>
 
 ## Two-minute demo
 
