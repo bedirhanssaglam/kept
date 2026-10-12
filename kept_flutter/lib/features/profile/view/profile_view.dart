@@ -7,6 +7,7 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
 import '../../../features/vows/domain/vow_labels.dart';
+import '../../../product/brand/kept_brand.dart';
 import '../../../product/components/async_data_widget.dart';
 import '../../../product/components/kept_native.dart';
 import '../../../product/components/kept_widgets.dart';
@@ -33,11 +34,11 @@ class ProfileView extends ConsumerStatefulWidget {
 
 class ProfileViewState extends ConsumerState<ProfileView> {
   Future<void> refresh() {
-    return ref.read(profileViewModelProvider.notifier).refresh();
+    return ref.read(ProfileViewModel.provider.notifier).refresh();
   }
 
   Future<void> _signIn() async {
-    await showSignInSheet(context);
+    await const SignInSheet().show(context);
   }
 
   Future<void> _signOut() async {
@@ -58,16 +59,21 @@ class ProfileViewState extends ConsumerState<ProfileView> {
       child: SafeArea(
         bottom: false,
         child: AsyncDataWidget<ProfileState>(
-          asyncValue: ref.watch(profileViewModelProvider),
+          asyncValue: ref.watch(ProfileViewModel.provider),
           onError: (error) => ListView(
             padding: const EdgeInsets.all(24),
             children: [
               Text(
-                LocaleKeys.couldNotLoadProfile.tr(namedArgs: {'error': '$error'}),
+                LocaleKeys.couldNotLoadProfile.tr(
+                  namedArgs: {'error': '$error'},
+                ),
                 style: TextStyle(color: KeptTheme.broke),
               ),
               const SizedBox(height: 16),
-              KeptPrimaryButton(label: LocaleKeys.retry.tr(), onPressed: refresh),
+              KeptPrimaryButton(
+                label: LocaleKeys.retry.tr(),
+                onPressed: refresh,
+              ),
             ],
           ),
           onData: (state) {
@@ -81,7 +87,10 @@ class ProfileViewState extends ConsumerState<ProfileView> {
               onRefresh: refresh,
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final sidePad = constraints.maxWidth > KeptBreakpoints.contentMax ? (constraints.maxWidth - KeptBreakpoints.contentMax) / 2 : 0.0;
+                  final sidePad =
+                      constraints.maxWidth > KeptBreakpoints.contentMax
+                      ? (constraints.maxWidth - KeptBreakpoints.contentMax) / 2
+                      : 0.0;
                   return ListView(
                     padding: EdgeInsets.fromLTRB(
                       20 + sidePad,
@@ -129,7 +138,9 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        profile.rooms.isEmpty ? LocaleKeys.roomsEmptyHint.tr() : LocaleKeys.roomsTapHint.tr(),
+                        profile.rooms.isEmpty
+                            ? LocaleKeys.roomsEmptyHint.tr()
+                            : LocaleKeys.roomsTapHint.tr(),
                         style: GoogleFonts.manrope(
                           color: context.kept.mist,
                           fontSize: 13,
@@ -161,7 +172,11 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                           ),
                           child: Column(
                             children: [
-                              for (var i = 0; i < profile.rooms.length; i++) ...[
+                              for (
+                                var i = 0;
+                                i < profile.rooms.length;
+                                i++
+                              ) ...[
                                 if (i > 0)
                                   Divider(
                                     height: 1,

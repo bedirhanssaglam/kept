@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../product/brand/kept_brand.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/components/kept_native.dart';
 import '../../../product/components/kept_widgets.dart';
@@ -38,7 +39,7 @@ class _OnboardingViewState extends State<OnboardingView> {
   }
 
   Future<void> _finish() async {
-    await setOnboardingDone();
+    await const OnboardingPrefs().markDone();
     if (!mounted) return;
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
@@ -128,14 +129,14 @@ class _OnboardingViewState extends State<OnboardingView> {
                         children: [
                           const Spacer(flex: 2),
                           Image.asset(
-                            'assets/images/app_logo.png',
+                            KeptBrand.logoAsset,
                             width: 88,
                             height: 88,
                             filterQuality: FilterQuality.high,
                           ),
                           const SizedBox(height: 36),
                           Text(
-                            'KEPT',
+                            KeptBrand.mark,
                             style: GoogleFonts.manrope(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -195,7 +196,9 @@ class _OnboardingViewState extends State<OnboardingView> {
                     ),
                     const SizedBox(height: 22),
                     KeptPrimaryButton(
-                      label: last ? LocaleKeys.letsGo.tr() : LocaleKeys.next.tr(),
+                      label: last
+                          ? LocaleKeys.letsGo.tr()
+                          : LocaleKeys.next.tr(),
                       onPressed: _next,
                     ),
                   ],

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'client.dart';
 import 'features/onboarding/view/app_gate.dart';
+import 'product/init/language/app_language.dart';
 import 'product/init/language/codegen_loader.g.dart';
 import 'product/init/language/locale_keys.g.dart';
 import 'product/init/theme/appearance.dart';
@@ -25,15 +26,20 @@ void main() async {
   }
   await initializeClient();
   await EasyLocalization.ensureInitialized();
-  await loadAppearancePrefs();
+  final appearance = await AppearanceStore.load();
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('en')],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
+      supportedLocales: AppLanguage.locales,
+      path: AppLanguage.translationsPath,
+      fallbackLocale: AppLanguage.fallback.locale,
       useOnlyLangCode: true,
       assetLoader: const CodegenLoader(),
-      child: const ProviderScope(child: KeptApp()),
+      child: ProviderScope(
+        overrides: [
+          AppearanceStore.provider.overrideWithValue(appearance),
+        ],
+        child: const KeptApp(),
+      ),
     ),
   );
 }
@@ -43,7 +49,7 @@ class KeptApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mode = ref.watch(appearanceProvider);
+    final mode = ref.watch(AppearanceNotifier.provider);
     final lightIcons = mode == ThemeMode.dark;
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(

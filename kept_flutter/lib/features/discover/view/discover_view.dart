@@ -27,7 +27,7 @@ class DiscoverView extends ConsumerStatefulWidget {
 
 class DiscoverViewState extends ConsumerState<DiscoverView> {
   Future<void> refresh() {
-    return ref.read(discoverViewModelProvider.notifier).refresh();
+    return ref.read(DiscoverViewModel.provider.notifier).refresh();
   }
 
   @override
@@ -86,7 +86,7 @@ class DiscoverViewState extends ConsumerState<DiscoverView> {
                     onRefresh: refresh,
                     child: AsyncDataWidget<VowRoomPage>(
                       asyncValue: ref
-                          .watch(discoverViewModelProvider)
+                          .watch(DiscoverViewModel.provider)
                           .valueOrNull
                           ?.rooms,
                       loadingWidget: const Center(
@@ -103,7 +103,9 @@ class DiscoverViewState extends ConsumerState<DiscoverView> {
                         ),
                         children: [
                           Text(
-                            LocaleKeys.couldNotLoadVows.tr(namedArgs: {'error': '$error'}),
+                            LocaleKeys.couldNotLoadVows.tr(
+                              namedArgs: {'error': '$error'},
+                            ),
                             style: TextStyle(color: KeptTheme.broke),
                           ),
                         ],

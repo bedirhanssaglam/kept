@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kept_client/kept_client.dart';
 
 import '../../../product/theme/kept_theme.dart';
-import '../../../product/init/dependency/dependency_items.dart';
 import '../../../product/service/vow_repository.dart';
 import '../../../features/vows/domain/vow_labels.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -21,7 +20,7 @@ class MembersView extends ConsumerStatefulWidget {
 }
 
 class _MembersViewState extends ConsumerState<MembersView> {
-  VowRepository get _repo => ref.read(vowRepositoryProvider);
+  VowRepository get _repo => ref.read(VowRepository.provider);
   final _scroll = ScrollController();
   final List<MemberDayStatus> _items = [];
   bool _loading = true;
@@ -100,7 +99,9 @@ class _MembersViewState extends ConsumerState<MembersView> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
-          LocaleKeys.membersTitle.tr(namedArgs: {'title': (widget.title).toString()}),
+          LocaleKeys.membersTitle.tr(
+            namedArgs: {'title': (widget.title).toString()},
+          ),
           style: GoogleFonts.sora(fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),

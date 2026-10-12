@@ -7,31 +7,36 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 import '../../../client.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/components/kept_native.dart';
-import '../../../product/init/dependency/dependency_items.dart';
 import '../../../product/service/vow_repository.dart';
 import '../../auth/view/sign_in_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../product/init/language/locale_keys.g.dart';
 
-Future<int?> showFeedCommentsSheet(
-  BuildContext context, {
-  required String targetType,
-  required int targetId,
-}) {
-  return showModalBottomSheet<int>(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: context.kept.panel,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-    ),
-    builder: (context) {
-      return _FeedCommentsSheet(
-        targetType: targetType,
-        targetId: targetId,
-      );
-    },
-  );
+class FeedCommentsSheet {
+  const FeedCommentsSheet({
+    required this.targetType,
+    required this.targetId,
+  });
+
+  final String targetType;
+  final int targetId;
+
+  Future<int?> show(BuildContext context) {
+    return showModalBottomSheet<int>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: context.kept.panel,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return _FeedCommentsSheet(
+          targetType: targetType,
+          targetId: targetId,
+        );
+      },
+    );
+  }
 }
 
 class _FeedCommentsSheet extends ConsumerStatefulWidget {
@@ -48,7 +53,7 @@ class _FeedCommentsSheet extends ConsumerStatefulWidget {
 }
 
 class _FeedCommentsSheetState extends ConsumerState<_FeedCommentsSheet> {
-  VowRepository get _repo => ref.read(vowRepositoryProvider);
+  VowRepository get _repo => ref.read(VowRepository.provider);
   final _controller = TextEditingController();
   final List<FeedComment> _comments = [];
   bool _loading = true;
@@ -100,7 +105,7 @@ class _FeedCommentsSheetState extends ConsumerState<_FeedCommentsSheet> {
     if (text.isEmpty || _sending) return;
 
     if (!client.auth.isAuthenticated) {
-      final ok = await showSignInSheet(context);
+      final ok = await const SignInSheet().show(context);
       if (!ok || !mounted) return;
     }
 

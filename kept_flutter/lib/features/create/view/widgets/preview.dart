@@ -34,8 +34,12 @@ class _VowPreview extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         VowRoomCard(
-          title: trimmedTitle.isEmpty ? LocaleKeys.previewEmptyTitle.tr() : trimmedTitle,
-          rule: trimmedRule.isEmpty ? LocaleKeys.previewEmptyRule.tr() : trimmedRule,
+          title: trimmedTitle.isEmpty
+              ? LocaleKeys.previewEmptyTitle.tr()
+              : trimmedTitle,
+          rule: trimmedRule.isEmpty
+              ? LocaleKeys.previewEmptyRule.tr()
+              : trimmedRule,
           category: category,
           joinPolicy: joinPolicy,
           memberCount: 1,

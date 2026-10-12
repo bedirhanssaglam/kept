@@ -1,13 +1,17 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _kOnboardingDoneKey = 'kept_onboarding_done_v1';
+class OnboardingPrefs {
+  const OnboardingPrefs();
 
-Future<bool> isOnboardingDone() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getBool(_kOnboardingDoneKey) ?? false;
-}
+  static const _doneKey = 'kept_onboarding_done_v1';
 
-Future<void> setOnboardingDone() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setBool(_kOnboardingDoneKey, true);
+  Future<bool> isDone() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_doneKey) ?? false;
+  }
+
+  Future<void> markDone() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_doneKey, true);
+  }
 }

@@ -26,7 +26,7 @@ class _BlogArticleViewState extends ConsumerState<BlogArticleView> {
     return Scaffold(
       backgroundColor: context.kept.void_,
       body: AsyncDataWidget<BlogPost>(
-        asyncValue: ref.watch(blogArticleProvider(widget.slug)),
+        asyncValue: ref.watch(BlogArticleViewModel.provider(widget.slug)),
         onError: (error) => SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24),

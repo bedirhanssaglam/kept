@@ -155,6 +155,7 @@ class KeptNativeTabBar extends StatelessWidget {
     required this.onTap,
     this.tint = KeptTheme.accent,
     this.height = 84,
+    this.shrinkCentered = true,
   });
 
   final List<CNTabBarItem> items;
@@ -162,6 +163,7 @@ class KeptNativeTabBar extends StatelessWidget {
   final ValueChanged<int> onTap;
   final Color tint;
   final double height;
+  final bool shrinkCentered;
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +178,7 @@ class KeptNativeTabBar extends StatelessWidget {
             onTap: onTap,
             tint: tint,
             height: height,
-            shrinkCentered: false,
+            shrinkCentered: shrinkCentered,
           ),
           // Tap only — horizontal drag stays with the native UiKitView.
           Row(

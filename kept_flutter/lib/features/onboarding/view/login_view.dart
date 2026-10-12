@@ -4,6 +4,7 @@ import 'package:kept_client/kept_client.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
+import '../../../product/brand/kept_brand.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../shell/view/main_shell.dart';
 import '../data/auth_flow.dart';
@@ -37,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
 
     if (client.auth.isAuthenticated) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        enterKeptApp(context);
+        const AuthFlow().enter(context);
       });
     }
   }
@@ -70,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
       } on UsernameException catch (e) {
         if (!mounted) return;
         setState(() => _savingUsername = false);
-        await keptPushReplacement(
+        await const AuthFlow().replace(
           context,
           UsernameSetupView(
             initialUsername: pending,
@@ -81,7 +82,7 @@ class _LoginViewState extends State<LoginView> {
       } catch (e) {
         if (!mounted) return;
         setState(() => _savingUsername = false);
-        await keptPushReplacement(
+        await const AuthFlow().replace(
           context,
           UsernameSetupView(initialUsername: pending, errorMessage: '$e'),
         );
@@ -90,7 +91,7 @@ class _LoginViewState extends State<LoginView> {
     }
 
     if (!mounted) return;
-    await keptPushReplacement(context, const MainShell());
+    await const AuthFlow().replace(context, const MainShell());
   }
 
   void _showError(Object error) {
@@ -110,7 +111,9 @@ class _LoginViewState extends State<LoginView> {
       );
   }
 
-  bool get _showUsernameStep => _controller.currentScreen == EmailFlowScreen.completeRegistration && _pendingUsername == null;
+  bool get _showUsernameStep =>
+      _controller.currentScreen == EmailFlowScreen.completeRegistration &&
+      _pendingUsername == null;
 
   @override
   Widget build(BuildContext context) {
@@ -134,14 +137,14 @@ class _LoginViewState extends State<LoginView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(
-                      'assets/images/app_logo.png',
+                      KeptBrand.logoAsset,
                       width: 56,
                       height: 56,
                       filterQuality: FilterQuality.high,
                     ),
                     const SizedBox(height: 18),
                     Text(
-                      'kept',
+                      KeptBrand.word,
                       style: GoogleFonts.manrope(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
@@ -157,7 +160,7 @@ class _LoginViewState extends State<LoginView> {
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 28),
                   child: Theme(
-                    data: KeptTheme.dark().copyWith(
+                    data: Theme.of(context).copyWith(
                       inputDecorationTheme: InputDecorationTheme(
                         filled: true,
                         fillColor: context.kept.ink,
@@ -176,8 +179,17 @@ class _LoginViewState extends State<LoginView> {
                         labelStyle: GoogleFonts.manrope(
                           color: context.kept.mist,
                         ),
+                        floatingLabelStyle: GoogleFonts.manrope(
+                          color: context.kept.mist,
+                        ),
                         hintStyle: GoogleFonts.manrope(
                           color: context.kept.mist,
+                        ),
+                      ),
+                      textSelectionTheme: TextSelectionThemeData(
+                        cursorColor: context.kept.paper,
+                        selectionColor: KeptTheme.accent.withValues(
+                          alpha: 0.28,
                         ),
                       ),
                     ),

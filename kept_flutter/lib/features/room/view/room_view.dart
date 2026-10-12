@@ -13,7 +13,6 @@ import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/components/kept_native.dart';
 import '../../../product/components/kept_widgets.dart';
-import '../../../product/init/dependency/dependency_items.dart';
 import '../../../product/service/vow_repository.dart';
 import '../../../features/vows/domain/vow_codes.dart';
 import '../../../features/vows/domain/vow_labels.dart';
@@ -36,7 +35,7 @@ class RoomView extends ConsumerStatefulWidget {
 
 class _RoomViewState extends ConsumerState<RoomView>
     with SingleTickerProviderStateMixin {
-  VowRepository get _repo => ref.read(vowRepositoryProvider);
+  VowRepository get _repo => ref.read(VowRepository.provider);
   final _chatController = TextEditingController();
   final _chatScroll = ScrollController();
 
@@ -188,7 +187,7 @@ class _RoomViewState extends ConsumerState<RoomView>
 
   Future<bool> _ensureMember() async {
     if (!client.auth.isAuthenticated) {
-      final ok = await showSignInSheet(context);
+      final ok = await const SignInSheet().show(context);
       if (!ok) return false;
     }
     if (_board?.isMember == true) return true;
@@ -620,7 +619,11 @@ class _RoomViewState extends ConsumerState<RoomView>
                         ),
                         if (board != null)
                           Text(
-                            LocaleKeys.inRoom.tr(namedArgs: {'count': (board.room.memberCount).toString()}),
+                            LocaleKeys.inRoom.tr(
+                              namedArgs: {
+                                'count': (board.room.memberCount).toString(),
+                              },
+                            ),
                             style: GoogleFonts.manrope(
                               color: context.kept.mist,
                               fontSize: 12,
@@ -659,7 +662,12 @@ class _RoomViewState extends ConsumerState<RoomView>
                                       ? LocaleKeys.tabChat.tr()
                                       : _messages.isEmpty
                                       ? LocaleKeys.tabChat.tr()
-                                      : LocaleKeys.tabChatCount.tr(namedArgs: {'count': (_messages.length).toString()}),
+                                      : LocaleKeys.tabChatCount.tr(
+                                          namedArgs: {
+                                            'count': (_messages.length)
+                                                .toString(),
+                                          },
+                                        ),
                                 ],
                                 selectedIndex: _tabs.index,
                                 onValueChanged: (i) {
@@ -700,7 +708,12 @@ class _RoomViewState extends ConsumerState<RoomView>
                                         ? LocaleKeys.tabChat.tr()
                                         : _messages.isEmpty
                                         ? LocaleKeys.tabChat.tr()
-                                        : LocaleKeys.tabChatCount.tr(namedArgs: {'count': (_messages.length).toString()}),
+                                        : LocaleKeys.tabChatCount.tr(
+                                            namedArgs: {
+                                              'count': (_messages.length)
+                                                  .toString(),
+                                            },
+                                          ),
                                   ),
                                 ],
                               ),

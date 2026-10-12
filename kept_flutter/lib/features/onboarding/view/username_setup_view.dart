@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kept_client/kept_client.dart';
 
 import '../../../client.dart';
+import '../../../product/brand/kept_brand.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../shell/view/main_shell.dart';
 import '../data/auth_flow.dart';
@@ -45,7 +46,7 @@ class _UsernameSetupViewState extends State<UsernameSetupView> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'KEPT',
+                  KeptBrand.mark,
                   style: GoogleFonts.manrope(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -64,7 +65,7 @@ class _UsernameSetupViewState extends State<UsernameSetupView> {
                         try {
                           await client.userProfileEdit.changeUserName(name);
                           if (!context.mounted) return;
-                          await keptPushReplacement(
+                          await const AuthFlow().replace(
                             context,
                             const MainShell(),
                           );

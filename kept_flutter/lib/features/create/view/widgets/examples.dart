@@ -19,7 +19,11 @@ List<_VowDraft> _drafts() => [
     LocaleKeys.examplePhoneRule.tr(),
     VowCategory.quit,
   ),
-  _VowDraft(LocaleKeys.exampleWalkTitle.tr(), LocaleKeys.exampleWalkRule.tr(), VowCategory.move),
+  _VowDraft(
+    LocaleKeys.exampleWalkTitle.tr(),
+    LocaleKeys.exampleWalkRule.tr(),
+    VowCategory.move,
+  ),
 ];
 
 class _ExampleList extends StatelessWidget {

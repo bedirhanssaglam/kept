@@ -2,30 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _themeKey = 'kept_theme_mode';
+class AppearanceStore {
+  static final provider = Provider<AppearanceStore>(
+    (ref) => throw StateError('AppearanceStore is provided at startup.'),
+  );
 
-final appearanceProvider = NotifierProvider<AppearanceNotifier, ThemeMode>(
-  AppearanceNotifier.new,
-);
+  AppearanceStore(this._prefs);
 
-class AppearanceNotifier extends Notifier<ThemeMode> {
-  @override
-  ThemeMode build() {
-    final stored = appearancePrefs?.getString(_themeKey);
-    return stored == 'light' ? ThemeMode.light : ThemeMode.dark;
+  static const _key = 'kept_theme_mode';
+
+  final SharedPreferences _prefs;
+
+  static Future<AppearanceStore> load() async {
+    return AppearanceStore(await SharedPreferences.getInstance());
   }
 
-  Future<void> use(ThemeMode mode) async {
-    state = mode;
-    await appearancePrefs?.setString(
-      _themeKey,
-      mode == ThemeMode.light ? 'light' : 'dark',
-    );
+  ThemeMode read() {
+    final stored = _prefs.getString(_key);
+    return ThemeMode.values.asNameMap()[stored] ?? ThemeMode.dark;
+  }
+
+  Future<void> write(ThemeMode mode) {
+    return _prefs.setString(_key, mode.name);
   }
 }
 
-SharedPreferences? appearancePrefs;
+class AppearanceNotifier extends Notifier<ThemeMode> {
+  static final provider = NotifierProvider<AppearanceNotifier, ThemeMode>(
+    AppearanceNotifier.new,
+  );
 
-Future<void> loadAppearancePrefs() async {
-  appearancePrefs = await SharedPreferences.getInstance();
+  @override
+  ThemeMode build() => ref.read(AppearanceStore.provider).read();
+
+  Future<void> use(ThemeMode mode) async {
+    state = mode;
+    await ref.read(AppearanceStore.provider).write(mode);
+  }
 }

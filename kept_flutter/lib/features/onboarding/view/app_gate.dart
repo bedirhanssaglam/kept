@@ -17,7 +17,7 @@ class AppGate extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncDataWidget<GateTarget>(
-      asyncValue: ref.watch(appGateViewModelProvider),
+      asyncValue: ref.watch(AppGateViewModel.provider),
       onData: (target) {
         return switch (target) {
           GateTarget.onboarding || null => const OnboardingView(),

@@ -3,16 +3,15 @@ import 'package:kept_client/kept_client.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
-import '../../../product/init/dependency/dependency_items.dart';
+import '../../../product/service/vow_repository.dart';
 import '../../../product/utility/state/base_view_model.dart';
 import 'home_state.dart';
 
-final homeViewModelProvider =
-    AutoDisposeAsyncNotifierProvider<HomeViewModel, HomeState>(
-      HomeViewModel.new,
-    );
-
 class HomeViewModel extends BaseViewModel<HomeState> {
+  static final provider =
+      AutoDisposeAsyncNotifierProvider<HomeViewModel, HomeState>(
+        HomeViewModel.new,
+      );
   @override
   HomeState buildInitialState() => const HomeState.initial();
 
@@ -44,7 +43,7 @@ class HomeViewModel extends BaseViewModel<HomeState> {
     state = AsyncData(current.copyWith(loadingMore: true));
     try {
       final page = await ref
-          .read(vowRepositoryProvider)
+          .read(VowRepository.provider)
           .listHomeFeed(limit: 15, offset: existing.length);
       state = AsyncData(
         current.copyWith(
@@ -63,8 +62,10 @@ class HomeViewModel extends BaseViewModel<HomeState> {
     if (current == null || current.checkingRoomId != null) return;
     state = AsyncData(current.copyWith(checkingRoomId: roomId));
     try {
-      await ref.read(vowRepositoryProvider).checkIn(roomId: roomId, kept: kept);
-      final open = await ref.read(vowRepositoryProvider).listOpenVows();
+      await ref
+          .read(VowRepository.provider)
+          .checkIn(roomId: roomId, kept: kept);
+      final open = await ref.read(VowRepository.provider).listOpenVows();
       final latest = state.valueOrNull ?? current;
       state = AsyncData(
         latest.copyWith(openVows: AsyncData(open), clearChecking: true),
@@ -108,7 +109,7 @@ class HomeViewModel extends BaseViewModel<HomeState> {
   }
 
   Future<HomeState> _load() async {
-    final repo = ref.read(vowRepositoryProvider);
+    final repo = ref.read(VowRepository.provider);
     final feedFuture = repo.listHomeFeed(limit: 15, offset: 0);
     if (!client.auth.isAuthenticated) {
       final feed = await feedFuture;

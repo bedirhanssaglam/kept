@@ -15,7 +15,7 @@ class CodegenLoader extends AssetLoader {
   }
 
   static const Map<String, dynamic> _en = {
-    "appTitle": "Kept",
+    "appTitle": "kept",
     "navHome": "Home",
     "navDiscover": "Discover",
     "navProfile": "Profile",

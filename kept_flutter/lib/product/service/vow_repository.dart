@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kept_client/kept_client.dart';
 
 import '../../features/vows/domain/vow_codes.dart';
@@ -6,6 +7,8 @@ import '../utility/constants/kept_day.dart';
 
 /// Thin wrapper around the generated Serverpod client.
 class VowRepository {
+  static final provider = Provider<VowRepository>((ref) => VowRepository());
+
   VowRepository({Client? client}) : _client = client ?? app.client;
 
   final Client _client;

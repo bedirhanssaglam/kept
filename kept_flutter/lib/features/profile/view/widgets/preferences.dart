@@ -6,7 +6,7 @@ class _PreferencesCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.kept;
-    final light = ref.watch(appearanceProvider) == ThemeMode.light;
+    final light = ref.watch(AppearanceNotifier.provider) == ThemeMode.light;
 
     final tileColor = colors.paper;
     final bg = colors.panel;
@@ -22,7 +22,10 @@ class _PreferencesCard extends ConsumerWidget {
       children: [
         CupertinoListTile(
           backgroundColor: bg,
-          title: Text(LocaleKeys.appearance.tr(), style: TextStyle(color: tileColor)),
+          title: Text(
+            LocaleKeys.appearance.tr(),
+            style: TextStyle(color: tileColor),
+          ),
           additionalInfo: Text(
             light ? LocaleKeys.themeLight.tr() : LocaleKeys.themeDark.tr(),
             style: TextStyle(color: colors.mist),
@@ -32,20 +35,23 @@ class _PreferencesCard extends ConsumerWidget {
                   value: light,
                   color: KeptTheme.accent,
                   onChanged: (on) => ref
-                      .read(appearanceProvider.notifier)
+                      .read(AppearanceNotifier.provider.notifier)
                       .use(on ? ThemeMode.light : ThemeMode.dark),
                 )
               : CupertinoSwitch(
                   value: light,
                   activeTrackColor: KeptTheme.accent,
                   onChanged: (on) => ref
-                      .read(appearanceProvider.notifier)
+                      .read(AppearanceNotifier.provider.notifier)
                       .use(on ? ThemeMode.light : ThemeMode.dark),
                 ),
         ),
         CupertinoListTile(
           backgroundColor: bg,
-          title: Text(LocaleKeys.about.tr(), style: TextStyle(color: tileColor)),
+          title: Text(
+            LocaleKeys.about.tr(),
+            style: TextStyle(color: tileColor),
+          ),
           trailing: Icon(
             CupertinoIcons.chevron_forward,
             color: colors.mist,
@@ -87,7 +93,7 @@ class _AboutPage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
         children: [
           Image.asset(
-            'assets/images/app_logo.png',
+            KeptBrand.logoAsset,
             width: 72,
             height: 72,
             filterQuality: FilterQuality.high,

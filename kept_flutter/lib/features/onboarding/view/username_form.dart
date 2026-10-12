@@ -53,7 +53,7 @@ class _UsernameFormState extends State<UsernameForm> {
   }
 
   Future<void> _submit() async {
-    if (!isKeptUsernameValid(_controller.text)) {
+    if (!const AuthFlow().isUsernameValid(_controller.text)) {
       setState(() => _error = LocaleKeys.usernameRules.tr());
       return;
     }

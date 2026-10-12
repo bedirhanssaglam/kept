@@ -7,11 +7,12 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 import '../../../client.dart';
 import '../../../features/vows/domain/vow_codes.dart';
 import '../../../product/components/kept_widgets.dart';
-import '../../../product/init/dependency/dependency_items.dart';
+import '../../../product/service/vow_repository.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/utility/activity_line.dart';
 import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../auth/view/sign_in_sheet.dart';
+import '../domain/home_card_kind.dart';
 import '../view_model/home_view_model.dart';
 import 'blog_article_view.dart';
 import 'feed_comments_sheet.dart';
@@ -39,7 +40,7 @@ class HomeView extends ConsumerStatefulWidget {
 class HomeViewState extends ConsumerState<HomeView> {
   final _scroll = ScrollController();
 
-  HomeViewModel get _model => ref.read(homeViewModelProvider.notifier);
+  HomeViewModel get _model => ref.read(HomeViewModel.provider.notifier);
 
   @override
   void initState() {
@@ -55,8 +56,11 @@ class HomeViewState extends ConsumerState<HomeView> {
   }
 
   void _onScroll() {
-    final data = ref.read(homeViewModelProvider).valueOrNull;
-    if (data == null || !data.hasMore || data.loadingMore || data.feed.isLoading) {
+    final data = ref.read(HomeViewModel.provider).valueOrNull;
+    if (data == null ||
+        !data.hasMore ||
+        data.loadingMore ||
+        data.feed.isLoading) {
       return;
     }
     if (!_scroll.hasClients) return;
@@ -81,12 +85,12 @@ class HomeViewState extends ConsumerState<HomeView> {
 
   Future<void> _toggleLike(HomeCard card) async {
     if (!client.auth.isAuthenticated) {
-      final ok = await showSignInSheet(context);
+      final ok = await const SignInSheet().show(context);
       if (!ok || !mounted) return;
     }
     try {
       final updated = await ref
-          .read(vowRepositoryProvider)
+          .read(VowRepository.provider)
           .toggleLike(
             targetType: card.targetType,
             targetId: card.targetId,
@@ -101,11 +105,10 @@ class HomeViewState extends ConsumerState<HomeView> {
   }
 
   Future<void> _openComments(HomeCard card) async {
-    final count = await showFeedCommentsSheet(
-      context,
+    final count = await FeedCommentsSheet(
       targetType: card.targetType,
       targetId: card.targetId,
-    );
+    ).show(context);
     if (!mounted || count == null) return;
     _model.setCommentCount(
       targetType: card.targetType,
@@ -122,7 +125,7 @@ class HomeViewState extends ConsumerState<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final home = ref.watch(homeViewModelProvider);
+    final home = ref.watch(HomeViewModel.provider);
     final data = home.valueOrNull;
     final feed = data?.feed.valueOrNull ?? const <HomeCard>[];
     final open = data?.openVows.valueOrNull ?? const <OpenVow>[];
@@ -135,7 +138,9 @@ class HomeViewState extends ConsumerState<HomeView> {
         : null;
     final loadingMore = data?.loadingMore ?? false;
     final width = MediaQuery.sizeOf(context).width;
-    final sidePad = width > KeptBreakpoints.contentMax ? (width - KeptBreakpoints.contentMax) / 2 : 0.0;
+    final sidePad = width > KeptBreakpoints.contentMax
+        ? (width - KeptBreakpoints.contentMax) / 2
+        : 0.0;
 
     return ColoredBox(
       color: context.kept.void_,
@@ -164,7 +169,9 @@ class HomeViewState extends ConsumerState<HomeView> {
                   ),
                   children: [
                     Text(
-                      LocaleKeys.feedLoadFailed.tr(namedArgs: {'error': (loadError).toString()}),
+                      LocaleKeys.feedLoadFailed.tr(
+                        namedArgs: {'error': (loadError).toString()},
+                      ),
                       style: TextStyle(color: KeptTheme.broke),
                     ),
                   ],
@@ -233,7 +240,8 @@ class HomeViewState extends ConsumerState<HomeView> {
                               );
                             }
                             final card = feed[index];
-                            if (card.type == 'article' && card.article != null) {
+                            if (card.type == HomeCardKind.article &&
+                                card.article != null) {
                               return _ArticlePost(
                                 card: card,
                                 onOpen: () => _openArticle(card.article!),
@@ -242,7 +250,8 @@ class HomeViewState extends ConsumerState<HomeView> {
                             if (card.activity != null) {
                               return _ActivityPost(
                                 card: card,
-                                onOpenRoom: () => widget.onOpenRoom(card.activity!.roomId),
+                                onOpenRoom: () =>
+                                    widget.onOpenRoom(card.activity!.roomId),
                                 onLike: () => _toggleLike(card),
                                 onComment: () => _openComments(card),
                               );

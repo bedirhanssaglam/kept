@@ -6,21 +6,23 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
 import '../../../features/vows/domain/vow_codes.dart';
+import '../../../product/brand/kept_brand.dart';
 import '../../../product/utility/layout/kept_breakpoints.dart';
 import '../../../product/components/vow_room_card.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../../product/utility/constants/kept_day.dart';
 import '../../../product/components/kept_native.dart';
 import '../../../product/components/kept_widgets.dart';
-import '../../../product/init/dependency/dependency_items.dart';
 import '../../../product/service/vow_repository.dart';
 import '../../auth/view/sign_in_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../product/init/language/locale_keys.g.dart';
 
+part 'create_vow_form.dart';
 part 'widgets/category_chip.dart';
 part 'widgets/choice_bar.dart';
 part 'widgets/examples.dart';
+part 'widgets/join_policy.dart';
 part 'widgets/preview.dart';
 
 class CreateVowView extends ConsumerStatefulWidget {
@@ -40,123 +42,8 @@ class CreateVowView extends ConsumerStatefulWidget {
   ConsumerState<CreateVowView> createState() => _CreateVowViewState();
 }
 
-class _CreateVowViewState extends ConsumerState<CreateVowView> {
-  VowRepository get _repo => ref.read(vowRepositoryProvider);
-  final _title = TextEditingController();
-  final _rule = TextEditingController();
-  String _category = VowCategory.health;
-  String _joinPolicy = VowPolicy.open;
-  int _length = VowLength.threeWeeks;
-  bool _startsTomorrow = true;
-  int? _example;
-  bool _filling = false;
-  bool _saving = false;
-  String? _error;
-
-  static const _lengths = [
-    VowLength.week,
-    VowLength.threeWeeks,
-    VowLength.open,
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _title.addListener(_onDraftChanged);
-    _rule.addListener(_onDraftChanged);
-  }
-
-  void _onDraftChanged() {
-    if (_filling || !mounted || _example == null) return;
-    setState(() => _example = null);
-  }
-
-  void _useDraft(int index) {
-    final draft = _drafts()[index];
-    _filling = true;
-    _title.text = draft.title;
-    _rule.text = draft.rule;
-    _filling = false;
-    setState(() {
-      _example = index;
-      _category = draft.category;
-    });
-  }
-
-  String get _startsOn {
-    final now = DateTime.now();
-    return _startsTomorrow
-        ? KeptDay.key(now.add(const Duration(days: 1)))
-        : KeptDay.key(now);
-  }
-
-  List<(String, String)> _categories(BuildContext context) {
-    return [
-      (VowCategory.health, LocaleKeys.categoryHealth.tr()),
-      (VowCategory.quit, LocaleKeys.categoryQuit.tr()),
-      (VowCategory.move, LocaleKeys.categoryMove.tr()),
-      (VowCategory.focus, LocaleKeys.categoryFocus.tr()),
-      (VowCategory.custom, LocaleKeys.categoryCustom.tr()),
-    ];
-  }
-
-  List<(String, String, String)> _policies(BuildContext context) {
-    return [
-      (VowPolicy.open, LocaleKeys.policyOpenLabel.tr(), LocaleKeys.policyOpenHelp.tr()),
-      (VowPolicy.approval, LocaleKeys.policyApprovalLabel.tr(), LocaleKeys.policyApprovalHelp.tr()),
-      (VowPolicy.invite, LocaleKeys.policyInviteLabel.tr(), LocaleKeys.policyInviteHelp.tr()),
-      (VowPolicy.closed, LocaleKeys.policyClosedLabel.tr(), LocaleKeys.policyClosedHelp.tr()),
-    ];
-  }
-
-  @override
-  void dispose() {
-    _title.dispose();
-    _rule.dispose();
-    super.dispose();
-  }
-
-  Future<void> _submit() async {
-    if (!client.auth.isAuthenticated) {
-      final ok = await showSignInSheet(context);
-      if (!ok || !mounted) return;
-    }
-
-    setState(() {
-      _saving = true;
-      _error = null;
-    });
-    try {
-      final room = await _repo.createRoom(
-        title: _title.text,
-        rule: _rule.text,
-        category: _category,
-        joinPolicy: _joinPolicy,
-        durationDays: _length,
-        startsOn: _startsOn,
-      );
-      if (!mounted) return;
-      _title.clear();
-      _rule.clear();
-      setState(() {
-        _category = VowCategory.health;
-        _joinPolicy = VowPolicy.open;
-        _length = VowLength.threeWeeks;
-        _startsTomorrow = true;
-        _example = null;
-      });
-      if (widget.asTab) {
-        widget.onCreated?.call(room);
-      } else {
-        Navigator.of(context).pop(room);
-      }
-    } catch (e) {
-      setState(() => _error = '$e');
-    } finally {
-      if (mounted) setState(() => _saving = false);
-    }
-  }
-
+class _CreateVowViewState extends ConsumerState<CreateVowView>
+    with CreateVowForm {
   @override
   Widget build(BuildContext context) {
     final body = LayoutBuilder(
@@ -174,7 +61,7 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
           children: [
             if (widget.asTab) ...[
               Text(
-                'KEPT',
+                KeptBrand.mark,
                 style: GoogleFonts.manrope(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
@@ -236,11 +123,12 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
               spacing: 8,
               runSpacing: 8,
               children: [
-                for (final c in _categories(context))
+                for (final category in _categories)
                   _CategoryChip(
-                    label: c.$2,
-                    selected: _category == c.$1,
-                    onSelected: () => setState(() => _category = c.$1),
+                    label: category.label,
+                    selected: _category == category.value,
+                    onSelected: () =>
+                        setState(() => _category = category.value),
                   ),
               ],
             ),
@@ -256,8 +144,9 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
                 LocaleKeys.durationThreeWeeks.tr(),
                 LocaleKeys.durationOpen.tr(),
               ],
-              selectedIndex: _lengths.indexOf(_length).clamp(0, 2),
-              onChanged: (i) => setState(() => _length = _lengths[i]),
+              selectedIndex: CreateVowForm.lengths.indexOf(_length).clamp(0, 2),
+              onChanged: (i) =>
+                  setState(() => _length = CreateVowForm.lengths[i]),
             ),
             const SizedBox(height: 22),
             Text(
@@ -266,7 +155,10 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
             ),
             const SizedBox(height: 10),
             _ChoiceBar(
-              labels: [LocaleKeys.startsToday.tr(), LocaleKeys.startsTomorrow.tr()],
+              labels: [
+                LocaleKeys.startsToday.tr(),
+                LocaleKeys.startsTomorrow.tr(),
+              ],
               selectedIndex: _startsTomorrow ? 1 : 0,
               onChanged: (i) => setState(() => _startsTomorrow = i == 1),
             ),
@@ -286,97 +178,11 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
               style: GoogleFonts.manrope(color: context.kept.mist),
             ),
             const SizedBox(height: 10),
-            if (keptUsesNativeCupertino) ...[
-              SizedBox(
-                height: 36,
-                width: double.infinity,
-                child: CNSegmentedControl(
-                  labels: _policies(context).map((p) => p.$2).toList(),
-                  selectedIndex: () {
-                    final i = _policies(
-                      context,
-                    ).indexWhere((p) => p.$1 == _joinPolicy);
-                    return i < 0 ? 0 : i;
-                  }(),
-                  height: 36,
-                  color: KeptTheme.accent,
-                  onValueChanged: (i) {
-                    final policies = _policies(context);
-                    if (i < 0 || i >= policies.length) return;
-                    setState(() => _joinPolicy = policies[i].$1);
-                  },
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                _policies(context).firstWhere((p) => p.$1 == _joinPolicy).$3,
-                style: GoogleFonts.manrope(
-                  fontSize: 12,
-                  color: context.kept.mist,
-                ),
-              ),
-              const SizedBox(height: 12),
-            ] else
-              ..._policies(context).map((p) {
-                final selected = _joinPolicy == p.$1;
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () => setState(() => _joinPolicy = p.$1),
-                      borderRadius: BorderRadius.circular(14),
-                      child: Ink(
-                        padding: const EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                          color: context.kept.panel,
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: selected
-                                ? KeptTheme.accent.withValues(alpha: 0.55)
-                                : context.kept.line,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              selected
-                                  ? Icons.radio_button_checked
-                                  : Icons.radio_button_off,
-                              color: selected
-                                  ? KeptTheme.accent
-                                  : context.kept.mist,
-                              size: 20,
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    p.$2,
-                                    style: GoogleFonts.manrope(
-                                      fontWeight: FontWeight.w700,
-                                      color: context.kept.paper,
-                                    ),
-                                  ),
-                                  Text(
-                                    p.$3,
-                                    style: GoogleFonts.manrope(
-                                      fontSize: 12,
-                                      color: context.kept.mist,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }),
+            _JoinPolicyPicker(
+              policies: _policies,
+              selected: _joinPolicy,
+              onChanged: (value) => setState(() => _joinPolicy = value),
+            ),
             const SizedBox(height: 8),
             _VowPreview(
               title: _title.text,
@@ -392,7 +198,9 @@ class _CreateVowViewState extends ConsumerState<CreateVowView> {
             ],
             const SizedBox(height: 28),
             KeptPrimaryButton(
-              label: _saving ? LocaleKeys.creating.tr() : LocaleKeys.createVow.tr(),
+              label: _saving
+                  ? LocaleKeys.creating.tr()
+                  : LocaleKeys.createVow.tr(),
               onPressed: _saving ? null : _submit,
             ),
           ],

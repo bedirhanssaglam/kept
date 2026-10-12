@@ -43,7 +43,7 @@ class _MainShellState extends State<MainShell> {
 
   Future<void> _openCreate() async {
     if (!client.auth.isAuthenticated) {
-      final ok = await showSignInSheet(context);
+      final ok = await const SignInSheet().show(context);
       if (!ok || !mounted) return;
     }
     final created = await Navigator.of(context).push<VowRoom>(
@@ -87,8 +87,13 @@ class _MainShellState extends State<MainShell> {
           final wide = constraints.maxWidth >= KeptBreakpoints.compact;
           final bottomInset = MediaQuery.paddingOf(context).bottom;
           final ios = keptUsesNativeCupertino;
-          final barReserve =
-              wide ? 24.0 : (ios ? 92.0 : 72.0) + bottomInset;
+          const iosTabHeight = 84.0;
+          final iosTabBottom = 10 + bottomInset * 0.35;
+          final barReserve = wide
+              ? 24.0
+              : ios
+              ? iosTabHeight + iosTabBottom + 12
+              : 72.0 + bottomInset;
 
           final pages = IndexedStack(
             index: _index,
@@ -136,36 +141,22 @@ class _MainShellState extends State<MainShell> {
           if (ios) {
             return Scaffold(
               backgroundColor: context.kept.void_,
+              extendBody: true,
               body: Stack(
                 children: [
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: barReserve,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(child: pages),
-                        if (_index == 0)
-                          Positioned(
-                            right: 20,
-                            bottom: 16,
-                            child: _fab(context),
-                          ),
-                      ],
+                  Positioned.fill(child: pages),
+                  if (_index == 0)
+                    Positioned(
+                      right: 20,
+                      bottom: barReserve + 8,
+                      child: _fab(context),
                     ),
-                  ),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        16,
-                        0,
-                        16,
-                        10 + bottomInset * 0.35,
-                      ),
+                      padding: EdgeInsets.fromLTRB(24, 0, 24, iosTabBottom),
                       child: KeptNativeTabBar(
-                        height: 84,
+                        height: iosTabHeight,
                         tint: KeptTheme.accent,
                         currentIndex: _index,
                         onTap: (i) => setState(() => _index = i),

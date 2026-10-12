@@ -3,16 +3,15 @@ import 'package:kept_client/kept_client.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
-import '../../../product/init/dependency/dependency_items.dart';
+import '../../../product/service/vow_repository.dart';
 import '../../../product/utility/state/base_view_model.dart';
 import 'profile_state.dart';
 
-final profileViewModelProvider =
-    AutoDisposeAsyncNotifierProvider<ProfileViewModel, ProfileState>(
-      ProfileViewModel.new,
-    );
-
 class ProfileViewModel extends BaseViewModel<ProfileState> {
+  static final provider =
+      AutoDisposeAsyncNotifierProvider<ProfileViewModel, ProfileState>(
+        ProfileViewModel.new,
+      );
   @override
   ProfileState buildInitialState() => const ProfileState.initial();
 
@@ -47,6 +46,6 @@ class ProfileViewModel extends BaseViewModel<ProfileState> {
 
   Future<KeptProfile?> _fetch() async {
     if (!client.auth.isAuthenticated) return null;
-    return ref.read(vowRepositoryProvider).getMyProfile();
+    return ref.read(VowRepository.provider).getMyProfile();
   }
 }
