@@ -138,6 +138,7 @@
   "signInHeadline": "Sign in to keep your word",
   "usernameStepBody": "Email verified. Pick your username, then set a password.",
   "emailStepBody": "Email and password. We’ll send a verification code to your inbox.",
+  "verificationMessage": "A verification email has been sent. Check your inbox, and your spam folder in case it landed there, then enter the code below.",
   "chooseUsername": "Choose a username",
   "usernameSubtitle": "This is how others will see you in Kept.",
   "usernameHint": "yourname",

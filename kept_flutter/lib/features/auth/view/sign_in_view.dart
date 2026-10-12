@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kept_client/kept_client.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '../../../product/init/language/locale_keys.g.dart';
+import 'kept_sign_in_copy.dart';
 
 class SignInView extends StatefulWidget {
   final Widget child;
@@ -105,12 +106,14 @@ class _SignInViewState extends State<SignInView> {
   Widget build(BuildContext context) {
     return _isSignedIn
         ? widget.child
-        : SignInWidget(
-            client: client,
-            disableAnonymousSignInWidget: true,
-            emailSignInWidget: EmailSignInWidget(controller: _email),
-            onAuthenticated: _onAuthenticated,
-            onError: _showError,
+        : KeptSignInCopy(
+            child: SignInWidget(
+              client: client,
+              disableAnonymousSignInWidget: true,
+              emailSignInWidget: EmailSignInWidget(controller: _email),
+              onAuthenticated: _onAuthenticated,
+              onError: _showError,
+            ),
           );
   }
 }

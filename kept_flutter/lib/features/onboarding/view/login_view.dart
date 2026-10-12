@@ -4,6 +4,7 @@ import 'package:kept_client/kept_client.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../client.dart';
+import '../../auth/view/kept_sign_in_copy.dart';
 import '../../../product/brand/kept_brand.dart';
 import '../../../product/theme/kept_theme.dart';
 import '../../shell/view/main_shell.dart';
@@ -128,105 +129,119 @@ class _LoginViewState extends State<LoginView> {
           ),
         ),
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(28, 24, 28, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      KeptBrand.logoAsset,
-                      width: 56,
-                      height: 56,
-                      filterQuality: FilterQuality.high,
-                    ),
-                    const SizedBox(height: 18),
-                    Text(
-                      KeptBrand.word,
-                      style: GoogleFonts.manrope(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 3.2,
-                        color: KeptTheme.accent,
-                      ),
-                    ),
-                  ],
-                ),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: KeptSignInCopy.maxWidth,
               ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 28),
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                      inputDecorationTheme: InputDecorationTheme(
-                        filled: true,
-                        fillColor: context.kept.ink,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(color: context.kept.line),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(28, 24, 28, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          KeptBrand.logoAsset,
+                          width: 56,
+                          height: 56,
+                          filterQuality: FilterQuality.high,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(color: context.kept.line),
+                        const SizedBox(height: 18),
+                        Text(
+                          KeptBrand.word,
+                          style: GoogleFonts.manrope(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 3.2,
+                            color: KeptTheme.accent,
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(color: KeptTheme.accent),
-                        ),
-                        labelStyle: GoogleFonts.manrope(
-                          color: context.kept.mist,
-                        ),
-                        floatingLabelStyle: GoogleFonts.manrope(
-                          color: context.kept.mist,
-                        ),
-                        hintStyle: GoogleFonts.manrope(
-                          color: context.kept.mist,
-                        ),
-                      ),
-                      textSelectionTheme: TextSelectionThemeData(
-                        cursorColor: context.kept.paper,
-                        selectionColor: KeptTheme.accent.withValues(
-                          alpha: 0.28,
-                        ),
-                      ),
-                    ),
-                    child: AnimatedBuilder(
-                      animation: _controller,
-                      builder: (context, _) {
-                        if (_savingUsername) {
-                          return const Padding(
-                            padding: EdgeInsets.only(top: 48),
-                            child: Center(
-                              child: CircularProgressIndicator.adaptive(),
-                            ),
-                          );
-                        }
-                        if (_showUsernameStep) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: UsernameForm(
-                              onSubmit: (name) async {
-                                try {
-                                  await client.username.assertAvailable(name);
-                                } on UsernameException catch (e) {
-                                  throw e.message;
-                                }
-                                if (!mounted) return;
-                                setState(() => _pendingUsername = name);
-                              },
-                            ),
-                          );
-                        }
-                        return EmailSignInWidget(controller: _controller);
-                      },
+                      ],
                     ),
                   ),
-                ),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 28),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          inputDecorationTheme: InputDecorationTheme(
+                            filled: true,
+                            fillColor: context.kept.ink,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide(color: context.kept.line),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide(color: context.kept.line),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide(color: KeptTheme.accent),
+                            ),
+                            labelStyle: GoogleFonts.manrope(
+                              color: context.kept.mist,
+                            ),
+                            floatingLabelStyle: GoogleFonts.manrope(
+                              color: context.kept.mist,
+                            ),
+                            hintStyle: GoogleFonts.manrope(
+                              color: context.kept.mist,
+                            ),
+                          ),
+                          textSelectionTheme: TextSelectionThemeData(
+                            cursorColor: context.kept.paper,
+                            selectionColor: KeptTheme.accent.withValues(
+                              alpha: 0.28,
+                            ),
+                          ),
+                        ),
+                        child: AnimatedBuilder(
+                          animation: _controller,
+                          builder: (context, _) {
+                            if (_savingUsername) {
+                              return const Padding(
+                                padding: EdgeInsets.only(top: 48),
+                                child: Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                ),
+                              );
+                            }
+                            if (_showUsernameStep) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                ),
+                                child: UsernameForm(
+                                  onSubmit: (name) async {
+                                    try {
+                                      await client.username.assertAvailable(
+                                        name,
+                                      );
+                                    } on UsernameException catch (e) {
+                                      throw e.message;
+                                    }
+                                    if (!mounted) return;
+                                    setState(() => _pendingUsername = name);
+                                  },
+                                ),
+                              );
+                            }
+                            return KeptSignInCopy(
+                              child: EmailSignInWidget(controller: _controller),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

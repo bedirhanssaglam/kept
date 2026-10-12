@@ -2,7 +2,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const appTitle = 'appTitle';
   static const navHome = 'navHome';
   static const navDiscover = 'navDiscover';
@@ -127,6 +127,7 @@ abstract class LocaleKeys {
   static const signInHeadline = 'signInHeadline';
   static const usernameStepBody = 'usernameStepBody';
   static const emailStepBody = 'emailStepBody';
+  static const verificationMessage = 'verificationMessage';
   static const chooseUsername = 'chooseUsername';
   static const usernameSubtitle = 'usernameSubtitle';
   static const usernameHint = 'usernameHint';
@@ -211,4 +212,5 @@ abstract class LocaleKeys {
   static const themeDark = 'themeDark';
   static const themeLight = 'themeLight';
   static const verdictQuiet = 'verdictQuiet';
+
 }
