@@ -241,20 +241,19 @@ The UI is English. Light and dark are both in the profile.
 
 ## Run it locally
 
-Serverpod **4.0.3** needs **Flutter 3.44.4+** (Dart **3.12.2+**). 
+Two tools, already on your `PATH`:
+
+- Flutter **3.44.4+** (that release includes Dart **3.12.2+**). [Install Flutter](https://docs.flutter.dev/get-started/install).
+- Serverpod CLI **4.0.4**.
 
 ```bash
-git clone https://github.com/flutter/flutter.git -b stable ~/development/flutter
-~/development/flutter/bin/flutter upgrade
-export PATH="$HOME/development/flutter/bin:$PATH"  
-flutter --version   # Flutter 3.44.4+ / Dart 3.12.2+
-dart install serverpod_cli
-# macOS: put the CLI on PATH
-export PATH="$HOME/Library/Application Support/Dart/install/bin:$PATH"
-serverpod version   # 4.0.3
+dart install serverpod_cli@4.0.4
+serverpod version   # 4.0.4
 ```
 
-The scripts prefer `~/development/flutter` when it exists (`KEPT_FLUTTER_ROOT` overrides). 
+On macOS, `dart install` puts `serverpod` in `~/Library/Application Support/Dart/install/bin`. On Linux, `~/.dart/install/bin`. Add that directory to `PATH` if the version command cannot find it. The scripts add both directories themselves.
+
+The scripts use `~/development/flutter` when that folder exists. `KEPT_FLUTTER_ROOT` points them at another SDK. 
 
 From the repository root:
 
@@ -303,19 +302,19 @@ scripts/         backend, web, mobile, and all three together
 kept_flutter:
   dependencies:
     cupertino_native: ^0.1.1 # https://github.com/serverpod/cupertino_native
-    serverpod_auth_idp_flutter: 4.0.3
-    serverpod_flutter: 4.0.3
+    serverpod_auth_idp_flutter: 4.0.4
+    serverpod_flutter: 4.0.4
 kept_client:
   dependencies:
-    serverpod_auth_idp_client: 4.0.3
-    serverpod_client: 4.0.3
+    serverpod_auth_idp_client: 4.0.4
+    serverpod_client: 4.0.4
 kept_server:
   dependencies:
-    serverpod: 4.0.3
-    serverpod_auth_idp_server: 4.0.3
-    serverpod_cloud_storage: 4.0.3
+    serverpod: 4.0.4
+    serverpod_auth_idp_server: 4.0.4
+    serverpod_cloud_storage: 4.0.4
   dev_dependencies:
-    serverpod_test: 4.0.3
+    serverpod_test: 4.0.4
 ```
 
 Sign-in, check-in, and the room stream are Serverpod endpoints. `serverpod generate` rewrites `kept_client` after a model or endpoint change. Schema changes go through `serverpod create-migration` inside `kept_server`.
@@ -332,7 +331,7 @@ Use `LocaleKeys.someKey.tr()` (or `.plural(n)`) in Dart. English only for now.
 
 ## Deploy
 
-The live project id is `kept-vows`. From `kept_server`, with Flutter 3.44.4+ and Serverpod 4.0.3 on `PATH`:
+The live project id is `kept-vows`. From `kept_server`, with Flutter 3.44.4+ and Serverpod 4.0.4 on `PATH`:
 
 ```bash
 scloud deploy

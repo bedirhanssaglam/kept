@@ -26,7 +26,7 @@ require() {
   fi
 }
 
-# Serverpod 4.0.3 needs Flutter 3.44.4+ (Dart 3.12.2+).
+# Serverpod 4.0.4 needs Flutter 3.44.4+ (Dart 3.12.2+).
 require_flutter() {
   require flutter
   require dart
@@ -62,7 +62,7 @@ flutter_ver, dart_ver = sys.argv[1], sys.argv[2]
 ok = parse(flutter_ver) >= (3, 44, 4) and parse(dart_ver) >= (3, 12, 2)
 if not ok:
     print(
-        f"Kept needs Flutter 3.44.4+ and Dart 3.12.2+ (Serverpod 4.0.3).\n"
+        f"Kept needs Flutter 3.44.4+ and Dart 3.12.2+ (Serverpod 4.0.4).\n"
         f"Found Flutter {flutter_ver}, Dart {dart_ver}.\n"
         f"Upgrade Flutter: https://docs.flutter.dev/get-started/install",
         file=sys.stderr,
