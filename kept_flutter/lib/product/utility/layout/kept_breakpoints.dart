@@ -10,6 +10,14 @@ abstract final class KeptBreakpoints {
   static const double contentWide = 960;
   static const double railWidth = 88;
   static const double railExtendedWidth = 220;
+
+  /// Cap Instagram-style media height on wide screens.
+  static double feedMediaHeight(BuildContext context, {double ratio = 0.92}) {
+    final width = MediaQuery.sizeOf(context).width;
+    final contentW = width > contentMax ? contentMax : width;
+    final h = contentW * ratio;
+    return h.clamp(220.0, 520.0);
+  }
 }
 
 extension KeptBreakpointContext on BuildContext {
@@ -49,14 +57,4 @@ class KeptContentWidth extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Cap Instagram-style media height on wide screens.
-double keptFeedMediaHeight(BuildContext context, {double ratio = 0.92}) {
-  final width = MediaQuery.sizeOf(context).width;
-  final contentW = width > KeptBreakpoints.contentMax
-      ? KeptBreakpoints.contentMax
-      : width;
-  final h = contentW * ratio;
-  return h.clamp(220.0, 520.0);
 }

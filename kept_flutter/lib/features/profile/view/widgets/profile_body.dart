@@ -146,8 +146,13 @@ class _IdentityCard extends StatelessWidget {
   }
 }
 
-Widget _statDivider(BuildContext context) {
-  return Container(width: 1, height: 36, color: context.kept.line);
+class _StatDivider extends StatelessWidget {
+  const _StatDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(width: 1, height: 36, color: context.kept.line);
+  }
 }
 
 class _TodayStats extends StatelessWidget {
@@ -166,7 +171,7 @@ class _TodayStats extends StatelessWidget {
             color: KeptTheme.kept,
           ),
         ),
-        _statDivider(context),
+        const _StatDivider(),
         Expanded(
           child: _StatTile(
             label: LocaleKeys.statBroke.tr(),
@@ -174,7 +179,7 @@ class _TodayStats extends StatelessWidget {
             color: KeptTheme.broke,
           ),
         ),
-        _statDivider(context),
+        const _StatDivider(),
         Expanded(
           child: _StatTile(
             label: LocaleKeys.statOpen.tr(),
@@ -258,7 +263,8 @@ class _ProfileRoomTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      vowSpanLine(durationDays: room.durationDays,
+                      VowLabels.span(
+                        durationDays: room.durationDays,
                         startsOn: room.startsOn,
                       ),
                       style: GoogleFonts.manrope(

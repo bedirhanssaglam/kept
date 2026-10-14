@@ -192,7 +192,7 @@ class _MessageBubble extends StatelessWidget {
               border: Border.all(color: color.withValues(alpha: 0.28)),
             ),
             child: Text(
-              activityLine(
+              ActivityLine.of(
                 kind: message.kind,
                 name: message.displayName,
                 body: message.body,

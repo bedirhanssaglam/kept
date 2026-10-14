@@ -87,13 +87,15 @@ class _OpenVowRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final percent = keptSharePercent(
+    final percent = KeptShare.percent(
       kept: vow.keptCount,
       broken: vow.brokenCount,
     );
     final verdict = percent == null
         ? LocaleKeys.noOneHasSpoken.tr()
-        : LocaleKeys.percentKept.tr(namedArgs: {'percent': (percent).toString()});
+        : LocaleKeys.percentKept.tr(
+            namedArgs: {'percent': (percent).toString()},
+          );
     final quiet = LocaleKeys.stillQuiet.plural(vow.pendingCount);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -175,7 +175,7 @@ class _MembersViewState extends ConsumerState<MembersView> {
                                 ),
                               ),
                               Text(
-                                vowRoleLabel(m.role),
+                                VowLabels.role(m.role),
                                 style: GoogleFonts.manrope(
                                   fontSize: 12,
                                   color: context.kept.mist,
@@ -185,7 +185,7 @@ class _MembersViewState extends ConsumerState<MembersView> {
                           ),
                         ),
                         Text(
-                          vowDayStatus(m.kept),
+                          VowLabels.dayStatus(m.kept),
                           style: GoogleFonts.manrope(
                             fontWeight: FontWeight.w700,
                             fontSize: 12,

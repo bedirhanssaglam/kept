@@ -23,7 +23,9 @@ class _PostActions extends StatelessWidget {
             GestureDetector(
               onTap: onLike,
               child: Icon(
-                card.likedByMe ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                card.likedByMe
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_border_rounded,
                 color: card.likedByMe ? KeptTheme.broke : context.kept.paper,
                 size: 26,
               ),
@@ -89,7 +91,7 @@ class _ActivityPost extends StatelessWidget {
     final ink = light ? context.kept.paper : Colors.white;
     final item = card.activity!;
     final style = _PostVisual.ofActivity(item.kind);
-    final mediaH = keptFeedMediaHeight(context, ratio: 0.92);
+    final mediaH = KeptBreakpoints.feedMediaHeight(context, ratio: 0.92);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -126,7 +128,7 @@ class _ActivityPost extends StatelessWidget {
                 ),
               ),
               Text(
-                _relativeTime(item.createdAt.toLocal()),
+                _FeedChrome.relativeTime(item.createdAt.toLocal()),
                 style: GoogleFonts.manrope(
                   fontSize: 12,
                   color: context.kept.mist,
@@ -145,7 +147,7 @@ class _ActivityPost extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: _feedWash(context, style.color),
+                colors: _FeedChrome.wash(context, style.color),
               ),
               borderRadius: BorderRadius.circular(
                 context.keptIsWide ? 16 : 0,
@@ -218,7 +220,8 @@ class _ActivityPost extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                activityLine(kind: item.kind,
+                ActivityLine.of(
+                  kind: item.kind,
                   name: item.displayName,
                   body: item.body,
                 ),
@@ -262,7 +265,7 @@ class _ArticlePost extends StatelessWidget {
     final visual = _PostVisual.ofTopic(post.topic);
     final light = Theme.of(context).brightness == Brightness.light;
     final ink = light ? context.kept.paper : Colors.white;
-    final mediaH = keptFeedMediaHeight(context, ratio: 0.85);
+    final mediaH = KeptBreakpoints.feedMediaHeight(context, ratio: 0.85);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -299,7 +302,7 @@ class _ArticlePost extends StatelessWidget {
                 ),
               ),
               Text(
-                _relativeTime(post.publishedAt.toLocal()),
+                _FeedChrome.relativeTime(post.publishedAt.toLocal()),
                 style: GoogleFonts.manrope(
                   fontSize: 12,
                   color: context.kept.mist,
@@ -317,7 +320,7 @@ class _ArticlePost extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: _feedWash(context, visual.color),
+                colors: _FeedChrome.wash(context, visual.color),
               ),
               borderRadius: BorderRadius.circular(
                 context.keptIsWide ? 16 : 0,
@@ -507,25 +510,39 @@ class _PostVisual {
   }
 }
 
-List<Color> _feedWash(BuildContext context, Color accent) {
-  final light = Theme.of(context).brightness == Brightness.light;
-  if (light) {
+abstract final class _FeedChrome {
+  static List<Color> wash(BuildContext context, Color accent) {
+    final light = Theme.of(context).brightness == Brightness.light;
+    if (light) {
+      return [
+        accent.withValues(alpha: 0.28),
+        context.kept.wash,
+      ];
+    }
     return [
-      accent.withValues(alpha: 0.28),
-      context.kept.wash,
+      Color.alphaBlend(accent.withValues(alpha: 0.45), const Color(0xFF121816)),
+      const Color(0xFF0C100E),
     ];
   }
-  return [
-    Color.alphaBlend(accent.withValues(alpha: 0.45), const Color(0xFF121816)),
-    const Color(0xFF0C100E),
-  ];
-}
 
-String _relativeTime(DateTime t) {
-  final diff = DateTime.now().difference(t);
-  if (diff.inMinutes < 1) return LocaleKeys.timeNow.tr();
-  if (diff.inMinutes < 60) return LocaleKeys.timeMinutes.tr(namedArgs: {'count': (diff.inMinutes).toString()});
-  if (diff.inHours < 24) return LocaleKeys.timeHours.tr(namedArgs: {'count': (diff.inHours).toString()});
-  if (diff.inDays < 7) return LocaleKeys.timeDays.tr(namedArgs: {'count': (diff.inDays).toString()});
-  return '${t.day}.${t.month}';
+  static String relativeTime(DateTime t) {
+    final diff = DateTime.now().difference(t);
+    if (diff.inMinutes < 1) return LocaleKeys.timeNow.tr();
+    if (diff.inMinutes < 60) {
+      return LocaleKeys.timeMinutes.tr(
+        namedArgs: {'count': (diff.inMinutes).toString()},
+      );
+    }
+    if (diff.inHours < 24) {
+      return LocaleKeys.timeHours.tr(
+        namedArgs: {'count': (diff.inHours).toString()},
+      );
+    }
+    if (diff.inDays < 7) {
+      return LocaleKeys.timeDays.tr(
+        namedArgs: {'count': (diff.inDays).toString()},
+      );
+    }
+    return '${t.day}.${t.month}';
+  }
 }

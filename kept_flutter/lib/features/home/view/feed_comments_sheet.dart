@@ -255,7 +255,7 @@ class _FeedCommentsSheetState extends ConsumerState<_FeedCommentsSheet> {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    _ago(c.createdAt.toLocal()),
+                                    _CommentAge.label(c.createdAt.toLocal()),
                                     style: GoogleFonts.manrope(
                                       fontSize: 11,
                                       color: context.kept.mist,
@@ -320,10 +320,12 @@ class _FeedCommentsSheetState extends ConsumerState<_FeedCommentsSheet> {
   }
 }
 
-String _ago(DateTime t) {
-  final diff = DateTime.now().difference(t);
-  if (diff.inMinutes < 1) return 'now';
-  if (diff.inMinutes < 60) return '${diff.inMinutes}m';
-  if (diff.inHours < 24) return '${diff.inHours}h';
-  return '${diff.inDays}d';
+abstract final class _CommentAge {
+  static String label(DateTime t) {
+    final diff = DateTime.now().difference(t);
+    if (diff.inMinutes < 1) return 'now';
+    if (diff.inMinutes < 60) return '${diff.inMinutes}m';
+    if (diff.inHours < 24) return '${diff.inHours}h';
+    return '${diff.inDays}d';
+  }
 }

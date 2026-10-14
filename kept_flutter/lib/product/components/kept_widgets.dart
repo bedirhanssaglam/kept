@@ -8,11 +8,13 @@ import '../utility/layout/kept_breakpoints.dart';
 import 'kept_native.dart';
 
 /// Share of people who have spoken today that kept the vow.
-/// Null when nobody has checked in yet.
-int? keptSharePercent({required int kept, required int broken}) {
-  final spoken = kept + broken;
-  if (spoken == 0) return null;
-  return ((kept * 100) / spoken).round();
+abstract final class KeptShare {
+  /// Null when nobody has checked in yet.
+  static int? percent({required int kept, required int broken}) {
+    final spoken = kept + broken;
+    if (spoken == 0) return null;
+    return ((kept * 100) / spoken).round();
+  }
 }
 
 class CategoryStyle {
@@ -23,7 +25,7 @@ class CategoryStyle {
 
   static CategoryStyle of(BuildContext context, String category) {
     return CategoryStyle(
-      vowCategoryLabel(category),
+      VowLabels.category(category),
       _color(category, context.kept.mist),
     );
   }

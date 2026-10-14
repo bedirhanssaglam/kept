@@ -58,8 +58,8 @@ class VowRoomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cat = CategoryStyle.of(context, category);
-    final policy = vowPolicyShort(joinPolicy);
-    final span = vowSpanLine(
+    final policy = VowLabels.policyShort(joinPolicy);
+    final span = VowLabels.span(
       durationDays: durationDays,
       startsOn: startsOn,
     );

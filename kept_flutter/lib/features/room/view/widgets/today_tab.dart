@@ -41,7 +41,7 @@ class _TodayTabState extends State<_TodayTab> {
     final board = widget.board;
     final room = board.room;
     final busy = widget.busy;
-    final percent = keptSharePercent(
+    final percent = KeptShare.percent(
       kept: board.keptCount,
       broken: board.brokenCount,
     );
@@ -60,10 +60,10 @@ class _TodayTabState extends State<_TodayTab> {
               .firstOrNull;
     final alreadyIn = board.isMember && myStatus != null;
     final today = KeptDay.key();
-    final started = vowHasStarted(room.startsOn, today);
-    final ended = vowHasEnded(room.startsOn, room.durationDays, today);
+    final started = VowLabels.hasStarted(room.startsOn, today);
+    final ended = VowLabels.hasEnded(room.startsOn, room.durationDays, today);
     final openToday = started && !ended;
-    final policyLabel = vowPolicyChip(room.joinPolicy);
+    final policyLabel = VowLabels.policyChip(room.joinPolicy);
     final pendingRequests = board.pendingRequestCount;
 
     return Column(
@@ -89,7 +89,7 @@ class _TodayTabState extends State<_TodayTab> {
                   ],
                   const SizedBox(width: 8),
                   KeptChip(
-                    label: vowLengthLabel(room.durationDays),
+                    label: VowLabels.length(room.durationDays),
                     color: context.kept.mist,
                   ),
                 ],
