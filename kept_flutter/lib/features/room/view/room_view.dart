@@ -754,7 +754,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                                       final code = await _repo.createInviteCode(
                                         widget.roomId,
                                       );
-                                      if (!mounted) return;
+                                      if (!context.mounted) return;
                                       await showDialog<void>(
                                         context: context,
                                         builder: (context) => AlertDialog(
@@ -784,7 +784,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                                         ),
                                       );
                                     } catch (e) {
-                                      if (!mounted) return;
+                                      if (!context.mounted) return;
                                       ScaffoldMessenger.of(
                                         context,
                                       ).showSnackBar(
