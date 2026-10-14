@@ -808,13 +808,7 @@ class _RoomViewState extends ConsumerState<RoomView>
                             textController: _chatController,
                             sending: _sending,
                             onSend: _sendChat,
-                            onJoin: () {
-                              if (board.room.joinPolicy == VowPolicy.invite) {
-                                _tabs.animateTo(0);
-                              } else {
-                                _offerJoin();
-                              }
-                            },
+                            onJoin: _offerJoin,
                             myUserId: client.auth.isAuthenticated
                                 ? (client
                                           .auth

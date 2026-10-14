@@ -49,7 +49,9 @@ class _TodayTabState extends State<_TodayTab> {
     final quietLabel = LocaleKeys.stillQuiet.plural(board.pendingCount);
     final verdict = percent == null
         ? LocaleKeys.noOneHasSpoken.tr()
-        : LocaleKeys.percentKept.tr(namedArgs: {'percent': (percent).toString()});
+        : LocaleKeys.percentKept.tr(
+            namedArgs: {'percent': (percent).toString()},
+          );
     final myStatus = widget.myUserId.isEmpty
         ? null
         : board.members
@@ -80,7 +82,10 @@ class _TodayTabState extends State<_TodayTab> {
                   ),
                   if (room.isOfficial) ...[
                     const SizedBox(width: 8),
-                    KeptChip(label: LocaleKeys.official.tr(), color: KeptTheme.accent),
+                    KeptChip(
+                      label: LocaleKeys.official.tr(),
+                      color: KeptTheme.accent,
+                    ),
                   ],
                   const SizedBox(width: 8),
                   KeptChip(
@@ -101,7 +106,9 @@ class _TodayTabState extends State<_TodayTab> {
               if (!openToday) ...[
                 const SizedBox(height: 8),
                 Text(
-                  ended ? LocaleKeys.vowFinished.tr() : LocaleKeys.vowNotStarted.tr(),
+                  ended
+                      ? LocaleKeys.vowFinished.tr()
+                      : LocaleKeys.vowNotStarted.tr(),
                   style: GoogleFonts.manrope(
                     color: KeptTheme.pending,
                     fontWeight: FontWeight.w700,
@@ -109,74 +116,6 @@ class _TodayTabState extends State<_TodayTab> {
                   ),
                 ),
               ],
-              const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: context.kept.panel,
-                  border: Border.all(color: context.kept.line),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 64,
-                      height: 64,
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          CircularProgressIndicator(
-                            value: progress,
-                            strokeWidth: 7,
-                            backgroundColor: context.kept.line,
-                            color: KeptTheme.kept,
-                          ),
-                          Center(
-                            child: Text(
-                              percent == null ? '—' : '$percent%',
-                              style: GoogleFonts.sora(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 13,
-                                color: context.kept.paper,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '$verdict · $quietLabel',
-                            style: GoogleFonts.sora(
-                              fontWeight: FontWeight.w700,
-                              color: context.kept.paper,
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            LocaleKeys.todayLine.tr(namedArgs: {'day': (board.dayKey).toString()}),
-                            style: GoogleFonts.manrope(
-                              color: context.kept.mist,
-                              fontSize: 12,
-                            ),
-                          ),
-                          Text(
-                            LocaleKeys.yesterdayLine.tr(namedArgs: {'kept': (board.yesterdayKeptCount).toString(), 'broke': (board.yesterdayBrokenCount).toString()}),
-                            style: GoogleFonts.manrope(
-                              color: context.kept.mist,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               if (!board.isMember) ...[
                 const SizedBox(height: 16),
                 Container(
@@ -203,7 +142,8 @@ class _TodayTabState extends State<_TodayTab> {
                       const SizedBox(height: 8),
                       Text(
                         switch (room.joinPolicy) {
-                          VowPolicy.approval => LocaleKeys.joinApprovalHelp.tr(),
+                          VowPolicy.approval =>
+                            LocaleKeys.joinApprovalHelp.tr(),
                           VowPolicy.invite => LocaleKeys.joinInviteHelp.tr(),
                           VowPolicy.closed => LocaleKeys.joinClosedHelp.tr(),
                           _ => LocaleKeys.joinOpenHelp.tr(),
@@ -289,6 +229,82 @@ class _TodayTabState extends State<_TodayTab> {
                   ),
                 ),
               ],
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: context.kept.panel,
+                  border: Border.all(color: context.kept.line),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 64,
+                      height: 64,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          CircularProgressIndicator(
+                            value: progress,
+                            strokeWidth: 7,
+                            backgroundColor: context.kept.line,
+                            color: KeptTheme.kept,
+                          ),
+                          Center(
+                            child: Text(
+                              percent == null ? '—' : '$percent%',
+                              style: GoogleFonts.sora(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13,
+                                color: context.kept.paper,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '$verdict · $quietLabel',
+                            style: GoogleFonts.sora(
+                              fontWeight: FontWeight.w700,
+                              color: context.kept.paper,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            LocaleKeys.todayLine.tr(
+                              namedArgs: {'day': (board.dayKey).toString()},
+                            ),
+                            style: GoogleFonts.manrope(
+                              color: context.kept.mist,
+                              fontSize: 12,
+                            ),
+                          ),
+                          Text(
+                            LocaleKeys.yesterdayLine.tr(
+                              namedArgs: {
+                                'kept': (board.yesterdayKeptCount).toString(),
+                                'broke': (board.yesterdayBrokenCount)
+                                    .toString(),
+                              },
+                            ),
+                            style: GoogleFonts.manrope(
+                              color: context.kept.mist,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               if (board.isAdmin) ...[
                 const SizedBox(height: 12),
                 Row(
@@ -362,7 +378,12 @@ class _TodayTabState extends State<_TodayTab> {
                 if (board.silentNames.length < board.pendingCount) ...[
                   const SizedBox(height: 8),
                   Text(
-                    LocaleKeys.andNMore.tr(namedArgs: {'count': (board.pendingCount - board.silentNames.length).toString()}),
+                    LocaleKeys.andNMore.tr(
+                      namedArgs: {
+                        'count': (board.pendingCount - board.silentNames.length)
+                            .toString(),
+                      },
+                    ),
                     style: GoogleFonts.manrope(
                       color: context.kept.mist,
                       fontSize: 12,
@@ -384,7 +405,9 @@ class _TodayTabState extends State<_TodayTab> {
                   TextButton(
                     onPressed: widget.onSeeMembers,
                     child: Text(
-                      LocaleKeys.seeAllMembers.tr(namedArgs: {'count': (board.memberTotal).toString()}),
+                      LocaleKeys.seeAllMembers.tr(
+                        namedArgs: {'count': (board.memberTotal).toString()},
+                      ),
                       style: GoogleFonts.manrope(
                         color: KeptTheme.accent,
                         fontWeight: FontWeight.w700,
@@ -414,7 +437,9 @@ class _TodayTabState extends State<_TodayTab> {
                 ? Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Text(
-                      ended ? LocaleKeys.vowFinished.tr() : LocaleKeys.vowNotStarted.tr(),
+                      ended
+                          ? LocaleKeys.vowFinished.tr()
+                          : LocaleKeys.vowNotStarted.tr(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.sora(
                         fontWeight: FontWeight.w700,
@@ -440,7 +465,9 @@ class _TodayTabState extends State<_TodayTab> {
                       ),
                     ),
                     child: Text(
-                      myStatus == true ? LocaleKeys.loggedKept.tr() : LocaleKeys.loggedBroke.tr(),
+                      myStatus == true
+                          ? LocaleKeys.loggedKept.tr()
+                          : LocaleKeys.loggedBroke.tr(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.sora(
                         fontWeight: FontWeight.w700,

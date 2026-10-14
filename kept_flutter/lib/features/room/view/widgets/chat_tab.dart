@@ -68,7 +68,7 @@ class _ChatTab extends StatelessWidget {
                   label: joinPolicy == VowPolicy.approval
                       ? LocaleKeys.requestToJoin.tr()
                       : joinPolicy == VowPolicy.invite
-                      ? LocaleKeys.enterInviteOnToday.tr()
+                      ? LocaleKeys.joinWithCode.tr()
                       : LocaleKeys.joinThisVow.tr(),
                   onPressed: onJoin,
                 ),
@@ -192,7 +192,8 @@ class _MessageBubble extends StatelessWidget {
               border: Border.all(color: color.withValues(alpha: 0.28)),
             ),
             child: Text(
-              activityLine(kind: message.kind,
+              activityLine(
+                kind: message.kind,
                 name: message.displayName,
                 body: message.body,
               ),
