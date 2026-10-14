@@ -20,7 +20,7 @@ import '../view_model/profile_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../product/init/language/locale_keys.g.dart';
 
-part 'widgets/preferences.dart';
+part 'widgets/preferences_card.dart';
 part 'widgets/profile_body.dart';
 
 class ProfileView extends ConsumerStatefulWidget {

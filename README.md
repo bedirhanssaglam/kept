@@ -253,7 +253,36 @@ serverpod version   # 4.0.4
 
 On macOS, `dart install` puts `serverpod` in `~/Library/Application Support/Dart/install/bin`. On Linux, `~/.dart/install/bin`. Add that directory to `PATH` if the version command cannot find it. The scripts add both directories themselves.
 
-The scripts use `~/development/flutter` when that folder exists. `KEPT_FLUTTER_ROOT` points them at another SDK. 
+The scripts use `~/development/flutter` when that folder exists. `KEPT_FLUTTER_ROOT` points them at another SDK.
+
+`kept_server/config/passwords.yaml` is gitignored, so a fresh clone does not have it. Create it before `./scripts/backend.sh`. Serverpod loads the block for the run mode: `development` for the local API, `test` for `dart test`. A value used in every mode goes under `shared`. `SERVERPOD_PASSWORD_<key>` overrides the file.
+
+`development.database` is `POSTGRES_PASSWORD` on the `postgres` service in `kept_server/docker-compose.yaml` (port 8090). `test.database` is the password on `postgres_test` (port 9090).
+
+Auth also needs these three keys under `development`, and the same three under `test` if you run the server tests. Each one is a long random string you generate yourself. Changing one later signs existing sessions on that database out.
+
+- `emailSecretHashPepper`
+- `jwtHmacSha512PrivateKey`
+- `jwtRefreshTokenHashPepper`
+
+`serviceSecret` is how the API, Insights, and web processes authenticate to each other.
+
+```yaml
+development:
+  database: '<POSTGRES_PASSWORD from docker-compose.yaml>'
+  serviceSecret: '<long random string>'
+  emailSecretHashPepper: '<long random string>'
+  jwtHmacSha512PrivateKey: '<long random string>'
+  jwtRefreshTokenHashPepper: '<long random string>'
+
+test:
+  database: '<POSTGRES_PASSWORD of postgres_test>'
+  emailSecretHashPepper: '<long random string>'
+  jwtHmacSha512PrivateKey: '<long random string>'
+  jwtRefreshTokenHashPepper: '<long random string>'
+```
+
+Local sign-in prints the verification code in the API log. Production mail is Serverpod Cloud, which injects its own key. Leave this file out of git.
 
 From the repository root:
 
